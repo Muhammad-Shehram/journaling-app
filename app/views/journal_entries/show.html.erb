@@ -1,0 +1,17 @@
+<h2><%= @journal_entry.title %></h2>
+<p><%= @journal_entry.content %></p>
+<p><%= @journal_entry.mood %></p>
+<p><%= @journal_entry.entry_date %></p>
+
+
+<br>
+<%= link_to "Delete",
+  journal_entry_path(@journal_entry),
+  data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+%>
+<br>
+<br>
+<%= link_to "Edit Entry", edit_journal_entry_path %>
+<br>
+<br>
+<%= link_to "Home Page", journal_entries_path %>

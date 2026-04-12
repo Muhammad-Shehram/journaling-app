@@ -26,6 +26,8 @@ gem "font-awesome-sass", "~> 6.1"
 gem "simple_form"
 
 gem "devise"
+
+gem "faker"
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 

@@ -107,6 +107,8 @@ GEM
     erb (6.0.2)
     erubi (1.13.1)
     execjs (2.10.1)
+    faker (3.6.1)
+      i18n (>= 1.8.11, < 2)
     ffi (1.17.4-aarch64-linux-gnu)
     ffi (1.17.4-aarch64-linux-musl)
     ffi (1.17.4-arm-linux-gnu)
@@ -351,6 +353,7 @@ DEPENDENCIES
   brakeman
   debug
   devise
+  faker
   font-awesome-sass (~> 6.1)
   importmap-rails
   jbuilder

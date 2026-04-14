@@ -1,7 +1,7 @@
 class JournalEntry < ApplicationRecord
-  # ASSOCIATION: Each entry must belong to a user
-  belongs_to :user
-
+  # ASSOCIATION: Each entry must belong to a journal
+  belongs_to :journal
+  has_one :user, through: :journal
 
   # VALIDATIONS: Rules for saving data
   validates :title, presence: true   # James cannot leave the title blank

@@ -1,0 +1,12 @@
+<h1>My Journals</h1>
+
+<ul>
+  <% @journals.each do |journal| %>
+    <li>
+      <%# This link sends James to the JournalEntriesController#index for this journal %>
+      <%= link_to journal.title, journal_journal_entries_path(journal) %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Create New Journal", new_journal_path %>

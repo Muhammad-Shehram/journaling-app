@@ -9,33 +9,39 @@
 #   end
 require 'faker'
 
-puts "--- Cleaning the database... ---"
-# Destroying entries first because they belong to users
+puts "Cleaning database..."
+# The order of destruction matters to avoid foreign key errors!
 JournalEntry.destroy_all
+Journal.destroy_all
 User.destroy_all
 
-puts "--- Creating James (Test User)... ---"
+puts "Creating test user..."
 james = User.create!(
-  name: "James",
-  email: "james@journal.com",
+  email: "james@example.com",
   password: "password",
-  password_confirmation: "password"
+  name: "James"
 )
 
-puts "--- Generating 5 Journal Entries for James... ---"
-
-moods = [ "😊 Happy", "😔 Sad", "💪 Productive", "🤔 Thoughtful", "😴 Tired", "🌟 Inspired"]
-
-5.times do |i|
-  entry = JournalEntry.create!(
-    title: Faker::Book.title,
-    content: Faker::Lorem.paragraphs(number: 3).join("\n\n"),
-    mood: moods.sample,
-    entry_date: Faker::Date.between(from: 1.month.ago, to: Date.today),
+puts "Creating journals..."
+[ "Personal Reflections", "Work Project Log", "Travel Diary" ].each do |name|
+  journal = Journal.create!(
+    name: name,
     user: james
   )
-  puts "Created entry #{i + 1}: #{entry.title}"
+
+  puts "Creating 5 entries for: #{name}..."
+  5.times do
+    # Notice: No 'user: james' here anymore!
+    # The entry belongs to the journal, and the journal belongs to James.
+    journal.journal_entries.create!(
+      title: Faker::Book.title,
+      content: Faker::Lorem.paragraph(sentence_count: 5),
+      mood: [ "Happy", "Sad", "Tired", "On Fire" ].sample,
+      entry_date: Faker::Date.between(from: 1.month.ago, to: Date.today)
+    )
+  end
 end
 
-puts "--- Seeding Complete! ---"
-puts "Login with: james@journal.com / password"
+puts "✅ Success! James now has 3 journals and 15 total entries."
+
+# puts "Success! Created #{User.count} user, #{Journal.count} journals, and #{JournalEntry.count} entries."

@@ -1,30 +1,3 @@
 <h1 class="mb-4 text-center">Edit Entry</h1>
 
-<%= simple_form_for(@journal_entry) do |f| %>
-
-  <%# 1. Standard text input for Title or Name %>
-  <%= f.input :title,
-              label: "Entry Title",
-              placeholder: "Title",
-              input_html: { class: "title-field" } %>
-
-  <%# 2. Content Input (Large text box for stories/details) %>
-  <%= f.input :content,
-              as: :text,
-              label: "What's on your mind?",
-              placeholder: "Write your content here...",
-              input_html: { rows: 5 } %>
-
-  <%# 3. The "Pro" Move: Emoji Dropdown %>
-  <%= f.input :mood,
-              label: "How are you feeling?",
-              collection: ['😊 Happy', '😔 Sad', '😴 Tired', '🔥 On Fire'],
-              prompt: "Pick an emoji...",
-              input_html: { class: "mood-select" } %>
-
-  <%= f.input :entry_date, as: :date %>
-
-  <%# 4. Submit Button %>
-  <%= f.button :submit, "Create Entry", class: "btn-primary" %>
-
-<% end %>
+<%= render "form", journal_entry: @journal_entry %>

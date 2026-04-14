@@ -10,16 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_06_092026) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_14_114245) do
   create_table "journal_entries", force: :cascade do |t|
-    t.integer "user_id", null: false
     t.string "title"
     t.text "content"
     t.string "mood"
     t.date "entry_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_journal_entries_on_user_id"
+    t.integer "journal_id", null: false
+    t.index ["journal_id"], name: "index_journal_entries_on_journal_id"
+  end
+
+  create_table "journals", force: :cascade do |t|
+    t.string "name"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_journals_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -35,5 +43,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_06_092026) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "journal_entries", "users"
+  add_foreign_key "journal_entries", "journals"
+  add_foreign_key "journals", "users"
 end

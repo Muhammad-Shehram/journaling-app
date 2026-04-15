@@ -1,0 +1,13 @@
+<h1 class="mb-4 text-center">New Journal</h1>
+
+<%= simple_form_for(@journal) do |f| %>
+  <%= f.input :name,
+              label: "Journal Title",
+              placeholder: "Journal Name",
+              input_html: { class: "title-field" } %>
+  <%= f.button :submit, "Create Journal", class: "btn-primary" %>
+<% end %>
+
+
+<br>
+<%= link_to "Back to Journals",  journals_path(@journal) %>

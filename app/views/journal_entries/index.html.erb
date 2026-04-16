@@ -1,6 +1,11 @@
+
+
 <% @journal_entries.each do |entry| %>
-  <b><li> <%= link_to entry.title, journal_entry_path(entry), style: "text-decoration: none;" %></li></b>
+  <b><li> <%= link_to entry.title, journal_journal_entry_path(@journal, entry), style: "text-decoration: none;" %></li></b>
 <% end %>
 
 <br>
-<%= link_to "add new entry", new_journal_entry_path %>
+<%= link_to "add new entry", new_journal_journal_entry_path(@journal) %>
+<br>
+<br>
+<%= link_to "Back to Journals",  journals_path(@journal) %>

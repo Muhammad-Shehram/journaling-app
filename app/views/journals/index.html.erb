@@ -1,0 +1,17 @@
+<h1>My Journals</h1>
+
+<ul>
+  <% @journals.each do |journal| %>
+    <li>
+      <%# This link sends James to the JournalEntriesController#index for this journal %>
+      <%= link_to journal.name, journal_journal_entries_path(journal), style: "text-decoration: none;" %>
+
+      <%=link_to "-- Edit", edit_journal_path(journal), style: "text-decoration: none;"%>
+
+      <%= link_to " -- Delete Journal", journal_path(journal), style: "text-decoration: none;",
+      data: {turbo_method: :delete, turbo_confirm: "Are you sure? This will delete all entries inside!"} %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Create New Journal", new_journal_path %>

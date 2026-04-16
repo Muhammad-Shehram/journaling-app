@@ -6,12 +6,12 @@
 
 <br>
 <%= link_to "Delete",
-  journal_entry_path(@journal_entry),
-  data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+  journal_journal_entry_path(@journal, @journal_entry),
+  data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this memory forever?"}
 %>
 <br>
 <br>
-<%= link_to "Edit Entry", edit_journal_entry_path %>
+<%= link_to "Edit Entry", edit_journal_journal_entry_path(@journal, @journal_entry) %>
 <br>
 <br>
-<%= link_to "Home Page", journal_entries_path %>
+<%= link_to "My Entries Page", journal_journal_entries_path(@journal) %>

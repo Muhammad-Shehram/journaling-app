@@ -8,7 +8,8 @@
 
       <%=link_to "-- Edit", edit_journal_path(journal), style: "text-decoration: none;"%>
 
-      <%= link_to " -- Delete Journal", journal_path(journal), style: "text-decoration: none;", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+      <%= link_to " -- Delete Journal", journal_path(journal), style: "text-decoration: none;",
+      data: {turbo_method: :delete, turbo_confirm: "Are you sure? This will delete all entries inside!"} %>
     </li>
   <% end %>
 </ul>

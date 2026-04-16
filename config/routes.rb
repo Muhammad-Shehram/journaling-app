@@ -12,6 +12,15 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # 1. This tells Rails: If someone is logged in, the "Home" is actually the Journals list.
+  authenticated :user do
+    root to: "journals#index", as: :authenticated_root
+  end
+
+  # 2. This tells Rails: If someone is NOT logged in, show them the landing page.
+  root to: "pages#home"
+
   resources :journals do
     resources :journal_entries
   end

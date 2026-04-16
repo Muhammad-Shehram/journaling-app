@@ -1,3 +1,6 @@
 <h1 class="mb-4 text-center">New Entry</h1>
 
 <%= render "form", journal_entry: @journal_entry %>
+
+<br>
+<%= link_to "My Entries Page", journal_journal_entries_path(@journal) %>

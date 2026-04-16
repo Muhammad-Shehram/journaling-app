@@ -10,3 +10,81 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+
+// Simple layout variables
+$primary: #4A90E2;
+$dark: #333;
+$light: #F8F9FA;
+
+.banner {
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+              url('https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=1350&q=80');
+  background-size: cover;
+  background-position: center;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+
+  h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  p {
+    font-size: 1.4rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.9;
+  }
+}
+
+.cta-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.btn-main {
+  padding: 12px 35px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &.btn-primary {
+    background-color: $primary;
+    color: white;
+  }
+
+  &.btn-outline {
+    border: 2px solid white;
+    color: white;
+    &:hover {
+      background: white;
+      color: $dark;
+    }
+  }
+}
+
+.features {
+  display: flex;
+  justify-content: space-around;
+  padding: 80px 10%;
+  background: $light;
+  text-align: center;
+
+  .feature-card {
+    flex: 1;
+    padding: 20px;
+    h3 { color: $primary; margin-bottom: 10px; }
+    p { color: #666; }
+  }
+}

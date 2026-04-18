@@ -10,3 +10,46 @@
 .navbar-lewagon .navbar-brand img {
   width: 40px;
 }
+
+// ---- REFLEKTO APP NAV (logged-in) ----
+.app-nav {
+  background: #1B1F3B;
+  padding: 14px 0;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+
+  &__brand {
+    font-family: $headers-font;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.03em;
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    a {
+      color: rgba(white, 0.75);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.92rem;
+      transition: color 0.2s;
+
+      &:hover { color: white; }
+
+      &:last-child {
+        background: rgba(white, 0.1);
+        padding: 7px 18px;
+        border-radius: 50px;
+        border: 1px solid rgba(white, 0.2);
+
+        &:hover { background: rgba(white, 0.18); }
+      }
+    }
+  }
+}

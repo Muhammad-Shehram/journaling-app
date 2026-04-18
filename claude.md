@@ -1,7 +1,7 @@
-# Claude's Role in the Journaling App Project
+# Claude's Role in the Reflekto Project
 
 ## Project Overview
-This is a **Journaling Application** being built as a clone of Apple Journal (MVP) with the final product aiming to match Day One's feature set.
+**Reflekto** — A journaling application being built as a clone of Apple Journal (MVP) with the final product aiming to match Day One's feature set. The app will be publicly deployed and searchable on the web.
 
 **Tech Stack:**
 - Ruby on Rails
@@ -38,6 +38,22 @@ This is a **Journaling Application** being built as a clone of Apple Journal (MV
 
 ### 🎯 My Primary Mission:
 **Walk you through the roadmap step-by-step, ensuring you understand the LOGIC behind each decision before implementing it yourself.**
+
+---
+
+## Available Skills (Installed in `~/.claude/commands/`)
+
+These are invoked with `/skill-name` and load only when needed:
+
+| Skill | Command | When to Use |
+|-------|---------|-------------|
+| **frontend-design** | `/frontend-design` | Building pages, components, UI — bold aesthetic direction |
+| **ui-ux-pro-max** | `/ui-ux-pro-max` | Full design system — palettes, font pairings, UX rules |
+| **seo** | `/seo` | Before deployment — audit pages, schema markup, AI search |
+| **code-review** | `/code-review` | Every PR — catch bugs, quality, constructive feedback |
+| **owasp-security** | `/owasp-security` | Phase 6 — security audit before going live |
+
+**For Phase 5 UI/UX:** Use `/ui-ux-pro-max` first to establish the design system, then `/frontend-design` when building each page.
 
 ---
 
@@ -131,5 +147,5 @@ This is a **Journaling Application** being built as a clone of Apple Journal (MV
 
 ---
 
-**Last Updated:** April 15, 2026
-**Current Focus:** Phase 3 - The Public Face & UX
+**Last Updated:** April 18, 2026
+**Current Focus:** Phase 5 — UI/UX Polish (branch: `ui-ux-polish`)

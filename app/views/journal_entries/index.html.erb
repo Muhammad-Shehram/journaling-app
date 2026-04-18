@@ -1,11 +1,74 @@
+<div class="entries">
 
+  <%# ---- HEADER ---- %>
+  <div class="entries__header">
+    <div class="entries__header-left">
+      <%= link_to journals_path, class: "entries__back" do %>
+        <i class="fa-solid fa-arrow-left"></i> My Journals
+      <% end %>
+      <h1 class="entries__title">
+        <%= @journal.name %>
+        <span><%= @journal_entries.count %> <%= "entry".pluralize(@journal_entries.count) %></span>
+      </h1>
+    </div>
+    <%= link_to new_journal_journal_entry_path(@journal), class: "entries__new-btn" do %>
+      <i class="fa-solid fa-plus"></i> New Entry
+    <% end %>
+  </div>
 
-<% @journal_entries.each do |entry| %>
-  <b><li> <%= link_to entry.title, journal_journal_entry_path(@journal, entry), style: "text-decoration: none;" %></li></b>
-<% end %>
+  <%# ---- ENTRY LIST ---- %>
+  <% if @journal_entries.any? %>
+    <div class="entries__list">
+      <% @journal_entries.each do |entry| %>
+        <div class="entry-card">
 
-<br>
-<%= link_to "add new entry", new_journal_journal_entry_path(@journal) %>
-<br>
-<br>
-<%= link_to "Back to Journals",  journals_path(@journal) %>
+          <%# Date block %>
+          <div class="entry-card__date">
+            <span class="entry-card__day"><%= entry.entry_date.strftime("%d") %></span>
+            <span class="entry-card__month"><%= entry.entry_date.strftime("%b") %></span>
+          </div>
+
+          <%# Main content — clickable %>
+          <%= link_to journal_journal_entry_path(@journal, entry), class: "entry-card__link" do %>
+            <div class="entry-card__title"><%= entry.title %></div>
+            <div class="entry-card__preview"><%= entry.content %></div>
+            <div class="entry-card__meta">
+              <% if entry.mood.present? %>
+                <span class="entry-card__mood"><%= entry.mood %></span>
+              <% end %>
+              <span class="entry-card__time"><%= entry.entry_date.strftime("%B %d, %Y") %></span>
+            </div>
+          <% end %>
+
+          <%# Edit / Delete actions %>
+          <div class="entry-card__actions">
+            <%= link_to edit_journal_journal_entry_path(@journal, entry), class: "entry-action", title: "Edit" do %>
+              <i class="fa-solid fa-pen"></i>
+            <% end %>
+            <%= link_to journal_journal_entry_path(@journal, entry), class: "entry-action entry-action--delete", title: "Delete",
+                data: { turbo_method: :delete, turbo_confirm: "Delete \"#{entry.title}\"? This cannot be undone." } do %>
+              <i class="fa-solid fa-trash-can"></i>
+            <% end %>
+          </div>
+
+        </div>
+      <% end %>
+    </div>
+
+  <% else %>
+    <%# ---- EMPTY STATE ---- %>
+    <div class="entries__empty">
+      <div class="entries__empty-icon">
+        <i class="fa-solid fa-pen-to-square"></i>
+      </div>
+      <div class="entries__empty-title">No entries yet</div>
+      <p class="entries__empty-text">
+        This journal is waiting for your first thought. Start writing — even a few lines count.
+      </p>
+      <%= link_to new_journal_journal_entry_path(@journal), class: "entries__new-btn" do %>
+        <i class="fa-solid fa-plus"></i> Write Your First Entry
+      <% end %>
+    </div>
+  <% end %>
+
+</div>

@@ -1,27 +1,70 @@
-<h2>Sign up</h2>
+<div class="auth-page">
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
+  <%# ---- LEFT BRAND PANEL ---- %>
+  <div class="auth-brand-panel">
+    <div class="auth-brand__logo">Reflekto</div>
 
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" }%>
-    <%= f.input :password,
-                required: true,
-                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: true,
-                input_html: { autocomplete: "new-password" } %>
+    <div class="auth-brand__quote">
+      <blockquote>
+        "Start writing, no matter what. The water does not flow until the faucet is turned on."
+      </blockquote>
+      <cite>— Louis L'Amour</cite>
+    </div>
+
+    <div class="auth-brand__dots">
+      <span></span><span></span><span></span>
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
-  </div>
-<% end %>
+  <%# ---- RIGHT FORM PANEL ---- %>
+  <div class="auth-form-panel">
+    <div class="auth-card">
 
-<%= render "devise/shared/links" %>
-<br>
-<%= link_to "Back to Home", root_path %>
+      <div class="auth-mobile-brand">Reflekto</div>
+
+      <h2 class="auth-card__title">Create your account</h2>
+      <p class="auth-card__subtitle">Start your journaling journey today. It's free.</p>
+
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+          <%= f.input :email,
+                      label: "Email address",
+                      required: true,
+                      autofocus: true,
+                      input_html: { autocomplete: "email", placeholder: "you@example.com" } %>
+
+          <%= f.input :password,
+                      label: "Password",
+                      required: true,
+                      hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                      input_html: { autocomplete: "new-password", placeholder: "••••••••" } %>
+
+          <%= f.input :password_confirmation,
+                      label: "Confirm password",
+                      required: true,
+                      input_html: { autocomplete: "new-password", placeholder: "••••••••" } %>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit, "Create Account" %>
+        </div>
+
+      <% end %>
+
+      <div class="auth-links">
+        <div class="auth-link-row">
+          Already have an account?
+          <%= link_to "Sign in", new_session_path(resource_name) %>
+        </div>
+        <%= link_to root_path, class: "auth-back-link" do %>
+          <i class="fa-solid fa-arrow-left"></i> Back to Home
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+
+</div>

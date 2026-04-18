@@ -1,1 +1,497 @@
-// Specific CSS for your home-page
+// ============================================
+// REFLEKTO LANDING PAGE
+// Inspired by Day One & GoodNotes aesthetics
+// ============================================
+
+// Brand Tokens
+$r-dark:         #1B1F3B;
+$r-mid:          #2D3561;
+$r-accent:       #7C6FF7;
+$r-accent-light: #EEF0FF;
+$r-text:         #2D3748;
+$r-muted:        #718096;
+$r-border:       #E8EAF6;
+$r-bg:           #F8F9FC;
+
+// ---- LANDING NAV ----
+.landing-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 20px 0;
+
+  &__brand {
+    font-family: $headers-font;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.03em;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &__link {
+    color: rgba(white, 0.8);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+
+    &:hover { color: white; }
+  }
+
+  &__cta {
+    background: rgba(white, 0.15);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 8px 20px;
+    border-radius: 50px;
+    border: 1px solid rgba(white, 0.3);
+    transition: all 0.2s;
+    backdrop-filter: blur(4px);
+
+    &:hover {
+      background: rgba(white, 0.25);
+      color: white;
+    }
+  }
+}
+
+// ---- HERO SECTION ----
+.hero-section {
+  background: linear-gradient(135deg, $r-dark 0%, $r-mid 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 140px 20px 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+
+  &--top {
+    top: -150px;
+    right: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba($r-accent, 0.18) 0%, transparent 65%);
+  }
+
+  &--bottom {
+    bottom: -100px;
+    left: -150px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba($r-accent, 0.12) 0%, transparent 65%);
+  }
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba($r-accent, 0.2);
+  color: lighten($r-accent, 28%);
+  border: 1px solid rgba($r-accent, 0.4);
+  padding: 6px 18px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  margin-bottom: 28px;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-size: 5rem;
+  font-weight: 800;
+  color: white;
+  line-height: 1.08;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.03em;
+
+  @media (max-width: 768px) { font-size: 3.2rem; }
+  @media (max-width: 480px) { font-size: 2.6rem; }
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: rgba(white, 0.72);
+  max-width: 520px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.75;
+
+  @media (max-width: 768px) { font-size: 1rem; }
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.btn-reflekto-primary {
+  background: $r-accent;
+  color: white;
+  border: 2px solid $r-accent;
+  padding: 14px 38px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-block;
+
+  &:hover {
+    background: darken($r-accent, 8%);
+    border-color: darken($r-accent, 8%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba($r-accent, 0.4);
+  }
+}
+
+.btn-reflekto-ghost {
+  background: transparent;
+  color: rgba(white, 0.85);
+  border: 2px solid rgba(white, 0.35);
+  padding: 14px 38px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-block;
+
+  &:hover {
+    background: rgba(white, 0.1);
+    border-color: rgba(white, 0.6);
+    color: white;
+    transform: translateY(-2px);
+  }
+}
+
+.hero-footnote {
+  color: rgba(white, 0.38);
+  font-size: 0.82rem;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(white, 0.35);
+  font-size: 1rem;
+  animation: bobble 2.2s ease-in-out infinite;
+}
+
+@keyframes bobble {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(7px); }
+}
+
+// ---- TRUST BAR ----
+.trust-bar {
+  background: white;
+  border-bottom: 1px solid $r-border;
+  padding: 18px 0;
+
+  .row { gap: 0; }
+}
+
+.trust-item {
+  color: $r-muted;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 6px 22px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  i { color: $r-accent; }
+}
+
+.trust-divider {
+  color: $r-border;
+  font-size: 1.4rem;
+  line-height: 1;
+  align-self: center;
+
+  @media (max-width: 576px) { display: none; }
+}
+
+// ---- FEATURES SECTION ----
+.features-section {
+  padding: 110px 0;
+  background: $r-bg;
+}
+
+.section-label {
+  display: inline-block;
+  color: $r-accent;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: $r-text;
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+
+  @media (max-width: 768px) { font-size: 2rem; }
+}
+
+.section-subtitle {
+  color: $r-muted;
+  font-size: 1.05rem;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+.feature-card {
+  background: white;
+  border-radius: 20px;
+  padding: 40px 32px;
+  height: 100%;
+  border: 1px solid $r-border;
+  transition: all 0.25s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba($r-dark, 0.07);
+    border-color: rgba($r-accent, 0.4);
+  }
+
+  &--dark {
+    background: linear-gradient(140deg, $r-dark 0%, $r-mid 100%);
+    border-color: transparent;
+
+    h3 { color: white; }
+    p  { color: rgba(white, 0.72); }
+
+    &:hover { border-color: transparent; }
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: $r-text;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: $r-muted;
+    line-height: 1.7;
+    margin: 0;
+    font-size: 0.97rem;
+  }
+}
+
+.feature-icon {
+  width: 54px;
+  height: 54px;
+  background: $r-accent-light;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: $r-accent;
+  margin-bottom: 22px;
+
+  &--light {
+    background: rgba(white, 0.15);
+    color: lighten($r-accent, 25%);
+  }
+}
+
+// ---- HOW IT WORKS ----
+.how-section {
+  padding: 110px 0;
+  background: white;
+
+  .section-title { margin-bottom: 0; }
+
+  h4 {
+    font-weight: 700;
+    color: $r-text;
+    margin-bottom: 8px;
+    font-size: 1.05rem;
+  }
+
+  p {
+    color: $r-muted;
+    font-size: 0.93rem;
+    line-height: 1.65;
+    max-width: 220px;
+    margin: 0 auto;
+  }
+}
+
+.how-step {
+  padding: 0 16px;
+}
+
+.step-number {
+  font-size: 3.2rem;
+  font-weight: 800;
+  font-family: $headers-font;
+  line-height: 1;
+  margin-bottom: 18px;
+  background: linear-gradient(135deg, $r-accent 0%, lighten($r-mid, 20%) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.step-arrow {
+  color: $r-border;
+  font-size: 1.4rem;
+  align-items: center;
+  justify-content: center;
+  padding-top: 24px;
+}
+
+// ---- QUOTE SECTION ----
+.quote-section {
+  padding: 90px 20px;
+  background: $r-accent-light;
+}
+
+.landing-quote {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: $r-text;
+  line-height: 1.5;
+  font-style: italic;
+  margin-bottom: 16px;
+  font-family: $headers-font;
+  letter-spacing: -0.01em;
+
+  @media (max-width: 768px) { font-size: 1.3rem; }
+}
+
+.landing-cite {
+  color: $r-muted;
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+// ---- FINAL CTA ----
+.cta-section {
+  padding: 120px 20px;
+  background: linear-gradient(135deg, $r-dark 0%, $r-mid 100%);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba($r-accent, 0.15) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 14px;
+    letter-spacing: -0.02em;
+    position: relative;
+
+    @media (max-width: 768px) { font-size: 2.2rem; }
+  }
+
+  p {
+    color: rgba(white, 0.65);
+    font-size: 1.1rem;
+    margin-bottom: 2.2rem;
+    position: relative;
+  }
+}
+
+.btn-cta-light {
+  background: white;
+  color: $r-dark;
+  border: 2px solid white;
+  padding: 15px 44px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s ease;
+  position: relative;
+
+  &:hover {
+    background: $r-accent-light;
+    border-color: $r-accent-light;
+    color: $r-dark;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  }
+}
+
+// ---- FOOTER ----
+.landing-footer {
+  background: darken($r-dark, 4%);
+  padding: 28px 0;
+  border-top: 1px solid rgba(white, 0.06);
+
+  .footer-brand {
+    font-family: $headers-font;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.02em;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+
+    a {
+      color: rgba(white, 0.5);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.2s;
+
+      &:hover { color: rgba(white, 0.85); }
+    }
+  }
+
+  .footer-copy {
+    color: rgba(white, 0.3);
+    font-size: 0.82rem;
+  }
+}

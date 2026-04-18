@@ -1,22 +1,69 @@
-<h2>Log in</h2>
+<div class="auth-page">
 
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
-    <%= f.input :password,
-                required: false,
-                input_html: { autocomplete: "current-password" } %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+  <%# ---- LEFT BRAND PANEL ---- %>
+  <div class="auth-brand-panel">
+    <div class="auth-brand__logo">Reflekto</div>
+
+    <div class="auth-brand__quote">
+      <blockquote>
+        "Fill your paper with the breathings of your heart."
+      </blockquote>
+      <cite>— William Wordsworth</cite>
+    </div>
+
+    <div class="auth-brand__dots">
+      <span></span><span></span><span></span>
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
-  </div>
-<% end %>
+  <%# ---- RIGHT FORM PANEL ---- %>
+  <div class="auth-form-panel">
+    <div class="auth-card">
 
-<%= render "devise/shared/links" %>
-<br>
-<%= link_to "Back to Home", root_path %>
+      <div class="auth-mobile-brand">Reflekto</div>
+
+      <h2 class="auth-card__title">Welcome back</h2>
+      <p class="auth-card__subtitle">Sign in to continue journaling.</p>
+
+      <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+        <div class="form-inputs">
+          <%= f.input :email,
+                      label: "Email address",
+                      required: false,
+                      autofocus: true,
+                      input_html: { autocomplete: "email", placeholder: "you@example.com" } %>
+
+          <%= f.input :password,
+                      label: "Password",
+                      required: false,
+                      input_html: { autocomplete: "current-password", placeholder: "••••••••" } %>
+
+          <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit, "Sign In" %>
+        </div>
+
+      <% end %>
+
+      <div class="auth-links">
+        <div class="auth-link-row">
+          Don't have an account?
+          <%= link_to "Create one", new_registration_path(resource_name) %>
+        </div>
+        <% if devise_mapping.recoverable? %>
+          <div class="auth-link-row">
+            <%= link_to "Forgot your password?", new_password_path(resource_name) %>
+          </div>
+        <% end %>
+        <%= link_to root_path, class: "auth-back-link" do %>
+          <i class="fa-solid fa-arrow-left"></i> Back to Home
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+
+</div>

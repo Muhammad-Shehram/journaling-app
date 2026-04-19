@@ -1,13 +1,23 @@
-<h1 class="mb-4 text-center">New Journal</h1>
+<div class="canvas canvas--compact">
+  <%= simple_form_for(@journal, html: { class: "canvas__form" }) do |f| %>
 
-<%= simple_form_for(@journal) do |f| %>
-  <%= f.input :name,
-              label: "Journal Title",
-              placeholder: "Journal Name",
-              input_html: { class: "title-field" } %>
-  <%= f.button :submit, "Create Journal", class: "btn-primary" %>
-<% end %>
+    <div class="canvas__bar">
+      <%= link_to journals_path, class: "canvas__cancel" do %>
+        <i class="fa-solid fa-arrow-left"></i> Cancel
+      <% end %>
+      <button type="submit" class="canvas__save">Create Journal</button>
+    </div>
 
+    <div class="canvas__body">
+      <%= f.input :name,
+                  label: false,
+                  placeholder: "Name your journal",
+                  input_html: {
+                    class: "canvas__title-input",
+                    autofocus: true,
+                    "aria-label": "Journal name"
+                  } %>
+    </div>
 
-<br>
-<%= link_to "Back to Journals",  journals_path(@journal) %>
+  <% end %>
+</div>

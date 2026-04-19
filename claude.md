@@ -42,7 +42,7 @@
 ---
 
 ## Available Skills (Installed in `~/.claude/commands/`)
-
+/
 These are invoked with `/skill-name` and load only when needed:
 
 | Skill | Command | When to Use |

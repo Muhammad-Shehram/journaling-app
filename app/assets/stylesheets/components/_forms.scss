@@ -1,0 +1,564 @@
+// ============================================
+// REFLEKTO FORMS — Writing Canvas
+// Distraction-free writing surface (Day One + Apple Journal inspired)
+// ============================================
+
+$r-dark:         #1B1F3B;
+$r-mid:          #2D3561;
+$r-accent:       #7C6FF7;
+$r-accent-light: #EEF0FF;
+$r-text:         #2D3748;
+$r-muted:        #718096;
+$r-border:       #E2E8F0;
+$r-bg:           #F8F9FC;
+$r-error:        #E53E3E;
+
+// ---- PAGE WRAPPER ----
+.canvas {
+  max-width: 720px;
+  margin: 48px auto 80px;
+  padding: 0 24px;
+
+  @media (max-width: 768px) {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+// ---- THE FORM CARD ----
+.canvas__form {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid $r-border;
+  box-shadow: 0 4px 24px rgba($r-dark, 0.06);
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    min-height: calc(100dvh - 60px);
+  }
+}
+
+// ---- TOP ACTION BAR ----
+.canvas__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  border-bottom: 1px solid $r-border;
+  min-height: 60px;
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  @media (max-width: 768px) {
+    padding: 12px 20px;
+  }
+}
+
+.canvas__cancel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: $r-muted;
+  font-size: 0.92rem;
+  font-weight: 500;
+  text-decoration: none;
+  min-height: 44px;
+  padding: 0 4px;
+  transition: color 0.15s ease;
+
+  i { font-size: 0.8rem; }
+
+  &:hover {
+    color: $r-text;
+    text-decoration: none;
+  }
+}
+
+.canvas__save {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: $r-accent;
+  color: white !important;
+  border: none;
+  border-radius: 24px;
+  padding: 10px 24px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  min-height: 44px;
+  cursor: pointer;
+  font-family: $body-font;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  -webkit-appearance: none;
+  appearance: none;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba($r-accent, 0.35);
+    color: white;
+    text-decoration: none;
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $r-accent;
+    outline-offset: 3px;
+  }
+}
+
+// ---- FORM BODY ----
+.canvas__body {
+  padding: 36px 48px 56px;
+
+  @media (max-width: 768px) {
+    padding: 28px 24px 40px;
+  }
+
+  // Reset simple_form Bootstrap form-group wrappers
+  .form-group {
+    margin-bottom: 0;
+
+    // Suppress green valid-state checkmark — we don't want it on the canvas
+    &.has-success {
+      .form-control {
+        border-color: transparent !important;
+        box-shadow: none !important;
+      }
+      .form-control-feedback,
+      .valid-feedback { display: none !important; }
+    }
+
+    // Bootstrap 4 valid state
+    &.form-group-valid {
+      .form-control {
+        border-color: transparent !important;
+        box-shadow: none !important;
+      }
+    }
+
+    // Error state — underline only, not full red border
+    &.has-error,
+    &.form-group-invalid {
+      .canvas__title-input,
+      .canvas__content-input {
+        border-bottom: 2px solid $r-error !important;
+      }
+      .canvas__date-chip {
+        border-color: $r-error !important;
+      }
+      .help-block,
+      .invalid-feedback {
+        color: $r-error;
+        font-size: 0.8rem;
+        margin-top: 6px;
+        display: block;
+      }
+    }
+  }
+}
+
+// ---- CONTEXT STRIP (entries only — Apple Journal DNA) ----
+// Journal name on the left, date chip / metadata on the right (space-between)
+.canvas__context {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 32px;
+
+}
+
+.canvas__context-journal {
+  font-family: $headers-font;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: $r-muted;
+  letter-spacing: 0.01em;
+}
+
+.canvas__context-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: $body-font;
+  font-size: 0.88rem;
+  color: $r-muted;
+}
+
+.canvas__context-mood {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+// Inline native date picker chip
+.canvas__date-chip {
+  display: inline-block !important;
+  width: auto !important;
+  height: auto !important;
+  border: 1px solid $r-border !important;
+  border-radius: 50px !important;
+  padding: 11px 16px !important;
+  font-size: 0.92rem !important;
+  font-family: $body-font !important;
+  color: $r-muted !important;
+  background: $r-bg !important;
+  cursor: pointer;
+  min-height: auto;
+  box-shadow: none !important;
+  transition: border-color 0.15s ease;
+  -webkit-appearance: none;
+  appearance: none;
+
+  &:hover {
+    border-color: $r-accent !important;
+  }
+
+  &:focus {
+    outline: 2px solid $r-accent !important;
+    outline-offset: 2px;
+    border-color: $r-accent !important;
+    box-shadow: none !important;
+  }
+}
+
+// ---- TITLE INPUT ----
+.canvas__title-input {
+  width: 100% !important;
+  font-family: $headers-font !important;
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: $r-text !important;
+  line-height: 1.2 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none;
+  display: block;
+
+  &::placeholder {
+    color: rgba($r-muted, 0.45) !important;
+    font-weight: 700;
+  }
+
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $r-accent !important;
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.6rem !important;
+  }
+}
+
+// Thin separator between title and content
+.canvas__divider {
+  width: 48px;
+  height: 2px;
+  background: $r-border;
+  border-radius: 2px;
+  margin: 20px 0;
+}
+
+// ---- CONTENT TEXTAREA ----
+.canvas__content-input {
+  width: 100% !important;
+  font-family: $body-font !important;
+  font-size: 1.05rem !important;
+  font-weight: 400 !important;
+  color: $r-text !important;
+  line-height: 1.8 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  resize: vertical;
+  min-height: 520px;
+  display: block;
+  field-sizing: content; // progressive enhancement: auto-grows with content
+
+  @media (min-width: 1200px) {
+    min-height: 560px;
+  }
+
+  @media (max-width: 768px) {
+    min-height: calc(100dvh - 340px);
+  }
+
+  &::placeholder {
+    color: rgba($r-muted, 0.4) !important;
+  }
+
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $r-accent !important;
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+}
+
+// ---- JOURNAL NAME PILL ----
+// Used on all entry pages (index header, form context strip, show context strip)
+.journal-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--journal-pill-color, #7C6FF7);
+  color: white;
+  border-radius: 50px;
+  padding: 11px 26px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1;
+
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(white, 0.55);
+  }
+}
+
+// ============================================
+// READ MODE (show page) — same canvas, no inputs
+// ============================================
+
+// Icon-button cluster on the right of the show page bar (edit + delete)
+.canvas__bar-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.canvas__icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid $r-border;
+  color: $r-muted;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+
+  &:hover {
+    background: $r-accent-light;
+    color: $r-accent;
+    border-color: $r-accent;
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $r-accent;
+    outline-offset: 2px;
+  }
+
+  &--danger:hover {
+    background: #FEE2E2;
+    color: $r-error;
+    border-color: $r-error;
+  }
+}
+
+// Read-mode title — mirrors .canvas__title-input styling but as <h1>
+.canvas__title-display {
+  font-family: $headers-font;
+  font-size: 2rem;
+  font-weight: 700;
+  color: $r-text;
+  line-height: 1.25;
+  margin: 0;
+  word-break: break-word;
+
+  @media (max-width: 768px) {
+    font-size: 1.6rem;
+  }
+}
+
+// Read-mode content body
+.canvas__content-display {
+  font-family: $body-font;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: $r-text;
+  white-space: pre-wrap;
+  word-break: break-word;
+
+  p {
+    margin: 0 0 1.1rem 0;
+  }
+  p:last-child { margin-bottom: 0; }
+}
+
+// ---- NEW JOURNAL FORM ----
+.canvas__body--journal-new {
+  padding: 32px 40px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+
+  @media (max-width: 600px) { padding: 24px 20px 32px; }
+
+  // override simple_form wrapper so it stretches full width
+  .input { width: 100%; margin: 0; }
+}
+
+// Book cover preview
+.journal-preview {
+  --journal-color: #7C6FF7;
+  display: flex;
+  gap: 0;
+  filter: drop-shadow(0 12px 28px rgba(0,0,0,0.18));
+  transition: filter 0.2s;
+}
+
+.journal-preview__spine {
+  width: 14px;
+  background: color-mix(in srgb, var(--journal-color) 70%, black);
+  border-radius: 4px 0 0 4px;
+  transition: background 0.25s;
+}
+
+.journal-preview__cover {
+  width: 96px;
+  height: 128px;
+  background: var(--journal-color);
+  border-radius: 0 6px 6px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s;
+}
+
+.journal-preview__icon {
+  font-size: 2rem;
+  color: rgba(white, 0.7);
+}
+
+// Color swatches row
+.journal-color-picker {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.color-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s, border-color 0.15s;
+  outline: none;
+
+  &:hover { transform: scale(1.15); }
+
+  &--active {
+    border-color: white;
+    box-shadow: 0 0 0 2px rgba($r-text, 0.25);
+    transform: scale(1.15);
+  }
+}
+
+// Name suggestion chips
+.journal-name-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.name-chip {
+  padding: 6px 14px;
+  border-radius: 50px;
+  border: 1.5px solid $r-border;
+  background: white;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: $r-muted;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: $body-font;
+
+  &:hover {
+    border-color: $r-accent;
+    color: $r-accent;
+    background: $r-accent-light;
+  }
+}
+
+// ---- JOURNAL NAME PILL INPUT ----
+// Wraps the name field on new/edit journal forms
+.canvas__name-pill {
+  width: 100%;
+  border: 2px solid var(--journal-color, #7C6FF7);
+  border-radius: 50px;
+  background: color-mix(in srgb, var(--journal-color, #7C6FF7) 8%, white);
+  padding: 2px 24px;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.canvas__title-input--pill {
+  text-align: center !important;
+  background: transparent !important;
+
+  // Suppress the inner focus ring — the pill wrapper provides the visual boundary
+  &:focus-visible {
+    outline: none !important;
+    outline-offset: 0 !important;
+  }
+
+  &::placeholder {
+    text-align: center;
+    color: rgba($r-muted, 0.5) !important;
+    font-weight: 700;
+  }
+}
+
+// ---- REDUCED MOTION ----
+@media (prefers-reduced-motion: reduce) {
+  .canvas__save,
+  .canvas__cancel,
+  .canvas__date-chip {
+    transition: none !important;
+  }
+
+  .canvas__save:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}

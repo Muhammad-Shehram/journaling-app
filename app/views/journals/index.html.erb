@@ -1,17 +1,67 @@
-<h1>My Journals</h1>
+<div class="bookshelf">
 
-<ul>
-  <% @journals.each do |journal| %>
-    <li>
-      <%# This link sends James to the JournalEntriesController#index for this journal %>
-      <%= link_to journal.name, journal_journal_entries_path(journal), style: "text-decoration: none;" %>
+  <%# ---- HEADER ---- %>
+  <div class="bookshelf__header">
+    <h1 class="bookshelf__title">
+      My Journals
+      <span><%= @journals.count %> <%= "journal".pluralize(@journals.count) %></span>
+    </h1>
+    <%= link_to new_journal_path, class: "bookshelf__new-btn" do %>
+      <i class="fa-solid fa-plus"></i> New Journal
+    <% end %>
+  </div>
 
-      <%=link_to "-- Edit", edit_journal_path(journal), style: "text-decoration: none;"%>
+  <%# ---- CARD GRID ---- %>
+  <div class="bookshelf__grid">
 
-      <%= link_to " -- Delete Journal", journal_path(journal), style: "text-decoration: none;",
-      data: {turbo_method: :delete, turbo_confirm: "Are you sure? This will delete all entries inside!"} %>
-    </li>
-  <% end %>
-</ul>
+    <% if @journals.any? %>
+      <% @journals.each do |journal| %>
+        <div class="journal-card">
+          <div class="journal-card__accent" style="background: <%= journal.color || '#7C6FF7' %>"></div>
 
-<%= link_to "Create New Journal", new_journal_path %>
+          <div class="journal-card__body">
+            <%= link_to journal_journal_entries_path(journal), class: "journal-card__link" do %>
+              <div class="journal-card__name"><%= journal.name %></div>
+              <div class="journal-card__meta">
+                <span class="meta-item">
+                  <i class="fa-solid fa-file-lines"></i>
+                  <%= journal.journal_entries.count %> <%= "entry".pluralize(journal.journal_entries.count) %>
+                </span>
+                <span class="meta-item">
+                  <i class="fa-regular fa-calendar"></i>
+                  <%= journal.created_at.strftime("%B %-d, %Y") %>
+                </span>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="journal-card__actions">
+            <%= link_to edit_journal_path(journal), class: "journal-action", title: "Edit" do %>
+              <i class="fa-solid fa-pen"></i>
+            <% end %>
+            <%= link_to journal_path(journal), class: "journal-action journal-action--delete", title: "Delete",
+                data: { turbo_method: :delete, turbo_confirm: "Delete \"#{journal.name}\"? This will delete all entries inside." } do %>
+              <i class="fa-solid fa-trash-can"></i>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+    <% else %>
+      <%# ---- EMPTY STATE ---- %>
+      <div class="bookshelf__empty">
+        <div class="bookshelf__empty-icon">
+          <i class="fa-solid fa-book-open"></i>
+        </div>
+        <div class="bookshelf__empty-title">No journals yet</div>
+        <p class="bookshelf__empty-text">
+          Create your first journal to start capturing your thoughts, reflections, and memories.
+        </p>
+        <%= link_to new_journal_path, class: "bookshelf__new-btn" do %>
+          <i class="fa-solid fa-plus"></i> Create Your First Journal
+        <% end %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

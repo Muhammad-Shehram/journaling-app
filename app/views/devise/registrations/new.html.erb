@@ -1,27 +1,97 @@
-<h2>Sign up</h2>
+<div class="auth-page">
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" }%>
-    <%= f.input :password,
-                required: true,
-                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: true,
-                input_html: { autocomplete: "new-password" } %>
+  <div class="auth-logo">
+    <i class="fa-solid fa-book-open-reader"></i>
+    <span>Reflekto</span>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
-  </div>
-<% end %>
+  <div class="auth-card">
+    <h2 class="auth-card__title">Create your account</h2>
+    <p class="auth-card__subtitle">Start your journaling journey today. It's free.</p>
 
-<%= render "devise/shared/links" %>
-<br>
-<%= link_to "Back to Home", root_path %>
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+      <%= f.error_notification %>
+
+      <div class="form-inputs">
+
+        <div class="input-group-wrapper">
+          <%= f.label :email, "Email address" %>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-envelope input-icon"></i>
+            <%= f.input_field :email,
+                              required: true,
+                              autofocus: true,
+                              autocomplete: "email",
+                              placeholder: "you@example.com",
+                              class: "auth-input" %>
+          </div>
+        </div>
+
+        <div class="input-group-wrapper" data-controller="password">
+          <%= f.label :password, "Password" %>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-lock input-icon"></i>
+            <%= f.input_field :password,
+                              required: true,
+                              autocomplete: "new-password",
+                              placeholder: "Create a password",
+                              class: "auth-input",
+                              data: { password_target: "input", action: "input->password#check" } %>
+            <button type="button" class="eye-toggle" data-password-target="toggleBtn" data-action="click->password#toggle">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+          <ul class="req-list" data-password-target="list">
+            <li class="req-item" data-req="req-length">
+              <i class="fa-solid fa-circle-check req-icon"></i> At least 8 characters
+            </li>
+            <li class="req-item" data-req="req-uppercase">
+              <i class="fa-solid fa-circle-check req-icon"></i> One uppercase letter
+            </li>
+            <li class="req-item" data-req="req-number">
+              <i class="fa-solid fa-circle-check req-icon"></i> One number
+            </li>
+            <li class="req-item" data-req="req-special">
+              <i class="fa-solid fa-circle-check req-icon"></i> One special character (!@#$%^&amp;*)
+            </li>
+          </ul>
+        </div>
+
+        <div class="input-group-wrapper" data-controller="password">
+          <%= f.label :password_confirmation, "Confirm password" %>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-lock input-icon"></i>
+            <%= f.input_field :password_confirmation,
+                              required: true,
+                              autocomplete: "new-password",
+                              placeholder: "Confirm your password",
+                              class: "auth-input",
+                              data: { password_target: "input" } %>
+            <button type="button" class="eye-toggle" data-password-target="toggleBtn" data-action="click->password#toggle">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Create Account" %>
+      </div>
+
+    <% end %>
+
+    <div class="auth-links">
+      <div class="auth-link-row">
+        Already have an account?
+        <%= link_to "Sign in", new_session_path(resource_name) %>
+      </div>
+      <%= link_to root_path, class: "auth-back-link" do %>
+        <i class="fa-solid fa-arrow-left"></i> Back to Home
+      <% end %>
+    </div>
+
+  </div>
+
+</div>

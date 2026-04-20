@@ -1,0 +1,267 @@
+// ============================================
+// REFLEKTO BOOKSHELF (Journals Index)
+// Card grid — the main dashboard
+// ============================================
+
+$r-dark:         #1B1F3B;
+$r-mid:          #2D3561;
+$r-accent:       #7C6FF7;
+$r-accent-light: #EEF0FF;
+$r-text:         #2D3748;
+$r-muted:        #718096;
+$r-border:       #E2E8F0;
+$r-bg:           #F8F9FC;
+$r-error:        #E53E3E;
+
+// Journal accent colors — each card gets a color strip
+$journal-colors: #7C6FF7, #F687B3, #4FD1C5, #F6AD55, #63B3ED, #FC8181;
+
+// ---- PAGE LAYOUT ----
+.bookshelf {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+
+  @media (max-width: 768px) { padding: 32px 16px 60px; }
+}
+
+.bookshelf__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.bookshelf__title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: $r-text;
+  letter-spacing: -0.02em;
+  margin: 0;
+
+  span {
+    color: $r-muted;
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin-left: 10px;
+  }
+}
+
+.bookshelf__new-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: $r-accent;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 11px 26px;
+  border-radius: 50px;
+  transition: all 0.2s ease;
+  border: none;
+
+  i { font-size: 0.85rem; }
+
+  &:hover {
+    background: darken($r-accent, 8%);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba($r-accent, 0.35);
+  }
+}
+
+// ---- CARD GRID ----
+.bookshelf__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+
+  @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 540px) { grid-template-columns: 1fr; }
+}
+
+// ---- JOURNAL CARD ----
+.journal-card {
+  background: white;
+  border-radius: 18px;
+  border: 1px solid $r-border;
+  overflow: hidden;
+  transition: all 0.25s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba($r-dark, 0.08);
+    border-color: rgba($r-accent, 0.3);
+
+    .journal-card__actions { opacity: 1; }
+  }
+
+  // Color accent strip at top — color set via inline style from journal.color
+  &__accent {
+    height: 5px;
+    width: 100%;
+  }
+}
+
+.journal-card__body {
+  padding: 24px 24px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.journal-card__link {
+  text-decoration: none;
+  color: inherit;
+  flex: 1;
+
+  &:hover { color: inherit; }
+}
+
+.journal-card__name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: $r-text;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.journal-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.82rem;
+  color: $r-muted;
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    i { font-size: 0.72rem; color: lighten($r-muted, 10%); }
+  }
+}
+
+// Actions row (edit / delete)
+.journal-card__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 0 20px 16px;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.journal-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  text-decoration: none;
+  color: $r-muted;
+  transition: all 0.2s;
+
+  &:hover {
+    color: $r-text;
+    background: $r-accent-light;
+  }
+
+  &--delete:hover {
+    color: $r-error;
+    background: rgba($r-error, 0.08);
+  }
+}
+
+// ---- "NEW JOURNAL" CARD ----
+.journal-card--new {
+  background: transparent;
+  border: 2px dashed $r-border;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+
+  &:hover {
+    border-color: $r-accent;
+    background: rgba($r-accent, 0.04);
+    transform: translateY(-4px);
+
+    .journal-card-new__icon { color: $r-accent; }
+    .journal-card-new__text { color: $r-accent; }
+  }
+}
+
+.journal-card-new__inner {
+  text-align: center;
+}
+
+.journal-card-new__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: $r-accent-light;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  font-size: 1.2rem;
+  color: $r-muted;
+  transition: color 0.2s;
+}
+
+.journal-card-new__text {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: $r-muted;
+  transition: color 0.2s;
+}
+
+// ---- EMPTY STATE ----
+.bookshelf__empty {
+  text-align: center;
+  padding: 80px 20px;
+  grid-column: 1 / -1;
+}
+
+.bookshelf__empty-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: $r-accent-light;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 1.8rem;
+  color: $r-accent;
+}
+
+.bookshelf__empty-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: $r-text;
+  margin-bottom: 8px;
+}
+
+.bookshelf__empty-text {
+  color: $r-muted;
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}

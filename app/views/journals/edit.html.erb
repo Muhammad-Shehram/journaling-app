@@ -1,14 +1,56 @@
-<h1 class="mb-4 text-center">Edit Journal</h1>
+<div class="canvas canvas--compact">
+  <%= simple_form_for(@journal, html: { class: "canvas__form", data: { controller: "journal-form" } }) do |f| %>
 
-<%= simple_form_for(@journal) do |f| %>
-  <%= f.input :name,
-              label: "Journal Title",
-              placeholder: "Journal Name",
-              input_html: { class: "title-field" } %>
-  <%= f.button :submit, "Update Journal", class: "btn-primary" %>
-<% end %>
+    <div class="canvas__bar">
+      <%= link_to journals_path, class: "canvas__cancel" do %>
+        <i class="fa-solid fa-arrow-left"></i> Cancel
+      <% end %>
+      <button type="submit" class="canvas__save">Save</button>
+    </div>
 
-<br>
+    <div class="canvas__body canvas__body--journal-new">
 
-<br>
-<%= link_to "Back to Journals",  journals_path(@journal) %>
+      <%# ---- JOURNAL BOOK PREVIEW ---- %>
+      <div class="journal-preview" data-journal-form-target="preview" style="--journal-color: <%= @journal.color || '#7C6FF7' %>">
+        <div class="journal-preview__spine"></div>
+        <div class="journal-preview__cover">
+          <i class="fa-solid fa-book-open journal-preview__icon"></i>
+        </div>
+      </div>
+
+      <%# ---- COLOR SWATCHES ---- %>
+      <div class="journal-color-picker">
+        <% [
+          ["#7C6FF7", "Purple"],
+          ["#667EEA", "Indigo"],
+          ["#63B3ED", "Blue"],
+          ["#4FD1C5", "Teal"],
+          ["#68D391", "Green"],
+          ["#F6AD55", "Orange"],
+          ["#FC8181", "Red"],
+          ["#F687B3", "Pink"]
+        ].each do |hex, label| %>
+          <button type="button"
+                  class="color-swatch <%= 'color-swatch--active' if @journal.color == hex %>"
+                  style="background: <%= hex %>"
+                  data-color="<%= hex %>"
+                  data-action="click->journal-form#selectColor"
+                  title="<%= label %>">
+          </button>
+        <% end %>
+        <%= f.hidden_field :color, data: { journal_form_target: "colorField" } %>
+      </div>
+
+      <%# ---- NAME INPUT ---- %>
+      <div class="canvas__name-pill">
+        <%= f.text_field :name,
+              placeholder: "Name your journal",
+              class: "canvas__title-input canvas__title-input--pill",
+              autofocus: true,
+              "aria-label": "Journal name",
+              data: { journal_form_target: "nameInput" } %>
+      </div>
+    </div>
+
+  <% end %>
+</div>

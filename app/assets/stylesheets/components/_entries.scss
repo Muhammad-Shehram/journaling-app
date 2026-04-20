@@ -1,0 +1,324 @@
+// ============================================
+// REFLEKTO ENTRIES (Journal Entries Index)
+// Card-list — the entry timeline view
+// ============================================
+
+$r-dark:         #1B1F3B;
+$r-mid:          #2D3561;
+$r-accent:       #7C6FF7;
+$r-accent-light: #EEF0FF;
+$r-text:         #2D3748;
+$r-muted:        #718096;
+$r-border:       #E2E8F0;
+$r-bg:           #F8F9FC;
+$r-error:        #E53E3E;
+
+// ---- PAGE LAYOUT ----
+.entries {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+
+  @media (max-width: 768px) { padding: 32px 16px 60px; }
+}
+
+// ---- HEADER ----
+.entries__header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.entries__header-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.entries__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: $r-muted;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: color 0.2s;
+
+  i { font-size: 0.75rem; }
+
+  &:hover { color: $r-accent; }
+}
+
+.entries__new-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: $r-accent;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 11px 26px;
+  border-radius: 50px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  i { font-size: 0.85rem; }
+
+  &:hover {
+    background: darken($r-accent, 8%);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba($r-accent, 0.35);
+  }
+}
+
+// ---- ENTRY LIST ----
+.entries__list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+// ---- ENTRY CARD ----
+.entry-card {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid $r-border;
+  overflow: hidden;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: stretch;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba($r-dark, 0.08);
+    border-color: rgba($r-accent, 0.25);
+
+    .entry-card__actions { opacity: 1; }
+  }
+}
+
+// Left date block
+.entry-card__date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  min-width: 68px;
+  padding: 20px 0;
+  border-right: 1px solid $r-border;
+  background: $r-bg;
+  text-align: center;
+}
+
+.entry-card__day {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: $r-accent;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.entry-card__month {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: $r-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 3px;
+}
+
+// Main content area (clickable)
+.entry-card__link {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 18px 20px;
+  text-decoration: none;
+  color: inherit;
+  min-width: 0; // prevent flex overflow
+
+  &:hover { color: inherit; }
+}
+
+.entry-card__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: $r-text;
+  margin-bottom: 5px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.entry-card__preview {
+  font-size: 0.87rem;
+  color: $r-muted;
+  line-height: 1.5;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin-bottom: 8px;
+}
+
+.entry-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.78rem;
+  color: lighten($r-muted, 10%);
+}
+
+.entry-card__mood {
+  font-size: 1rem; // emoji — inherit larger size
+}
+
+.entry-card__time {
+  // date string
+}
+
+// ---- ACTION BUTTONS ----
+.entry-card__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 14px;
+  opacity: 0.45;
+  transition: opacity 0.2s;
+
+  @media (max-width: 540px) { opacity: 1; }
+}
+
+.entry-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  font-size: 0.78rem;
+  text-decoration: none;
+  color: $r-muted;
+  transition: all 0.2s;
+
+  &:hover {
+    color: $r-text;
+    background: $r-accent-light;
+  }
+
+  &--delete:hover {
+    color: $r-error;
+    background: rgba($r-error, 0.08);
+  }
+}
+
+// No-results message shown by Stimulus when search finds nothing
+.entries__no-results {
+  text-align: center;
+  padding: 48px 20px;
+  color: $r-muted;
+  font-size: 0.95rem;
+}
+
+// ---- SEARCH BAR ----
+.entries__search {
+  margin-bottom: 28px;
+}
+
+.entries__search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.entries__search-icon {
+  position: absolute;
+  left: 16px;
+  color: $r-muted;
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.entries__search-input {
+  width: 100%;
+  padding: 11px 44px 11px 40px;
+  border: 1px solid $r-border;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-family: $body-font;
+  background: white;
+  color: $r-text;
+  transition: border-color 0.15s, box-shadow 0.15s;
+
+  &::placeholder { color: rgba($r-muted, 0.6); }
+
+  &:focus {
+    outline: none;
+    border-color: $r-accent;
+    box-shadow: 0 0 0 3px rgba($r-accent, 0.12);
+  }
+}
+
+.entries__search-clear {
+  position: absolute;
+  right: 14px;
+  color: $r-muted;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+
+  &:hover { color: $r-text; }
+}
+
+// ---- EMPTY STATE ----
+.entries__empty {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.entries__empty-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: $r-accent-light;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 1.8rem;
+  color: $r-accent;
+}
+
+.entries__empty-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: $r-text;
+  margin-bottom: 8px;
+}
+
+.entries__empty-text {
+  color: $r-muted;
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+  max-width: 340px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}

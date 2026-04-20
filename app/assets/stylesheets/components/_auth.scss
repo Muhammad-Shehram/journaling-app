@@ -1,0 +1,327 @@
+// ============================================
+// REFLEKTO AUTH PAGES — Centered dark card
+// ============================================
+
+$auth-bg:       #1B1F3B;
+$auth-card-bg:  #22274A;
+$auth-border:   rgba(255, 255, 255, 0.08);
+$auth-input-bg: #1E2535;
+$auth-input-border: rgba(255, 255, 255, 0.12);
+$auth-accent:   #7C6FF7;
+$auth-muted:    rgba(255, 255, 255, 0.45);
+$auth-text:     rgba(255, 255, 255, 0.9);
+$auth-label:    rgba(255, 255, 255, 0.6);
+$auth-error:    #FC8181;
+$auth-success:  #68D391;
+
+// ---- PAGE SHELL ----
+.auth-page {
+  min-height: 100vh;
+  background: $auth-bg;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px;
+}
+
+// ---- LOGO ABOVE CARD ----
+.auth-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+
+  i {
+    font-size: 1.6rem;
+    color: $auth-accent;
+  }
+
+  span {
+    font-family: $headers-font;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.04em;
+  }
+}
+
+// ---- CARD ----
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: $auth-card-bg;
+  border: 1px solid $auth-border;
+  border-radius: 18px;
+  padding: 28px 32px;
+
+  @media (max-width: 480px) {
+    padding: 22px 18px;
+    border-radius: 14px;
+  }
+}
+
+.auth-card__title {
+  font-family: $headers-font;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+
+.auth-card__subtitle {
+  color: $auth-muted;
+  font-size: 0.92rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+// ---- FORM INPUTS ----
+.input-group-wrapper {
+  margin-bottom: 14px;
+
+  label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: $auth-label;
+    margin-bottom: 8px;
+    letter-spacing: 0.01em;
+  }
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .input-icon {
+    position: absolute;
+    left: 14px;
+    color: $auth-muted;
+    font-size: 0.85rem;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .eye-toggle {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    padding: 4px 6px;
+    cursor: pointer;
+    color: $auth-muted;
+    font-size: 0.9rem;
+    line-height: 1;
+    transition: color 0.2s;
+
+    &:hover { color: $auth-text; }
+    &:focus { outline: none; }
+  }
+}
+
+.auth-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 40px 0 38px;
+  background: $auth-input-bg;
+  border: 1px solid $auth-input-border;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: $auth-text;
+  font-family: $body-font;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+
+  &::placeholder { color: rgba(255, 255, 255, 0.2); }
+
+  &:focus {
+    border-color: $auth-accent;
+    box-shadow: 0 0 0 3px rgba($auth-accent, 0.2);
+  }
+
+  &.is-invalid,
+  &[aria-invalid="true"] {
+    border-color: $auth-error;
+    box-shadow: 0 0 0 3px rgba($auth-error, 0.15);
+  }
+}
+
+// ---- PASSWORD REQUIREMENTS ----
+.req-list {
+  list-style: none;
+  padding: 6px 0 0 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.req-item {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+
+  .req-icon {
+    font-size: 0.7rem;
+    opacity: 0.35;
+    transition: color 0.2s, opacity 0.2s;
+  }
+
+  &.req--met {
+    color: $auth-success;
+
+    .req-icon {
+      color: $auth-success;
+      opacity: 1;
+    }
+  }
+}
+
+// ---- CHECKBOX (Remember me) ----
+.auth-card {
+  .boolean {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: $auth-accent;
+      cursor: pointer;
+    }
+
+    label {
+      margin: 0;
+      font-size: 0.88rem;
+      color: $auth-muted;
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+}
+
+// ---- SUBMIT BUTTON ----
+.form-actions {
+  margin-top: 16px;
+  margin-bottom: 20px;
+}
+
+.auth-card {
+  input[type="submit"],
+  button[type="submit"] {
+    width: 100%;
+    height: 50px;
+    background: $auth-accent;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: $headers-font;
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+
+    &:hover {
+      background: darken($auth-accent, 8%);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba($auth-accent, 0.4);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+  }
+}
+
+// ---- ERROR MESSAGES ----
+.auth-card {
+  #error_explanation {
+    background: rgba($auth-error, 0.1);
+    border: 1px solid rgba($auth-error, 0.25);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: $auth-error;
+      margin-bottom: 6px;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 16px;
+
+      li {
+        font-size: 0.82rem;
+        color: $auth-error;
+      }
+    }
+  }
+
+  .error-notification,
+  .devise-error-messages {
+    background: rgba($auth-error, 0.1);
+    border: 1px solid rgba($auth-error, 0.25);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 0.85rem;
+    color: $auth-error;
+  }
+}
+
+// ---- FOOTER LINKS ----
+.auth-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid $auth-border;
+}
+
+.auth-link-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  color: $auth-muted;
+
+  a {
+    color: $auth-accent;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+
+    &:hover { color: lighten($auth-accent, 10%); }
+  }
+}
+
+.auth-back-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: $auth-muted;
+  font-size: 0.83rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  width: 100%;
+
+  i { font-size: 0.72rem; }
+
+  &:hover { color: $auth-text; }
+}

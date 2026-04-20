@@ -1,30 +1,61 @@
-<%= simple_form_for([@journal, @journal_entry]) do |f| %>
+<% cancel_path = @journal_entry.new_record? ?
+     journal_journal_entries_path(@journal) :
+     journal_journal_entry_path(@journal, @journal_entry) %>
 
-  <%# 1. Standard text input for Title or Name %>
-  <%= f.input :title,
-              label: "Entry Title",
-              placeholder: "Title",
-              input_html: { class: "title-field" } %>
+<% date_value = @journal_entry.entry_date.present? ?
+     @journal_entry.entry_date.strftime("%Y-%m-%d") :
+     Date.today.strftime("%Y-%m-%d") %>
 
-  <%# 2. Content Input (Large text box for stories/details) %>
-  <%= f.input :content,
-              as: :text,
-              label: "What's on your mind?",
-              placeholder: "Write your content here...",
-              input_html: { rows: 5 } %>
+<div class="canvas">
+  <%= simple_form_for([@journal, @journal_entry], html: { class: "canvas__form" }) do |f| %>
 
-  <%# 3. The "Pro" Move: Emoji Dropdown %>
-  <%= f.input :mood,
-              label: "How are you feeling?",
-              collection: ['😊 Happy', '😔 Sad', '😴 Tired', '🔥 On Fire'],
-              prompt: "Pick an emoji...",
-              input_html: { class: "mood-select" } %>
+    <div class="canvas__bar">
+      <%= link_to cancel_path, class: "canvas__cancel" do %>
+        <i class="fa-solid fa-arrow-left"></i> Cancel
+      <% end %>
+      <button type="submit" class="canvas__save">
+        <%= @journal_entry.new_record? ? "Save Entry" : "Update Entry" %>
+      </button>
+    </div>
 
-  <%= f.input :entry_date, as: :date %>
+    <div class="canvas__body">
 
-  <%# 4. Submit Button %>
-  <%= f.button :submit,
-             (@journal_entry.new_record? ? "Create Entry" : "Update Entry"),
-             class: "btn-primary" %>
+      <%# Apple Journal-style context strip: journal name on the left, date chip on the right %>
+      <div class="canvas__context">
+        <span class="journal-pill" style="--journal-pill-color: <%= @journal.color || '#7C6FF7' %>">
+          <%= @journal.name %>
+        </span>
+        <%= f.text_field :entry_date,
+                        type: "date",
+                        class: "canvas__date-chip",
+                        "aria-label": "Entry date",
+                        value: date_value %>
+      </div>
 
-<% end %>
+      <%# Title — Day One-style oversized borderless field %>
+      <%= f.input :title,
+                  label: false,
+                  placeholder: "Title",
+                  input_html: {
+                    class: "canvas__title-input",
+                    autofocus: @journal_entry.new_record?,
+                    "aria-label": "Entry title"
+                  } %>
+
+      <div class="canvas__divider"></div>
+
+      <%# Content — open writing surface %>
+      <%= f.input :content,
+                  as: :text,
+                  label: false,
+                  placeholder: "Start writing…",
+                  input_html: {
+                    class: "canvas__content-input",
+                    rows: 14,
+                    "aria-label": "Entry content"
+                  } %>
+
+    </div>
+
+  <% end %>
+</div>

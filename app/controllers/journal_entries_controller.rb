@@ -5,7 +5,10 @@ class JournalEntriesController < ApplicationController
 
 
   def index
-    @journal_entries = @journal.journal_entries
+    @journal_entries = @journal.journal_entries.order(entry_date: :desc)
+    if params[:q].present?
+      @journal_entries = @journal_entries.where("title LIKE ?", "%#{params[:q]}%")
+    end
   end
   def show
   end

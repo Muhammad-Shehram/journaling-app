@@ -22,17 +22,14 @@
 
       <%# Apple Journal-style context strip: journal name on the left, date chip on the right %>
       <div class="canvas__context">
-        <span class="canvas__context-journal"><%= @journal.name %></span>
-        <%= f.input :entry_date,
-                    label: false,
-                    as: :string,
-                    wrapper_html: { class: "canvas__date-wrap" },
-                    input_html: {
-                      type: "date",
-                      class: "canvas__date-chip",
-                      "aria-label": "Entry date",
-                      value: date_value
-                    } %>
+        <span class="journal-pill" style="--journal-pill-color: <%= @journal.color || '#7C6FF7' %>">
+          <%= @journal.name %>
+        </span>
+        <%= f.text_field :entry_date,
+                        type: "date",
+                        class: "canvas__date-chip",
+                        "aria-label": "Entry date",
+                        value: date_value %>
       </div>
 
       <%# Title — Day One-style oversized borderless field %>

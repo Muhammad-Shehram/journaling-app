@@ -1,26 +1,41 @@
-<div class="entries">
+<div class="entries" data-controller="entry-search">
 
   <%# ---- HEADER ---- %>
   <div class="entries__header">
-    <div class="entries__header-left">
-      <%= link_to journals_path, class: "entries__back" do %>
-        <i class="fa-solid fa-arrow-left"></i> My Journals
-      <% end %>
-      <h1 class="entries__title">
-        <%= @journal.name %>
-        <span><%= @journal_entries.count %> <%= "entry".pluralize(@journal_entries.count) %></span>
-      </h1>
-    </div>
-    <%= link_to new_journal_journal_entry_path(@journal), class: "entries__new-btn" do %>
-      <i class="fa-solid fa-plus"></i> New Entry
+    <%= link_to journals_path, class: "entries__back" do %>
+      <i class="fa-solid fa-arrow-left"></i> My Journals
     <% end %>
+    <div class="entries__header-main">
+      <span class="journal-pill" style="--journal-pill-color: <%= @journal.color || '#7C6FF7' %>">
+        <%= @journal.name %>
+      </span>
+      <%= link_to new_journal_journal_entry_path(@journal), class: "entries__new-btn" do %>
+        <i class="fa-solid fa-plus"></i> New Entry
+      <% end %>
+    </div>
+  </div>
+
+  <%# ---- SEARCH BAR ---- %>
+  <div class="entries__search">
+    <div class="entries__search-wrap">
+      <i class="fa-solid fa-magnifying-glass entries__search-icon"></i>
+      <input type="text"
+             placeholder="Search entries…"
+             class="entries__search-input"
+             autocomplete="off"
+             data-entry-search-target="input"
+             data-action="input->entry-search#filter">
+      <button type="button" class="entries__search-clear" data-entry-search-target="clearBtn" data-action="click->entry-search#clear" style="display:none">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
   </div>
 
   <%# ---- ENTRY LIST ---- %>
   <% if @journal_entries.any? %>
-    <div class="entries__list">
+    <div class="entries__list" data-entry-search-target="list">
       <% @journal_entries.each do |entry| %>
-        <div class="entry-card">
+        <div class="entry-card" data-entry-search-target="card">
 
           <%# Date block %>
           <div class="entry-card__date">
@@ -53,6 +68,11 @@
 
         </div>
       <% end %>
+    </div>
+
+    <%# No results message (shown by Stimulus when search finds nothing) %>
+    <div class="entries__no-results" data-entry-search-target="noResults" style="display:none">
+      <p>No entries match "<span data-entry-search-target="queryDisplay"></span>"</p>
     </div>
 
   <% else %>

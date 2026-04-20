@@ -42,15 +42,14 @@
       </div>
 
       <%# ---- NAME INPUT ---- %>
-      <%= f.input :name,
-                  label: false,
-                  placeholder: "Name your journal",
-                  input_html: {
-                    class: "canvas__title-input",
-                    autofocus: true,
-                    "aria-label": "Journal name",
-                    data: { journal_form_target: "nameInput" }
-                  } %>
+      <div class="canvas__name-pill">
+        <%= f.text_field :name,
+              placeholder: "Name your journal",
+              class: "canvas__title-input canvas__title-input--pill",
+              autofocus: true,
+              "aria-label": "Journal name",
+              data: { journal_form_target: "nameInput" } %>
+      </div>
     </div>
 
   <% end %>

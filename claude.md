@@ -79,13 +79,13 @@ These are invoked with `/skill-name` and load only when needed:
 
 ---
 
-### 🎨 Phase 3: The Public Face & UX
+### ✅ Phase 3: The Public Face & UX — COMPLETE
 *Goal: Make the app look professional and handle navigation smoothly.*
 
-- [ ] Marketing Landing Page: Build `Pages#home` for non-logged-in users
-- [ ] Root Logic: Logged out → Landing page, Logged in → Bookshelf (`journals#index`)
-- [ ] Navigation Bar: "My Journals", "New Entry", "Logout"
-- [ ] Flash Messages: "Entry saved successfully!" popups
+- [x] Marketing Landing Page: Build `Pages#home` for non-logged-in users
+- [x] Root Logic: Logged out → Landing page, Logged in → Bookshelf (`journals#index`)
+- [x] Navigation Bar: "My Journals", "New Entry", "Logout"
+- [x] Flash Messages: "Entry saved successfully!" popups
 
 ---
 
@@ -95,13 +95,22 @@ These are invoked with `/skill-name` and load only when needed:
 - [ ] Migration to ActionText: Upgrade content field to Rich Text (Bold, Italics, Links)
 - [ ] Media & Photos: Allow photo attachments via ActiveStorage
 - [ ] Search & Filtering: Search entries by title or filter by mood/date
+- [ ] Journaling Prompts: A curated set of pre-built prompts (e.g. "What made you smile today?", "What's one thing you'd do differently?") shown on the new entry form. User clicks a prompt to auto-fill the title or content area, helping people who don't know what to write.
+- [ ] Mood Tracking: Emoji mood picker on the entry form (😊 Happy, 😴 Tired, 🔥 Motivated, 😰 Anxious, 🙏 Grateful, 😌 Calm, 😔 Sad). Mood stored on the entry, displayed on entry cards and the show page. Enables filtering entries by mood over time. Core feature in Day One and Apple Journal — gives users emotional context and pattern awareness across their journaling history.
+- [ ] Settings Page: Dedicated `/settings` page for the logged-in user. Minimum: change display name, change email, change password, delete account. Can expand later with notification preferences and theme options.
 
 ---
 
 ### 💅 Phase 5: UI/UX Polish (The "Final Look")
 *Goal: Transform basic HTML into sleek design using Bootstrap + Le Wagon stylesheet.*
 
-- [ ] CSS/Bootstrap Integration: Style Journals as cards/books (dark mode)
+- [x] CSS/Bootstrap Integration: Style Journals as cards/books (dark mode)
+- [x] Auth Pages Redesign: Centered dark card layout (sign in + sign up), matching landing page purple tone
+- [x] Password Eye Toggle: Show/hide password on all auth forms (Stimulus controller)
+- [x] Password Requirements: Live checklist on sign-up + server-side validation (uppercase, number, special char, 8+ chars)
+- [x] Journal Color Picker: Color swatches + live book preview on New/Edit Journal form; bookshelf accent bar uses chosen color
+- [x] Landing Page Footer: Two-column footer (LEGAL + COMPANY) replacing single-row bar
+- [x] Bookshelf Cleanup: Removed "New Journal" ghost card from grid (top-right button is the only entry point)
 - [ ] Mood Logic: Auto-show emoji based on mood (🔥, 😴, 😊)
 - [ ] Date Formatting: Change `2026-04-15` to `April 15, 2026`
 - [ ] Empty States: Nice views for "No entries yet"
@@ -124,13 +133,15 @@ These are invoked with `/skill-name` and load only when needed:
 ---
 
 ## Current Status
-**Branch:** `add-journals-layer`
+**Branch:** `ui-ux-polish`
 
-**Phases Complete:** Phase 1 & Phase 2
+**Phases Complete:** Phase 1, Phase 2, Phase 3
 
-**Current Phase:** Phase 3 — The Public Face & UX
+**Current Phase:** Phase 5 — UI/UX Polish (in progress)
 
-**Next Immediate Task:** Build the Marketing Landing Page (`Pages#home`) and set up root path logic
+**Completed this session (April 20, 2026):** Auth redesign, password toggle + validation, journal color picker, footer redesign, bookshelf cleanup
+
+**Next Tasks (Phase 5 remaining):** Mood emoji logic, date formatting, empty states
 
 ---
 
@@ -154,5 +165,5 @@ These are invoked with `/skill-name` and load only when needed:
 
 ---
 
-**Last Updated:** April 18, 2026
+**Last Updated:** April 20, 2026
 **Current Focus:** Phase 5 — UI/UX Polish (branch: `ui-ux-polish`)

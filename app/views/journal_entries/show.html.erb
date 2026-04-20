@@ -28,7 +28,9 @@
     <div class="canvas__body">
 
       <div class="canvas__context">
-        <span class="canvas__context-journal"><%= @journal.name %></span>
+        <span class="journal-pill" style="--journal-pill-color: <%= @journal.color || '#7C6FF7' %>">
+          <%= @journal.name %>
+        </span>
         <span class="canvas__context-date">
           <% if @journal_entry.mood.present? %>
             <span class="canvas__context-mood" aria-label="Mood"><%= @journal_entry.mood %></span>

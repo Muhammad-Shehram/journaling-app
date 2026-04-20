@@ -25,24 +25,24 @@ $r-error:        #E53E3E;
 // ---- HEADER ----
 .entries__header {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 40px;
-  gap: 16px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
 }
 
-.entries__header-left {
+.entries__header-main {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .entries__back {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.82rem;
+  font-size: 1rem;
   font-weight: 600;
   color: $r-muted;
   text-decoration: none;
@@ -52,21 +52,6 @@ $r-error:        #E53E3E;
   i { font-size: 0.75rem; }
 
   &:hover { color: $r-accent; }
-}
-
-.entries__title {
-  font-size: 2rem;
-  font-weight: 800;
-  color: $r-text;
-  letter-spacing: -0.02em;
-  margin: 0;
-
-  span {
-    color: $r-muted;
-    font-weight: 500;
-    font-size: 1.1rem;
-    margin-left: 10px;
-  }
 }
 
 .entries__new-btn {
@@ -239,6 +224,67 @@ $r-error:        #E53E3E;
     color: $r-error;
     background: rgba($r-error, 0.08);
   }
+}
+
+// No-results message shown by Stimulus when search finds nothing
+.entries__no-results {
+  text-align: center;
+  padding: 48px 20px;
+  color: $r-muted;
+  font-size: 0.95rem;
+}
+
+// ---- SEARCH BAR ----
+.entries__search {
+  margin-bottom: 28px;
+}
+
+.entries__search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.entries__search-icon {
+  position: absolute;
+  left: 16px;
+  color: $r-muted;
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.entries__search-input {
+  width: 100%;
+  padding: 11px 44px 11px 40px;
+  border: 1px solid $r-border;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-family: $body-font;
+  background: white;
+  color: $r-text;
+  transition: border-color 0.15s, box-shadow 0.15s;
+
+  &::placeholder { color: rgba($r-muted, 0.6); }
+
+  &:focus {
+    outline: none;
+    border-color: $r-accent;
+    box-shadow: 0 0 0 3px rgba($r-accent, 0.12);
+  }
+}
+
+.entries__search-clear {
+  position: absolute;
+  right: 14px;
+  color: $r-muted;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+
+  &:hover { color: $r-text; }
 }
 
 // ---- EMPTY STATE ----

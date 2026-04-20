@@ -177,19 +177,6 @@ $r-error:        #E53E3E;
   gap: 12px;
   margin-bottom: 32px;
 
-  // Flatten the form-group wrapper for the inline date chip
-  .form-group {
-    margin-bottom: 0 !important;
-    display: inline-flex !important;
-    align-items: center;
-
-    &.has-success .canvas__date-chip {
-      border-color: $r-border !important;
-      box-shadow: none !important;
-    }
-    .form-control-feedback,
-    .valid-feedback { display: none !important; }
-  }
 }
 
 .canvas__context-journal {
@@ -220,14 +207,14 @@ $r-error:        #E53E3E;
   width: auto !important;
   height: auto !important;
   border: 1px solid $r-border !important;
-  border-radius: 8px !important;
-  padding: 5px 12px !important;
-  font-size: 0.85rem !important;
+  border-radius: 50px !important;
+  padding: 11px 16px !important;
+  font-size: 0.92rem !important;
   font-family: $body-font !important;
   color: $r-muted !important;
   background: $r-bg !important;
   cursor: pointer;
-  min-height: 36px;
+  min-height: auto;
   box-shadow: none !important;
   transition: border-color 0.15s ease;
   -webkit-appearance: none;
@@ -331,6 +318,31 @@ $r-error:        #E53E3E;
     outline: 2px solid $r-accent !important;
     outline-offset: 4px;
     border-radius: 4px;
+  }
+}
+
+// ---- JOURNAL NAME PILL ----
+// Used on all entry pages (index header, form context strip, show context strip)
+.journal-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--journal-pill-color, #7C6FF7);
+  color: white;
+  border-radius: 50px;
+  padding: 11px 26px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1;
+
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(white, 0.55);
   }
 }
 
@@ -506,6 +518,34 @@ $r-error:        #E53E3E;
     border-color: $r-accent;
     color: $r-accent;
     background: $r-accent-light;
+  }
+}
+
+// ---- JOURNAL NAME PILL INPUT ----
+// Wraps the name field on new/edit journal forms
+.canvas__name-pill {
+  width: 100%;
+  border: 2px solid var(--journal-color, #7C6FF7);
+  border-radius: 50px;
+  background: color-mix(in srgb, var(--journal-color, #7C6FF7) 8%, white);
+  padding: 2px 24px;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.canvas__title-input--pill {
+  text-align: center !important;
+  background: transparent !important;
+
+  // Suppress the inner focus ring — the pill wrapper provides the visual boundary
+  &:focus-visible {
+    outline: none !important;
+    outline-offset: 0 !important;
+  }
+
+  &::placeholder {
+    text-align: center;
+    color: rgba($r-muted, 0.5) !important;
+    font-weight: 700;
   }
 }
 

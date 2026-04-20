@@ -102,18 +102,10 @@ $journal-colors: #7C6FF7, #F687B3, #4FD1C5, #F6AD55, #63B3ED, #FC8181;
     .journal-card__actions { opacity: 1; }
   }
 
-  // Color accent strip at top
+  // Color accent strip at top — color set via inline style from journal.color
   &__accent {
     height: 5px;
     width: 100%;
-  }
-
-  // Assign rotating colors
-  @for $i from 1 through 6 {
-    &:nth-child(#{$i}) .journal-card__accent,
-    &:nth-child(#{$i + 6}) .journal-card__accent {
-      background: nth($journal-colors, $i);
-    }
   }
 }
 

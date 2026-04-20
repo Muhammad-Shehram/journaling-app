@@ -464,33 +464,50 @@ $r-bg:           #F8F9FC;
 // ---- FOOTER ----
 .landing-footer {
   background: darken($r-dark, 4%);
-  padding: 28px 0;
+  padding: 52px 0 32px;
   border-top: 1px solid rgba(white, 0.06);
+}
 
-  .footer-brand {
-    font-family: $headers-font;
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: white;
-    letter-spacing: -0.02em;
-  }
+.footer-columns {
+  display: flex;
+  gap: 80px;
+  margin-bottom: 40px;
 
-  .footer-links {
-    display: flex;
-    gap: 24px;
+  @media (max-width: 480px) { gap: 40px; }
+}
 
-    a {
-      color: rgba(white, 0.5);
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 500;
-      transition: color 0.2s;
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
 
-      &:hover { color: rgba(white, 0.85); }
-    }
-  }
+.footer-col__heading {
+  font-family: $headers-font;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 4px 0;
+}
 
-  .footer-copy {
+.footer-col__link {
+  color: rgba(white, 0.45);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 400;
+  transition: color 0.2s;
+  display: block;
+
+  &:hover { color: rgba(white, 0.85); }
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(white, 0.06);
+  padding-top: 24px;
+
+  span {
     color: rgba(white, 0.3);
     font-size: 0.82rem;
   }

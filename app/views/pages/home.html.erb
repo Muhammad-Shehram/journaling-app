@@ -170,12 +170,20 @@
 
 <%# ---- FOOTER ---- %>
 <footer class="landing-footer">
-  <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
-    <div class="footer-brand">Reflekto</div>
-    <div class="footer-links">
-      <%= link_to "Sign In", new_user_session_path %>
-      <%= link_to "Get Started", new_user_registration_path %>
+  <div class="container">
+    <div class="footer-columns">
+      <div class="footer-col">
+        <p class="footer-col__heading">Legal</p>
+        <%= link_to "Terms of Service", "#", class: "footer-col__link" %>
+        <%= link_to "Privacy Policy", "#", class: "footer-col__link" %>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col__heading">Company</p>
+        <%= link_to "About Us", "#", class: "footer-col__link" %>
+      </div>
     </div>
-    <div class="footer-copy">© 2026 Reflekto. All rights reserved.</div>
+    <div class="footer-bottom">
+      <span>© 2026 Reflekto. All rights reserved.</span>
+    </div>
   </div>
 </footer>

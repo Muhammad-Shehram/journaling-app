@@ -108,6 +108,13 @@ These are invoked with `/skill-name` and load only when needed:
 
 ---
 
+### 🎯 Phase 5.5: Journal Identity (Deferred — post Rich Content)
+*Goal: Give each journal a unique visual identity like Apple Journal / Day One.*
+
+- [ ] **Emoji/Icon picker on New Journal form** — Full icon grid (100+ icons across categories: activities, travel, food, nature, etc.) that sets a visual icon for the journal cover. Requires: new `icon` string column on `journals`, an icon picker UI component, and updating the bookshelf card to display the chosen icon. Reference: Apple Journal's icon grid UI (screenshots saved). Deferred until Phase 4 rich content is complete since it shares the same "visual identity" milestone.
+
+---
+
 ### 🚀 Phase 6: Final Refinement & Launch
 *Goal: Squash bugs and go live.*
 

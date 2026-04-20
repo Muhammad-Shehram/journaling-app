@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_14_114245) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_20_121431) do
   create_table "journal_entries", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -27,6 +27,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_14_114245) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "color", default: "#7C6FF7"
     t.index ["user_id"], name: "index_journals_on_user_id"
   end
 

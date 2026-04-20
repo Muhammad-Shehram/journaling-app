@@ -17,7 +17,7 @@
     <% if @journals.any? %>
       <% @journals.each do |journal| %>
         <div class="journal-card">
-          <div class="journal-card__accent"></div>
+          <div class="journal-card__accent" style="background: <%= journal.color || '#7C6FF7' %>"></div>
 
           <div class="journal-card__body">
             <%= link_to journal_journal_entries_path(journal), class: "journal-card__link" do %>
@@ -44,16 +44,6 @@
               <i class="fa-solid fa-trash-can"></i>
             <% end %>
           </div>
-        </div>
-      <% end %>
-
-      <%# ---- "ADD NEW" CARD ---- %>
-      <%= link_to new_journal_path, class: "journal-card--new" do %>
-        <div class="journal-card-new__inner">
-          <div class="journal-card-new__icon">
-            <i class="fa-solid fa-plus"></i>
-          </div>
-          <div class="journal-card-new__text">New Journal</div>
         </div>
       <% end %>
 

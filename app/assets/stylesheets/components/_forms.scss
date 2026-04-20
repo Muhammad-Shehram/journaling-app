@@ -408,6 +408,107 @@ $r-error:        #E53E3E;
   p:last-child { margin-bottom: 0; }
 }
 
+// ---- NEW JOURNAL FORM ----
+.canvas__body--journal-new {
+  padding: 32px 40px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+
+  @media (max-width: 600px) { padding: 24px 20px 32px; }
+
+  // override simple_form wrapper so it stretches full width
+  .input { width: 100%; margin: 0; }
+}
+
+// Book cover preview
+.journal-preview {
+  --journal-color: #7C6FF7;
+  display: flex;
+  gap: 0;
+  filter: drop-shadow(0 12px 28px rgba(0,0,0,0.18));
+  transition: filter 0.2s;
+}
+
+.journal-preview__spine {
+  width: 14px;
+  background: color-mix(in srgb, var(--journal-color) 70%, black);
+  border-radius: 4px 0 0 4px;
+  transition: background 0.25s;
+}
+
+.journal-preview__cover {
+  width: 96px;
+  height: 128px;
+  background: var(--journal-color);
+  border-radius: 0 6px 6px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s;
+}
+
+.journal-preview__icon {
+  font-size: 2rem;
+  color: rgba(white, 0.7);
+}
+
+// Color swatches row
+.journal-color-picker {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.color-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s, border-color 0.15s;
+  outline: none;
+
+  &:hover { transform: scale(1.15); }
+
+  &--active {
+    border-color: white;
+    box-shadow: 0 0 0 2px rgba($r-text, 0.25);
+    transform: scale(1.15);
+  }
+}
+
+// Name suggestion chips
+.journal-name-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.name-chip {
+  padding: 6px 14px;
+  border-radius: 50px;
+  border: 1.5px solid $r-border;
+  background: white;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: $r-muted;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: $body-font;
+
+  &:hover {
+    border-color: $r-accent;
+    color: $r-accent;
+    background: $r-accent-light;
+  }
+}
+
 // ---- REDUCED MOTION ----
 @media (prefers-reduced-motion: reduce) {
   .canvas__save,

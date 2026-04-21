@@ -7,7 +7,7 @@
      Date.today.strftime("%Y-%m-%d") %>
 
 <div class="canvas">
-  <%= simple_form_for([@journal, @journal_entry], html: { class: "canvas__form" }) do |f| %>
+  <%= simple_form_for([@journal, @journal_entry], html: { class: "canvas__form", multipart: true }) do |f| %>
 
     <div class="canvas__bar">
       <%= link_to cancel_path, class: "canvas__cancel" do %>
@@ -18,7 +18,7 @@
       </button>
     </div>
 
-    <div class="canvas__body">
+    <div class="canvas__body" data-controller="mood-picker prompt">
 
       <%# Apple Journal-style context strip: journal name on the left, date chip on the right %>
       <div class="canvas__context">
@@ -30,6 +30,30 @@
                         class: "canvas__date-chip",
                         "aria-label": "Entry date",
                         value: date_value %>
+      </div>
+
+      <%# Mood picker %>
+      <div class="mood-picker">
+        <% [
+          ["😊", "Happy"],
+          ["😴", "Tired"],
+          ["🔥", "Motivated"],
+          ["😰", "Anxious"],
+          ["🙏", "Grateful"],
+          ["😌", "Calm"],
+          ["😔", "Sad"]
+        ].each do |emoji, label| %>
+          <button type="button"
+                  class="mood-btn <%= 'mood-btn--active' if @journal_entry.mood == emoji %>"
+                  data-mood="<%= emoji %>"
+                  data-mood-picker-target="btn"
+                  data-action="click->mood-picker#select"
+                  title="<%= label %>">
+            <span class="mood-btn__emoji"><%= emoji %></span>
+            <span class="mood-btn__label"><%= label %></span>
+          </button>
+        <% end %>
+        <%= f.hidden_field :mood, data: { "mood-picker-target": "field" } %>
       </div>
 
       <%# Title — Day One-style oversized borderless field %>
@@ -44,16 +68,73 @@
 
       <div class="canvas__divider"></div>
 
-      <%# Content — open writing surface %>
-      <%= f.input :content,
-                  as: :text,
-                  label: false,
-                  placeholder: "Start writing…",
-                  input_html: {
-                    class: "canvas__content-input",
-                    rows: 14,
-                    "aria-label": "Entry content"
-                  } %>
+      <%# Journaling prompts — new entries only %>
+      <% if @journal_entry.new_record? %>
+        <div class="prompt-chips">
+          <span class="prompt-chips__label">Prompts</span>
+          <% [
+            "What made you smile today?",
+            "What's one thing you'd do differently?",
+            "What are you looking forward to?",
+            "What drained your energy today?",
+            "What's something you're proud of this week?",
+            "Describe a moment of calm today.",
+            "What do you want to remember about today?",
+            "What's been on your mind lately?"
+          ].each do |prompt| %>
+            <button type="button"
+                    class="prompt-chip"
+                    data-prompt="<%= prompt %>"
+                    data-action="click->prompt#fill">
+              <%= prompt %>
+            </button>
+          <% end %>
+        </div>
+      <% end %>
+
+      <%# Content — rich text editor (Trix / ActionText) %>
+      <div class="canvas__rich-editor">
+        <%= f.rich_text_area :content,
+                             placeholder: "Start writing…",
+                             class: "canvas__content-input",
+                             "aria-label": "Entry content",
+                             data: { "prompt-target": "editor" } %>
+      </div>
+
+      <%# Tags — comma-separated chip input %>
+      <div class="tag-input-wrap" data-controller="tag-input"
+           data-tag-input-existing-value="<%= @journal_entry.tags.map(&:name).join(', ') %>"
+           data-tag-input-suggestions-value="<%= @user_tags.map(&:name).to_json %>">
+        <div class="tag-input-chips" data-tag-input-target="chips"></div>
+        <input type="text"
+               class="tag-input-field"
+               placeholder="Add tags (press Enter or comma)…"
+               autocomplete="off"
+               data-tag-input-target="input"
+               data-action="keydown->tag-input#onKeydown input->tag-input#showSuggestions">
+        <%= hidden_field_tag "journal_entry[tag_list]", @journal_entry.tags.map(&:name).join(", "),
+                             data: { "tag-input-target": "field" } %>
+        <div class="tag-suggestions" data-tag-input-target="suggestions" style="display:none"></div>
+      </div>
+
+      <%# Photo attachment %>
+      <div class="canvas__photo-upload">
+        <label class="canvas__photo-label" for="cover_photo_input">
+          <i class="fa-solid fa-image"></i>
+          <span>Add a photo</span>
+        </label>
+        <%= f.file_field :cover_photo,
+                         id: "cover_photo_input",
+                         accept: "image/*",
+                         class: "canvas__photo-file-input",
+                         "aria-label": "Cover photo" %>
+        <% if @journal_entry.cover_photo.attached? %>
+          <div class="canvas__photo-preview">
+            <%= image_tag @journal_entry.cover_photo, class: "canvas__photo-thumb" %>
+            <span class="canvas__photo-filename"><%= @journal_entry.cover_photo.filename %></span>
+          </div>
+        <% end %>
+      </div>
 
     </div>
 

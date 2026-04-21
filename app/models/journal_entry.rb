@@ -1,10 +1,11 @@
 class JournalEntry < ApplicationRecord
-  # ASSOCIATION: Each entry must belong to a journal
   belongs_to :journal
   has_one :user, through: :journal
+  has_rich_text :content
+  has_one_attached :cover_photo
+  has_many :entry_tags, dependent: :destroy
+  has_many :tags, through: :entry_tags
 
-  # VALIDATIONS: Rules for saving data
-  validates :title, presence: true   # James cannot leave the title blank
-  validates :content, presence: true # James must write something in the body
-  validates :entry_date, presence: true    # Every entry needs a date for the timeline
+  validates :title, presence: true
+  validates :entry_date, presence: true
 end

@@ -1,0 +1,98 @@
+<div class="settings-page">
+
+  <div class="settings-header">
+    <h1 class="settings-header__title">Settings</h1>
+    <p class="settings-header__sub">Manage your account and preferences</p>
+  </div>
+
+  <%# ---- PROFILE ---- %>
+  <section class="settings-card" id="profile">
+    <div class="settings-card__header">
+      <div class="settings-card__icon"><i class="fa-solid fa-user"></i></div>
+      <div>
+        <h2 class="settings-card__title">Profile</h2>
+        <p class="settings-card__desc">Update your display name and email address</p>
+      </div>
+    </div>
+
+    <%= form_with model: current_user,
+                  url: update_profile_settings_path,
+                  method: :patch,
+                  class: "settings-form" do |f| %>
+      <div class="settings-form__row">
+        <%= f.label :name, "Display name", class: "settings-form__label" %>
+        <%= f.text_field :name,
+                         class: "settings-form__input",
+                         placeholder: "Your name",
+                         autocomplete: "name" %>
+      </div>
+      <div class="settings-form__row">
+        <%= f.label :email, "Email address", class: "settings-form__label" %>
+        <%= f.email_field :email,
+                          class: "settings-form__input",
+                          placeholder: "you@example.com",
+                          autocomplete: "email" %>
+      </div>
+      <button type="submit" class="settings-btn settings-btn--primary">Save profile</button>
+    <% end %>
+  </section>
+
+  <%# ---- PASSWORD ---- %>
+  <section class="settings-card" id="password">
+    <div class="settings-card__header">
+      <div class="settings-card__icon"><i class="fa-solid fa-lock"></i></div>
+      <div>
+        <h2 class="settings-card__title">Password</h2>
+        <p class="settings-card__desc">Change your login password</p>
+      </div>
+    </div>
+
+    <%= form_with model: current_user,
+                  url: update_password_settings_path,
+                  method: :patch,
+                  class: "settings-form" do |f| %>
+      <div class="settings-form__row">
+        <%= f.label :current_password, "Current password", class: "settings-form__label" %>
+        <%= f.password_field :current_password,
+                             class: "settings-form__input",
+                             autocomplete: "current-password" %>
+      </div>
+      <div class="settings-form__row">
+        <%= f.label :password, "New password", class: "settings-form__label" %>
+        <%= f.password_field :password,
+                             class: "settings-form__input",
+                             autocomplete: "new-password" %>
+      </div>
+      <div class="settings-form__row">
+        <%= f.label :password_confirmation, "Confirm new password", class: "settings-form__label" %>
+        <%= f.password_field :password_confirmation,
+                             class: "settings-form__input",
+                             autocomplete: "new-password" %>
+      </div>
+      <button type="submit" class="settings-btn settings-btn--primary">Change password</button>
+    <% end %>
+  </section>
+
+  <%# ---- DANGER ZONE ---- %>
+  <section class="settings-card settings-card--danger" id="danger">
+    <div class="settings-card__header">
+      <div class="settings-card__icon settings-card__icon--danger"><i class="fa-solid fa-triangle-exclamation"></i></div>
+      <div>
+        <h2 class="settings-card__title">Danger zone</h2>
+        <p class="settings-card__desc">Permanently delete your account and all journals</p>
+      </div>
+    </div>
+
+    <p class="settings-danger__warning">
+      This action is <strong>irreversible</strong>. All your journals, entries, and data will be permanently deleted.
+    </p>
+
+    <%= button_to destroy_account_settings_path,
+                  method: :delete,
+                  class: "settings-btn settings-btn--danger",
+                  data: { turbo_confirm: "Are you absolutely sure? All your journals and entries will be deleted forever." } do %>
+      <i class="fa-solid fa-trash-can"></i> Delete my account
+    <% end %>
+  </section>
+
+</div>

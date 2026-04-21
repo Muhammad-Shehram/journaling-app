@@ -21,6 +21,12 @@ Rails.application.routes.draw do
   # 2. This tells Rails: If someone is NOT logged in, show them the landing page.
   root to: "pages#home"
 
+  resource :settings, only: [:show] do
+    patch :update_profile, on: :member
+    patch :update_password, on: :member
+    delete :destroy_account, on: :member
+  end
+
   resources :journals do
     resources :journal_entries
   end

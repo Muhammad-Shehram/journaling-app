@@ -1,4 +1,8 @@
-<div class="entries" data-controller="entry-search">
+<div class="entries"
+     data-controller="entry-search calendar"
+     data-calendar-dates-value="<%= @all_entry_dates.to_json %>"
+     data-calendar-base-url-value="<%= journal_journal_entries_path(@journal) %>"
+     data-calendar-journal-color-value="<%= @journal.color || '#7C6FF7' %>">
 
   <%# ---- HEADER ---- %>
   <div class="entries__header">
@@ -31,7 +35,109 @@
     </div>
   </div>
 
+  <%# ---- FILTER BAR ---- %>
+  <div class="entries__filters">
+
+    <%# Mood filter chips %>
+    <div class="entries__filter-row">
+      <span class="entries__filter-label">Mood</span>
+      <div class="entries__mood-filters">
+        <% [["😊","Happy"],["😴","Tired"],["🔥","Motivated"],["😰","Anxious"],["🙏","Grateful"],["😌","Calm"],["😔","Sad"]].each do |emoji, label| %>
+          <%= link_to journal_journal_entries_path(@journal, mood: emoji, q: params[:q], from: params[:from], to: params[:to]),
+                      class: "mood-filter-chip #{'mood-filter-chip--active' if params[:mood] == emoji}",
+                      title: label do %>
+            <%= emoji %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <%# Date range filter %>
+    <%= form_with url: journal_journal_entries_path(@journal), method: :get, class: "entries__date-range" do |f| %>
+      <span class="entries__filter-label">Date range</span>
+      <%= hidden_field_tag :q, params[:q] %>
+      <%= hidden_field_tag :mood, params[:mood] %>
+      <%= date_field_tag :from, params[:from], class: "entries__date-input", "aria-label": "From date" %>
+      <span class="entries__date-sep">→</span>
+      <%= date_field_tag :to, params[:to], class: "entries__date-input", "aria-label": "To date" %>
+      <button type="submit" class="entries__date-apply">Apply</button>
+    <% end %>
+
+    <%# Tag filter chips %>
+    <% if @user_tags.any? %>
+      <div class="entries__filter-row">
+        <span class="entries__filter-label">Tags</span>
+        <div class="entries__tag-filters">
+          <% @user_tags.each do |tag| %>
+            <%= link_to journal_journal_entries_path(@journal, tag: tag.name, q: params[:q], mood: params[:mood], from: params[:from], to: params[:to]),
+                        class: "tag-filter-chip #{'tag-filter-chip--active' if params[:tag] == tag.name}" do %>
+              <%= tag.name %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <%# Active filter chips (shown only when filters are active) %>
+    <% if params[:mood].present? || params[:from].present? || params[:to].present? || params[:tag].present? %>
+      <div class="entries__active-filters">
+        <% if params[:mood].present? %>
+          <%= link_to journal_journal_entries_path(@journal, q: params[:q], from: params[:from], to: params[:to], tag: params[:tag]),
+                      class: "active-filter-chip" do %>
+            <%= params[:mood] %> mood <i class="fa-solid fa-xmark"></i>
+          <% end %>
+        <% end %>
+        <% if params[:tag].present? %>
+          <%= link_to journal_journal_entries_path(@journal, q: params[:q], mood: params[:mood], from: params[:from], to: params[:to]),
+                      class: "active-filter-chip" do %>
+            #<%= params[:tag] %> <i class="fa-solid fa-xmark"></i>
+          <% end %>
+        <% end %>
+        <% if params[:from].present? || params[:to].present? %>
+          <%= link_to journal_journal_entries_path(@journal, q: params[:q], mood: params[:mood], tag: params[:tag]),
+                      class: "active-filter-chip" do %>
+            <i class="fa-solid fa-calendar"></i>
+            <%= params[:from].present? ? Date.parse(params[:from]).strftime("%b %-d") : "Start" %>
+            –
+            <%= params[:to].present? ? Date.parse(params[:to]).strftime("%b %-d") : "Today" %>
+            <i class="fa-solid fa-xmark"></i>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+
+  </div>
+
+  <%# ---- VIEW TOGGLE ---- %>
+  <div class="view-toggle-row">
+    <button type="button" class="view-toggle view-toggle--active"
+            data-calendar-target="listBtn"
+            data-action="click->calendar#showList">
+      <i class="fa-solid fa-list"></i> List
+    </button>
+    <button type="button" class="view-toggle"
+            data-calendar-target="calBtn"
+            data-action="click->calendar#showCal">
+      <i class="fa-regular fa-calendar"></i> Calendar
+    </button>
+  </div>
+
+  <%# ---- CALENDAR VIEW (hidden by default) ---- %>
+  <div class="calendar-view" data-calendar-target="calView" style="display:none">
+    <div class="calendar-nav">
+      <button type="button" class="cal-nav-btn" data-action="click->calendar#prevMonth">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <span class="cal-month-label" data-calendar-target="monthLabel"></span>
+      <button type="button" class="cal-nav-btn" data-action="click->calendar#nextMonth">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+    <div class="calendar-grid" data-calendar-target="grid"></div>
+  </div>
+
   <%# ---- ENTRY LIST ---- %>
+  <div data-calendar-target="listView">
   <% if @journal_entries.any? %>
     <div class="entries__list" data-entry-search-target="list">
       <% @journal_entries.each do |entry| %>
@@ -46,10 +152,13 @@
           <%# Main content — clickable %>
           <%= link_to journal_journal_entry_path(@journal, entry), class: "entry-card__link" do %>
             <div class="entry-card__title"><%= entry.title %></div>
-            <div class="entry-card__preview"><%= entry.content %></div>
+            <div class="entry-card__preview"><%= entry.content.to_plain_text.truncate(120) %></div>
             <div class="entry-card__meta">
               <% if entry.mood.present? %>
                 <span class="entry-card__mood"><%= entry.mood %></span>
+              <% end %>
+              <% entry.tags.each do |tag| %>
+                <span class="entry-tag-badge"><%= tag.name %></span>
               <% end %>
               <span class="entry-card__time"><%= entry.entry_date.strftime("%B %d, %Y") %></span>
             </div>
@@ -90,5 +199,6 @@
       <% end %>
     </div>
   <% end %>
+  </div><%# end listView %>
 
 </div>

@@ -521,6 +521,205 @@ $r-error:        #E53E3E;
   }
 }
 
+// ---- MOOD PICKER ----
+.mood-picker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.mood-btn {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 8px 10px;
+  border: 1.5px solid $r-border;
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.12s ease;
+  min-width: 56px;
+  font-family: $body-font;
+
+  &__emoji {
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+
+  &__label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: $r-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    transition: color 0.15s;
+  }
+
+  &:hover {
+    border-color: $r-accent;
+    background: $r-accent-light;
+    transform: translateY(-1px);
+
+    .mood-btn__label { color: $r-accent; }
+  }
+
+  &--active {
+    border-color: $r-accent;
+    background: $r-accent-light;
+    box-shadow: 0 0 0 2px rgba($r-accent, 0.18);
+
+    .mood-btn__label { color: $r-accent; }
+  }
+}
+
+// ---- JOURNALING PROMPTS ----
+.prompt-chips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+
+  &__label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $r-muted;
+    margin-right: 2px;
+    white-space: nowrap;
+  }
+}
+
+.prompt-chip {
+  padding: 5px 12px;
+  border-radius: 50px;
+  border: 1.5px solid $r-border;
+  background: white;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: $r-muted;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: $body-font;
+  text-align: left;
+
+  &:hover {
+    border-color: $r-accent;
+    color: $r-accent;
+    background: $r-accent-light;
+  }
+}
+
+// ---- TAG INPUT ----
+.tag-input-wrap {
+  position: relative;
+  border: 1px solid $r-border;
+  border-radius: 10px;
+  background: $r-bg;
+  padding: 8px 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+  transition: border-color 0.15s;
+
+  &:focus-within {
+    border-color: $r-accent;
+    box-shadow: 0 0 0 3px rgba($r-accent, 0.1);
+  }
+}
+
+.tag-input-chips {
+  display: contents; // children participate directly in parent flex
+}
+
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 50px;
+  background: $r-accent;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  &__remove {
+    background: none;
+    border: none;
+    color: rgba(white, 0.7);
+    padding: 0;
+    cursor: pointer;
+    font-size: 0.65rem;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+
+    &:hover { color: white; }
+  }
+}
+
+.tag-input-field {
+  border: none;
+  background: transparent;
+  font-size: 0.88rem;
+  font-family: $body-font;
+  color: $r-text;
+  outline: none;
+  flex: 1;
+  min-width: 120px;
+
+  &::placeholder { color: rgba($r-muted, 0.6); }
+}
+
+.tag-suggestions {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid $r-border;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba($r-dark, 0.08);
+  z-index: 50;
+  padding: 4px;
+}
+
+.tag-suggestion {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 7px 12px;
+  font-size: 0.85rem;
+  font-family: $body-font;
+  color: $r-text;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover {
+    background: $r-accent-light;
+    color: $r-accent;
+  }
+}
+
+// Tags on show page
+.canvas__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid $r-border;
+}
+
 // ---- JOURNAL NAME PILL INPUT ----
 // Wraps the name field on new/edit journal forms
 .canvas__name-pill {
@@ -547,6 +746,191 @@ $r-error:        #E53E3E;
     color: rgba($r-muted, 0.5) !important;
     font-weight: 700;
   }
+}
+
+// ============================================
+// TRIX RICH TEXT EDITOR — dark-mode styling
+// ============================================
+
+.canvas__rich-editor {
+  // Remove the default ActionText margin
+  .trix-editor-container {
+    margin: 0;
+  }
+}
+
+trix-toolbar {
+  .trix-button-group {
+    border: 1px solid $r-border !important;
+    border-radius: 8px !important;
+    overflow: hidden;
+    background: $r-bg !important;
+    margin-bottom: 0;
+  }
+
+  .trix-button {
+    border: none !important;
+    background: transparent !important;
+    color: $r-muted !important;
+    padding: 6px 10px !important;
+    font-size: 0.82rem !important;
+    min-height: 34px !important;
+    transition: background 0.12s ease, color 0.12s ease;
+
+    &:not(:last-child) {
+      border-right: 1px solid $r-border !important;
+    }
+
+    &:hover {
+      background: $r-accent-light !important;
+      color: $r-accent !important;
+    }
+
+    &.trix-active {
+      background: $r-accent !important;
+      color: white !important;
+    }
+
+    &--icon::before {
+      background-color: currentColor !important;
+    }
+  }
+
+  // Hide attachment/file buttons (we have our own photo uploader)
+  .trix-button-group--file-tools {
+    display: none !important;
+  }
+}
+
+trix-editor {
+  font-family: $body-font !important;
+  font-size: 1.05rem !important;
+  line-height: 1.8 !important;
+  color: $r-text !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  min-height: 480px;
+  outline: none !important;
+  box-shadow: none !important;
+
+  @media (max-width: 768px) {
+    min-height: calc(100dvh - 380px);
+  }
+
+  &:empty::before {
+    color: rgba($r-muted, 0.4) !important;
+  }
+
+  // Heading styles inside the editor
+  h1 { font-size: 1.4rem; font-weight: 700; margin: 1rem 0 0.4rem; }
+  h2 { font-size: 1.2rem; font-weight: 700; margin: 0.8rem 0 0.4rem; }
+
+  // Blockquote
+  blockquote {
+    border-left: 3px solid $r-accent;
+    margin: 1rem 0;
+    padding-left: 16px;
+    color: $r-muted;
+    font-style: italic;
+  }
+
+  ul, ol {
+    padding-left: 24px;
+    margin: 0.5rem 0;
+  }
+
+  a { color: $r-accent; }
+}
+
+// Read-mode rich text body — Trix renders into .trix-content
+.canvas__content-display .trix-content {
+  font-family: $body-font;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: $r-text;
+  white-space: normal;
+
+  p { margin: 0 0 1.1rem 0; }
+  p:last-child { margin-bottom: 0; }
+  h1 { font-size: 1.4rem; font-weight: 700; }
+  blockquote {
+    border-left: 3px solid $r-accent;
+    padding-left: 16px;
+    color: $r-muted;
+    font-style: italic;
+    margin: 1rem 0;
+  }
+  ul, ol { padding-left: 24px; }
+  a { color: $r-accent; }
+}
+
+// ---- PHOTO UPLOAD ----
+.canvas__photo-upload {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.canvas__photo-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1.5px dashed $r-border;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: $r-muted;
+  cursor: pointer;
+  width: fit-content;
+  transition: border-color 0.15s ease, color 0.15s ease;
+
+  i { font-size: 1rem; }
+
+  &:hover {
+    border-color: $r-accent;
+    color: $r-accent;
+  }
+}
+
+.canvas__photo-file-input {
+  display: none !important;
+}
+
+.canvas__photo-preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.canvas__photo-thumb {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid $r-border;
+}
+
+.canvas__photo-filename {
+  font-size: 0.82rem;
+  color: $r-muted;
+}
+
+// Cover photo on show page
+.canvas__cover-photo {
+  margin-bottom: 28px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.canvas__cover-img {
+  width: 100%;
+  max-height: 340px;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
 }
 
 // ---- REDUCED MOTION ----

@@ -111,9 +111,8 @@ These are invoked with `/skill-name` and load only when needed:
 - [x] Journal Color Picker: Color swatches + live book preview on New/Edit Journal form; bookshelf accent bar uses chosen color
 - [x] Landing Page Footer: Two-column footer (LEGAL + COMPANY) replacing single-row bar
 - [x] Bookshelf Cleanup: Removed "New Journal" ghost card from grid (top-right button is the only entry point)
-- [ ] Mood Logic: Auto-show emoji based on mood (🔥, 😴, 😊)
-- [ ] Date Formatting: Change `2026-04-15` to `April 15, 2026`
-- [ ] Empty States: Nice views for "No entries yet"
+- [x] Date Formatting: Change `2026-04-15` to `April 15, 2026`
+- [x] Empty States: Nice views for "No entries yet"
 
 ---
 
@@ -121,6 +120,7 @@ These are invoked with `/skill-name` and load only when needed:
 *Goal: Give each journal a unique visual identity like Apple Journal / Day One.*
 
 - [ ] **Emoji/Icon picker on New Journal form** — Full icon grid (100+ icons across categories: activities, travel, food, nature, etc.) that sets a visual icon for the journal cover. Requires: new `icon` string column on `journals`, an icon picker UI component, and updating the bookshelf card to display the chosen icon. Reference: Apple Journal's icon grid UI (screenshots saved). Deferred until Phase 4 rich content is complete since it shares the same "visual identity" milestone.
+- [ ] Mood Logic: Auto-show emoji based on mood (🔥, 😴, 😊)
 
 ---
 

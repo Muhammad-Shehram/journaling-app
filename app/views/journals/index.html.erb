@@ -11,6 +11,28 @@
     <% end %>
   </div>
 
+  <%# ---- STATS WIDGET ---- %>
+  <% if @stats[:total_entries] > 0 %>
+    <div class="stats-row">
+      <div class="stat-card">
+        <span class="stat-card__value"><%= @stats[:total_entries] %></span>
+        <span class="stat-card__label">Entries</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-card__value"><%= number_with_delimiter(@stats[:total_words]) %></span>
+        <span class="stat-card__label">Words written</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-card__value"><%= @stats[:current_streak] %></span>
+        <span class="stat-card__label">Day streak</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-card__value"><%= @stats[:longest_streak] %></span>
+        <span class="stat-card__label">Longest streak</span>
+      </div>
+    </div>
+  <% end %>
+
   <%# ---- CARD GRID ---- %>
   <div class="bookshelf__grid">
 

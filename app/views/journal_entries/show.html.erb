@@ -32,9 +32,6 @@
           <%= @journal.name %>
         </span>
         <span class="canvas__context-date">
-          <% if @journal_entry.mood.present? %>
-            <span class="canvas__context-mood" aria-label="Mood"><%= @journal_entry.mood %></span>
-          <% end %>
           <%= @journal_entry.entry_date.strftime("%B %-d, %Y") %>
         </span>
       </div>

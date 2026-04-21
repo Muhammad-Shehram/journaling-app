@@ -619,20 +619,27 @@ $r-error:        #E53E3E;
 .tag-input-wrap {
   position: relative;
   border: 1px solid $r-border;
-  border-radius: 10px;
+  border-radius: 50px; // pill shape to match context strip
   background: $r-bg;
-  padding: 8px 12px;
+  padding: 8px 16px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 6px;
-  margin-top: 20px;
-  transition: border-color 0.15s;
+  margin-bottom: 28px; // replaces the mood picker spacing
+  transition: border-color 0.15s, box-shadow 0.15s;
 
   &:focus-within {
     border-color: $r-accent;
     box-shadow: 0 0 0 3px rgba($r-accent, 0.1);
+    background: white;
   }
+}
+
+.tag-input-icon {
+  font-size: 0.78rem;
+  color: $r-muted;
+  flex-shrink: 0;
 }
 
 .tag-input-chips {

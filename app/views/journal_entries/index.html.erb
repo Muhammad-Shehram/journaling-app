@@ -38,25 +38,10 @@
   <%# ---- FILTER BAR ---- %>
   <div class="entries__filters">
 
-    <%# Mood filter chips %>
-    <div class="entries__filter-row">
-      <span class="entries__filter-label">Mood</span>
-      <div class="entries__mood-filters">
-        <% [["😊","Happy"],["😴","Tired"],["🔥","Motivated"],["😰","Anxious"],["🙏","Grateful"],["😌","Calm"],["😔","Sad"]].each do |emoji, label| %>
-          <%= link_to journal_journal_entries_path(@journal, mood: emoji, q: params[:q], from: params[:from], to: params[:to]),
-                      class: "mood-filter-chip #{'mood-filter-chip--active' if params[:mood] == emoji}",
-                      title: label do %>
-            <%= emoji %>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
-
     <%# Date range filter %>
     <%= form_with url: journal_journal_entries_path(@journal), method: :get, class: "entries__date-range" do |f| %>
       <span class="entries__filter-label">Date range</span>
       <%= hidden_field_tag :q, params[:q] %>
-      <%= hidden_field_tag :mood, params[:mood] %>
       <%= date_field_tag :from, params[:from], class: "entries__date-input", "aria-label": "From date" %>
       <span class="entries__date-sep">→</span>
       <%= date_field_tag :to, params[:to], class: "entries__date-input", "aria-label": "To date" %>
@@ -69,7 +54,7 @@
         <span class="entries__filter-label">Tags</span>
         <div class="entries__tag-filters">
           <% @user_tags.each do |tag| %>
-            <%= link_to journal_journal_entries_path(@journal, tag: tag.name, q: params[:q], mood: params[:mood], from: params[:from], to: params[:to]),
+            <%= link_to journal_journal_entries_path(@journal, tag: tag.name, q: params[:q], from: params[:from], to: params[:to]),
                         class: "tag-filter-chip #{'tag-filter-chip--active' if params[:tag] == tag.name}" do %>
               <%= tag.name %>
             <% end %>
@@ -79,22 +64,16 @@
     <% end %>
 
     <%# Active filter chips (shown only when filters are active) %>
-    <% if params[:mood].present? || params[:from].present? || params[:to].present? || params[:tag].present? %>
+    <% if params[:from].present? || params[:to].present? || params[:tag].present? %>
       <div class="entries__active-filters">
-        <% if params[:mood].present? %>
-          <%= link_to journal_journal_entries_path(@journal, q: params[:q], from: params[:from], to: params[:to], tag: params[:tag]),
-                      class: "active-filter-chip" do %>
-            <%= params[:mood] %> mood <i class="fa-solid fa-xmark"></i>
-          <% end %>
-        <% end %>
         <% if params[:tag].present? %>
-          <%= link_to journal_journal_entries_path(@journal, q: params[:q], mood: params[:mood], from: params[:from], to: params[:to]),
+          <%= link_to journal_journal_entries_path(@journal, q: params[:q], from: params[:from], to: params[:to]),
                       class: "active-filter-chip" do %>
             #<%= params[:tag] %> <i class="fa-solid fa-xmark"></i>
           <% end %>
         <% end %>
         <% if params[:from].present? || params[:to].present? %>
-          <%= link_to journal_journal_entries_path(@journal, q: params[:q], mood: params[:mood], tag: params[:tag]),
+          <%= link_to journal_journal_entries_path(@journal, q: params[:q], tag: params[:tag]),
                       class: "active-filter-chip" do %>
             <i class="fa-solid fa-calendar"></i>
             <%= params[:from].present? ? Date.parse(params[:from]).strftime("%b %-d") : "Start" %>
@@ -154,9 +133,6 @@
             <div class="entry-card__title"><%= entry.title %></div>
             <div class="entry-card__preview"><%= entry.content.to_plain_text.truncate(120) %></div>
             <div class="entry-card__meta">
-              <% if entry.mood.present? %>
-                <span class="entry-card__mood"><%= entry.mood %></span>
-              <% end %>
               <% entry.tags.each do |tag| %>
                 <span class="entry-tag-badge"><%= tag.name %></span>
               <% end %>

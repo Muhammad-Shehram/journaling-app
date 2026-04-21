@@ -18,7 +18,7 @@
       </button>
     </div>
 
-    <div class="canvas__body" data-controller="mood-picker prompt">
+    <div class="canvas__body" data-controller="prompt">
 
       <%# Apple Journal-style context strip: journal name on the left, date chip on the right %>
       <div class="canvas__context">
@@ -32,28 +32,21 @@
                         value: date_value %>
       </div>
 
-      <%# Mood picker %>
-      <div class="mood-picker">
-        <% [
-          ["😊", "Happy"],
-          ["😴", "Tired"],
-          ["🔥", "Motivated"],
-          ["😰", "Anxious"],
-          ["🙏", "Grateful"],
-          ["😌", "Calm"],
-          ["😔", "Sad"]
-        ].each do |emoji, label| %>
-          <button type="button"
-                  class="mood-btn <%= 'mood-btn--active' if @journal_entry.mood == emoji %>"
-                  data-mood="<%= emoji %>"
-                  data-mood-picker-target="btn"
-                  data-action="click->mood-picker#select"
-                  title="<%= label %>">
-            <span class="mood-btn__emoji"><%= emoji %></span>
-            <span class="mood-btn__label"><%= label %></span>
-          </button>
-        <% end %>
-        <%= f.hidden_field :mood, data: { "mood-picker-target": "field" } %>
+      <%# Tags — primary organisation field %>
+      <div class="tag-input-wrap" data-controller="tag-input"
+           data-tag-input-existing-value="<%= @journal_entry.tags.map(&:name).join(', ') %>"
+           data-tag-input-suggestions-value="<%= @user_tags.map(&:name).to_json %>">
+        <i class="fa-solid fa-tag tag-input-icon"></i>
+        <div class="tag-input-chips" data-tag-input-target="chips"></div>
+        <input type="text"
+               class="tag-input-field"
+               placeholder="Add tags…"
+               autocomplete="off"
+               data-tag-input-target="input"
+               data-action="keydown->tag-input#onKeydown input->tag-input#showSuggestions">
+        <%= hidden_field_tag "journal_entry[tag_list]", @journal_entry.tags.map(&:name).join(", "),
+                             data: { "tag-input-target": "field" } %>
+        <div class="tag-suggestions" data-tag-input-target="suggestions" style="display:none"></div>
       </div>
 
       <%# Title — Day One-style oversized borderless field %>
@@ -99,22 +92,6 @@
                              class: "canvas__content-input",
                              "aria-label": "Entry content",
                              data: { "prompt-target": "editor" } %>
-      </div>
-
-      <%# Tags — comma-separated chip input %>
-      <div class="tag-input-wrap" data-controller="tag-input"
-           data-tag-input-existing-value="<%= @journal_entry.tags.map(&:name).join(', ') %>"
-           data-tag-input-suggestions-value="<%= @user_tags.map(&:name).to_json %>">
-        <div class="tag-input-chips" data-tag-input-target="chips"></div>
-        <input type="text"
-               class="tag-input-field"
-               placeholder="Add tags (press Enter or comma)…"
-               autocomplete="off"
-               data-tag-input-target="input"
-               data-action="keydown->tag-input#onKeydown input->tag-input#showSuggestions">
-        <%= hidden_field_tag "journal_entry[tag_list]", @journal_entry.tags.map(&:name).join(", "),
-                             data: { "tag-input-target": "field" } %>
-        <div class="tag-suggestions" data-tag-input-target="suggestions" style="display:none"></div>
       </div>
 
       <%# Photo attachment %>

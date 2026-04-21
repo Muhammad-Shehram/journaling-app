@@ -95,8 +95,8 @@ These are invoked with `/skill-name` and load only when needed:
 - [ ] Migration to ActionText: Upgrade content field to Rich Text (Bold, Italics, Links)
 - [ ] Media & Photos: Allow photo attachments via ActiveStorage
 - [ ] Search & Filtering: Search entries by title or filter by mood/date
-- [ ] Journaling Prompts: A curated set of pre-built prompts (e.g. "What made you smile today?", "What's one thing you'd do differently?") shown on the new entry form. User clicks a prompt to auto-fill the title or content area, helping people who don't know what to write.
-- [ ] Mood Tracking: Emoji mood picker on the entry form (😊 Happy, 😴 Tired, 🔥 Motivated, 😰 Anxious, 🙏 Grateful, 😌 Calm, 😔 Sad). Mood stored on the entry, displayed on entry cards and the show page. Enables filtering entries by mood over time. Core feature in Day One and Apple Journal — gives users emotional context and pattern awareness across their journaling history.
+- [ ] Journaling Prompts: **Dedicated `/prompts` page** (not inline chips on the form). Browse a curated library of prompts organized by category (Reflection, Gratitude, Creativity, etc.). Tapping a prompt opens `new entry` pre-filled with that prompt as the title or starter text. This is the Day One "Templates" UX — intentional, not cluttered. The inline prompt chips currently on the form are a placeholder and should be removed when this page is built.
+- [x] Mood Tracking: Built as emoji picker. **Designer note (April 21 2026): emoji moods feel consumer/childish and should be deprioritized.** The `mood` DB column is preserved for potential future use (e.g. a hidden private field), but the mood picker UI should be removed from the entry form and the mood filter row removed from the entries index. Tags are the professional replacement — they are flexible, user-defined, and cross-journal.
 - [ ] Settings Page: Dedicated `/settings` page for the logged-in user. Minimum: change display name, change email, change password, delete account. Can expand later with notification preferences and theme options.
 
 ---
@@ -120,7 +120,7 @@ These are invoked with `/skill-name` and load only when needed:
 *Goal: Give each journal a unique visual identity like Apple Journal / Day One.*
 
 - [ ] **Emoji/Icon picker on New Journal form** — Full icon grid (100+ icons across categories: activities, travel, food, nature, etc.) that sets a visual icon for the journal cover. Requires: new `icon` string column on `journals`, an icon picker UI component, and updating the bookshelf card to display the chosen icon. Reference: Apple Journal's icon grid UI (screenshots saved). Deferred until Phase 4 rich content is complete since it shares the same "visual identity" milestone.
-- [ ] Mood Logic: Auto-show emoji based on mood (🔥, 😴, 😊)
+- [ ] Remove mood UI: Strip the mood picker from the entry form and the MOOD filter row from the entries index. The `mood` DB column stays but is not user-facing.
 
 ---
 
@@ -133,15 +133,15 @@ These are invoked with `/skill-name` and load only when needed:
 ---
 
 ## Current Status
-**Branch:** `ui-ux-polish`
+**Branch:** `phase-4-rich-content`
 
-**Phases Complete:** Phase 1, Phase 2, Phase 3
+**Phases Complete:** Phase 1, Phase 2, Phase 3, Phase 5 (UI/UX Polish)
 
-**Current Phase:** Phase 5 — UI/UX Polish (in progress)
+**Current Phase:** Phase 4 — Rich Content (in progress)
 
-**Completed this session (April 20, 2026):** Auth redesign, password toggle + validation, journal color picker, footer redesign, bookshelf cleanup
+**Completed (April 21, 2026):** ActionText + ActiveStorage, mood picker (to be removed), journaling prompts (inline — to be replaced by proper prompts page), mood + date + tag filters, Tag/EntryTag models, Settings page, writing stats widget, calendar view
 
-**Next Tasks (Phase 5 remaining):** Mood emoji logic, date formatting, empty states
+**Next Tasks:** Remove mood UI → promote tag input to primary position on entry form; build proper `/prompts` page
 
 ---
 
@@ -165,5 +165,5 @@ These are invoked with `/skill-name` and load only when needed:
 
 ---
 
-**Last Updated:** April 20, 2026
+**Last Updated:** April 21, 2026
 **Current Focus:** Phase 5 — UI/UX Polish (branch: `ui-ux-polish`)

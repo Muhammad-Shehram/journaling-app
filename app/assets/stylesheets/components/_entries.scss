@@ -22,12 +22,18 @@ $r-error:        #E53E3E;
   @media (max-width: 768px) { padding: 32px 16px 60px; }
 }
 
+// ---- JOURNAL HEADER (sidebar layout — no back link) ----
+.entries__header {
+  margin-bottom: 28px;
+}
+
 // ---- HEADER ----
 .entries__header {
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-bottom: 32px;
+  // Note: back link removed — sidebar handles journal navigation
 }
 
 .entries__header-main {

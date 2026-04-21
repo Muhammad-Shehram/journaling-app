@@ -6,9 +6,6 @@
 
   <%# ---- HEADER ---- %>
   <div class="entries__header">
-    <%= link_to journals_path, class: "entries__back" do %>
-      <i class="fa-solid fa-arrow-left"></i> My Journals
-    <% end %>
     <div class="entries__header-main">
       <span class="journal-pill" style="--journal-pill-color: <%= @journal.color || '#7C6FF7' %>">
         <%= @journal.name %>

@@ -3,7 +3,9 @@ class JournalsController < ApplicationController
   before_action :set_journal, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @journals = current_user.journals
+    @all_entries = current_user.journal_entries
+                                .includes(:journal, :tags)
+                                .order(entry_date: :desc)
     @stats = compute_stats
   end
 

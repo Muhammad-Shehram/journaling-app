@@ -25,6 +25,11 @@ $r-error:        #E53E3E;
   }
 }
 
+// Settings page also sits in the dark main area
+.settings-page {
+  color: inherit;
+}
+
 // ---- THE FORM CARD ----
 .canvas__form {
   background: white;

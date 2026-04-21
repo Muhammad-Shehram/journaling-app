@@ -19,32 +19,109 @@
 
   <body>
     <% if user_signed_in? %>
-      <nav class="app-nav">
-        <div class="container d-flex align-items-center justify-content-between">
-          <div class="app-nav__brand">Reflekto</div>
-          <div class="app-nav__links">
-            <%= link_to "My Journals", journals_path %>
-            <%= link_to "Settings", settings_path %>
-            <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete } %>
-          </div>
+      <div class="app-shell" data-controller="sidebar">
+
+        <%# Mobile top bar — hidden on desktop %>
+        <div class="app-topbar">
+          <button class="app-topbar__hamburger" data-action="click->sidebar#toggle" aria-label="Toggle menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <span class="app-topbar__brand">Reflekto</span>
         </div>
-      </nav>
-    <% end %>
 
-    <% if notice %>
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <%= notice %>
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <aside class="app-sidebar" data-sidebar-target="panel">
+          <div class="app-sidebar__inner">
+
+            <div class="sidebar__brand">Reflekto</div>
+
+            <% if @sidebar_new_entry_journal %>
+              <%= link_to new_journal_journal_entry_path(@sidebar_new_entry_journal), class: "sidebar__new-entry-btn" do %>
+                <i class="fa-solid fa-plus"></i> New Entry
+              <% end %>
+            <% else %>
+              <%= link_to new_journal_path, class: "sidebar__new-entry-btn" do %>
+                <i class="fa-solid fa-plus"></i> New Journal
+              <% end %>
+            <% end %>
+
+            <%= link_to journals_path,
+                        class: "sidebar__nav-item #{'sidebar__nav-item--active' if controller_name == 'journals' && action_name == 'index'}" do %>
+              <i class="fa-solid fa-layer-group"></i>
+              All Entries
+            <% end %>
+
+            <% if @sidebar_journals.any? %>
+              <div class="sidebar__section-label">Journals</div>
+              <ul class="sidebar__journal-list">
+                <% @sidebar_journals.each do |j| %>
+                  <li>
+                    <%= link_to journal_journal_entries_path(j),
+                                class: "sidebar__journal-item #{'sidebar__journal-item--active' if params[:journal_id] == j.id.to_s}" do %>
+                      <span class="sidebar__journal-dot" style="background: <%= j.color || '#7C6FF7' %>"></span>
+                      <span class="sidebar__journal-name"><%= j.name %></span>
+                      <span class="sidebar__journal-count"><%= j.journal_entries.size %></span>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+
+            <%= link_to new_journal_path, class: "sidebar__new-journal" do %>
+              <i class="fa-solid fa-plus"></i> New Journal
+            <% end %>
+
+            <div class="sidebar__footer">
+              <%= link_to settings_path, class: "sidebar__footer-link #{'sidebar__footer-link--active' if controller_name == 'settings'}" do %>
+                <i class="fa-solid fa-gear"></i> Settings
+              <% end %>
+              <%= link_to destroy_user_session_path,
+                          class: "sidebar__footer-link",
+                          data: { turbo_method: :delete } do %>
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+              <% end %>
+            </div>
+
+          </div>
+        </aside>
+
+        <main class="app-main">
+          <div class="sidebar__overlay" data-action="click->sidebar#close" data-sidebar-target="overlay"></div>
+
+          <% if notice %>
+            <div class="alert alert-success alert-dismissible fade show m-3" role="alert">
+              <%= notice %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+          <% end %>
+
+          <% if alert %>
+            <div class="alert alert-danger alert-dismissible fade show m-3" role="alert">
+              <%= alert %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+          <% end %>
+
+          <%= yield %>
+        </main>
+
       </div>
-    <% end %>
 
-    <% if alert %>
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <%= alert %>
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-      </div>
-    <% end %>
+    <% else %>
+      <% if notice %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <%= notice %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      <% end %>
 
-    <%= yield %>
+      <% if alert %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <%= alert %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    <% end %>
   </body>
 </html>

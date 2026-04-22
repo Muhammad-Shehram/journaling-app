@@ -32,7 +32,14 @@
         <aside class="app-sidebar" data-sidebar-target="panel">
           <div class="app-sidebar__inner">
 
-            <div class="sidebar__brand">Reflekto</div>
+            <div class="sidebar__toprow">
+              <div class="sidebar__brand">Reflekto</div>
+              <button class="sidebar__collapse-btn"
+                      data-action="click->sidebar#toggleDesktop"
+                      title="Toggle sidebar">
+                <i class="fa-solid fa-bars"></i>
+              </button>
+            </div>
 
             <% if @sidebar_new_entry_journal %>
               <%= link_to new_journal_journal_entry_path(@sidebar_new_entry_journal), class: "sidebar__new-entry-btn" do %>
@@ -54,13 +61,28 @@
               <div class="sidebar__section-label">Journals</div>
               <ul class="sidebar__journal-list">
                 <% @sidebar_journals.each do |j| %>
-                  <li>
+                  <li class="sidebar__journal-item-wrapper">
                     <%= link_to journal_journal_entries_path(j),
                                 class: "sidebar__journal-item #{'sidebar__journal-item--active' if params[:journal_id] == j.id.to_s}" do %>
                       <span class="sidebar__journal-dot" style="background: <%= j.color || '#7C6FF7' %>"></span>
                       <span class="sidebar__journal-name"><%= j.name %></span>
-                      <span class="sidebar__journal-count"><%= j.journal_entries.size %></span>
+                      <span class="sidebar__journal-count"><%= j.journal_entries.active.count %></span>
                     <% end %>
+                    <div class="sidebar__journal-actions">
+                      <% unless j.is_default? %>
+                        <%= link_to edit_journal_path(j), class: "sidebar__journal-action", title: "Edit journal" do %>
+                          <i class="fa-solid fa-pen-to-square"></i>
+                        <% end %>
+                      <% end %>
+                      <% unless j.is_default? %>
+                        <%= button_to journal_path(j), method: :delete,
+                                      class: "sidebar__journal-action sidebar__journal-action--danger",
+                                      title: "Delete journal",
+                                      data: { turbo_confirm: "Delete \"#{j.name}\" and all its entries? This cannot be undone." } do %>
+                          <i class="fa-solid fa-trash-can"></i>
+                        <% end %>
+                      <% end %>
+                    </div>
                   </li>
                 <% end %>
               </ul>
@@ -68,6 +90,17 @@
 
             <%= link_to new_journal_path, class: "sidebar__new-journal" do %>
               <i class="fa-solid fa-plus"></i> New Journal
+            <% end %>
+
+            <div class="sidebar__divider"></div>
+
+            <%= link_to recently_deleted_index_path,
+                        class: "sidebar__nav-item sidebar__nav-item--muted #{'sidebar__nav-item--active' if controller_name == 'recently_deleted'}" do %>
+              <i class="fa-solid fa-trash-can"></i>
+              Recently Deleted
+              <% if @deleted_count&.> 0 %>
+                <span class="sidebar__badge"><%= @deleted_count %></span>
+              <% end %>
             <% end %>
 
             <div class="sidebar__footer">
@@ -86,6 +119,7 @@
 
         <main class="app-main">
           <div class="sidebar__overlay" data-action="click->sidebar#close" data-sidebar-target="overlay"></div>
+
 
           <% if notice %>
             <div class="alert alert-success alert-dismissible fade show m-3" role="alert">

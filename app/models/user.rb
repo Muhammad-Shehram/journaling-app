@@ -10,7 +10,13 @@ class User < ApplicationRecord
 
   validate :password_complexity, if: :password_required?
 
+  after_create :create_default_journal
+
   private
+
+  def create_default_journal
+    journals.create!(name: "Journal", color: "#7C6FF7", is_default: true)
+  end
 
   def password_complexity
     return if password.blank?

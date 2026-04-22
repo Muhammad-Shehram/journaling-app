@@ -4,6 +4,7 @@ class JournalsController < ApplicationController
 
   def index
     @all_entries = current_user.journal_entries
+                                .active
                                 .includes(:journal, :tags)
                                 .order(entry_date: :desc)
     @stats = compute_stats
@@ -39,10 +40,12 @@ class JournalsController < ApplicationController
   end
 
   def destroy
+    if @journal.is_default?
+      redirect_to journals_path, alert: "Your default journal cannot be deleted."
+      return
+    end
     @journal.destroy
-    # No need for app/views/restaurants/destroy.html.erb
-    # redirect_to journal_entries_path, status: :see_other
-    redirect_to journals_path(@journal), status: :see_other
+    redirect_to journals_path, status: :see_other
   end
 
   private
@@ -56,7 +59,7 @@ class JournalsController < ApplicationController
   end
 
   def compute_stats
-    all_entries = current_user.journal_entries.order(entry_date: :desc)
+    all_entries = current_user.journal_entries.active.order(entry_date: :desc)
     dates = all_entries.pluck(:entry_date).map(&:to_date).uniq.sort.reverse
 
     total_words = all_entries.sum do |e|

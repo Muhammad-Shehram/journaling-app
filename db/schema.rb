@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_21_115504) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_22_150000) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -67,6 +67,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_21_115504) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "journal_id", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_journal_entries_on_deleted_at"
     t.index ["journal_id"], name: "index_journal_entries_on_journal_id"
   end
 
@@ -76,6 +78,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_21_115504) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "color", default: "#7C6FF7"
+    t.boolean "is_default", default: false, null: false
     t.index ["user_id"], name: "index_journals_on_user_id"
   end
 
@@ -97,6 +100,11 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_21_115504) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
+    t.boolean "reminders_enabled", default: false, null: false
+    t.string "reminder_time", default: "09:00"
+    t.string "reminder_days", default: "Mon,Tue,Wed,Thu,Fri"
+    t.boolean "reminder_email", default: true, null: false
+    t.boolean "dark_mode", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

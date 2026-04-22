@@ -25,12 +25,21 @@ $r-error:        #E53E3E;
   margin-bottom: 36px;
 }
 
+.all-entries__header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
 .all-entries__title {
   font-size: 1.75rem;
   font-weight: 800;
   color: #1B2A4A;
   letter-spacing: -0.02em;
-  margin: 0 0 8px;
+  margin: 0;
 }
 
 .all-entries__stats {

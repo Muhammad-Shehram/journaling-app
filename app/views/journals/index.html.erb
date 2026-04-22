@@ -1,14 +1,19 @@
 <div class="all-entries">
 
   <div class="all-entries__header">
-    <h1 class="all-entries__title">All Entries</h1>
+    <div class="all-entries__header-row">
+      <h1 class="all-entries__title">All Entries</h1>
+      <% if @sidebar_new_entry_journal %>
+        <%= link_to new_journal_journal_entry_path(@sidebar_new_entry_journal), class: "entries__new-btn" do %>
+          <i class="fa-solid fa-plus"></i> New Entry
+        <% end %>
+      <% end %>
+    </div>
     <% if @stats[:total_entries] > 0 %>
       <div class="all-entries__stats">
         <span><strong><%= @stats[:total_entries] %></strong> <%= "entry".pluralize(@stats[:total_entries]) %></span>
         <span class="all-entries__stats-sep">·</span>
         <span><strong><%= number_with_delimiter(@stats[:total_words]) %></strong> words</span>
-        <span class="all-entries__stats-sep">·</span>
-        <span><strong><%= @stats[:current_streak] %></strong> day streak</span>
       </div>
     <% end %>
   </div>
@@ -32,9 +37,6 @@
                 <div class="entry-card__meta">
                   <span class="entry-journal-dot" style="background: <%= entry.journal.color || '#7C6FF7' %>"></span>
                   <span class="entry-journal-name"><%= entry.journal.name %></span>
-                  <% entry.tags.each do |tag| %>
-                    <span class="entry-tag-badge"><%= tag.name %></span>
-                  <% end %>
                 </div>
               <% end %>
 

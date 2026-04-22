@@ -15,9 +15,9 @@ $r-error:        #E53E3E;
 
 // ---- PAGE WRAPPER ----
 .canvas {
-  max-width: 720px;
-  margin: 48px auto 80px;
-  padding: 0 24px;
+  max-width: 900px;
+  margin: 40px auto 80px;
+  padding: 0 32px;
 
   @media (max-width: 768px) {
     margin: 0;
@@ -772,46 +772,7 @@ $r-error:        #E53E3E;
 }
 
 trix-toolbar {
-  .trix-button-group {
-    border: 1px solid $r-border !important;
-    border-radius: 8px !important;
-    overflow: hidden;
-    background: $r-bg !important;
-    margin-bottom: 0;
-  }
-
-  .trix-button {
-    border: none !important;
-    background: transparent !important;
-    color: $r-muted !important;
-    padding: 6px 10px !important;
-    font-size: 0.82rem !important;
-    min-height: 34px !important;
-    transition: background 0.12s ease, color 0.12s ease;
-
-    &:not(:last-child) {
-      border-right: 1px solid $r-border !important;
-    }
-
-    &:hover {
-      background: $r-accent-light !important;
-      color: $r-accent !important;
-    }
-
-    &.trix-active {
-      background: $r-accent !important;
-      color: white !important;
-    }
-
-    &--icon::before {
-      background-color: currentColor !important;
-    }
-  }
-
-  // Hide attachment/file buttons (we have our own photo uploader)
-  .trix-button-group--file-tools {
-    display: none !important;
-  }
+  display: none !important;
 }
 
 trix-editor {
@@ -822,12 +783,12 @@ trix-editor {
   background: transparent !important;
   border: none !important;
   padding: 0 !important;
-  min-height: 480px;
+  min-height: 55vh;
   outline: none !important;
   box-shadow: none !important;
 
   @media (max-width: 768px) {
-    min-height: calc(100dvh - 380px);
+    min-height: calc(100dvh - 320px);
   }
 
   &:empty::before {

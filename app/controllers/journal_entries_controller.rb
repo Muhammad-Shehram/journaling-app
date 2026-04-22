@@ -5,7 +5,7 @@ class JournalEntriesController < ApplicationController
 
 
   def index
-    @journal_entries = @journal.journal_entries.order(entry_date: :desc)
+    @journal_entries = @journal.journal_entries.active.order(entry_date: :desc)
     @journal_entries = @journal_entries.where("title LIKE ?", "%#{params[:q]}%") if params[:q].present?
     @journal_entries = @journal_entries.where(mood: params[:mood]) if params[:mood].present?
     @journal_entries = @journal_entries.where("entry_date >= ?", params[:from]) if params[:from].present?
@@ -14,7 +14,7 @@ class JournalEntriesController < ApplicationController
       @journal_entries = @journal_entries.joins(:tags).where(tags: { name: params[:tag].downcase })
     end
     @user_tags = current_user.tags.order(:name)
-    @all_entry_dates = @journal.journal_entries.pluck(:entry_date).map { |d| d.to_date.strftime("%Y-%m-%d") }
+    @all_entry_dates = @journal.journal_entries.active.pluck(:entry_date).map { |d| d.to_date.strftime("%Y-%m-%d") }
   end
 
   def show
@@ -52,8 +52,8 @@ class JournalEntriesController < ApplicationController
   end
 
   def destroy
-    @journal_entry.destroy
-    redirect_to journal_journal_entries_path(@journal), status: :see_other
+    @journal_entry.soft_delete!
+    redirect_to journal_journal_entries_path(@journal), status: :see_other, notice: "Entry moved to Recently Deleted."
   end
 
   private
@@ -73,7 +73,7 @@ class JournalEntriesController < ApplicationController
   end
 
   def set_journal_entries
-    @journal_entry = @journal.journal_entries.find(params[:id])
+    @journal_entry = @journal.journal_entries.active.find(params[:id])
   end
 
   def set_journal

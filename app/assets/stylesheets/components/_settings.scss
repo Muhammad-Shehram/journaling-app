@@ -2,7 +2,7 @@
 // REFLEKTO SETTINGS PAGE
 // ============================================
 
-$r-dark:         #1B1F3B;
+$r-dark:         #1B2A4A;
 $r-accent:       #7C6FF7;
 $r-accent-light: #EEF0FF;
 $r-text:         #2D3748;
@@ -188,4 +188,145 @@ $r-error:        #E53E3E;
   line-height: 1.6;
 
   strong { color: $r-error; }
+}
+
+// ---- SECTION LABELS ----
+.settings-section-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: $r-muted;
+  padding: 0 2px;
+  margin-top: 8px;
+
+  &--danger { color: rgba($r-error, 0.7); }
+}
+
+// ---- TOGGLE SWITCH (CSS-only) ----
+.settings-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid $r-border;
+
+  &:last-of-type { border-bottom: none; }
+
+  &__label {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: $r-dark;
+    margin-bottom: 2px;
+  }
+
+  &__sub {
+    font-size: 0.8rem;
+    color: $r-muted;
+    line-height: 1.4;
+  }
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+  cursor: pointer;
+
+  &__input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
+
+  &__track {
+    position: absolute;
+    inset: 0;
+    background: #CBD5E0;
+    border-radius: 50px;
+    transition: background 0.2s ease;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: 3px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+      transition: transform 0.2s ease;
+    }
+  }
+
+  &__input:checked + &__track {
+    background: $r-accent;
+
+    &::after {
+      transform: translateX(20px);
+    }
+  }
+}
+
+// ---- DAY CHIPS ----
+.settings-day-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.settings-day-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1.5px solid $r-border;
+  background: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: $r-muted;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+
+  &__input { display: none; }
+
+  &:hover {
+    border-color: $r-accent;
+    color: $r-accent;
+    background: $r-accent-light;
+  }
+
+  &--active {
+    background: $r-dark;
+    border-color: $r-dark;
+    color: white;
+  }
+
+  &:has(&__input:checked) {
+    background: $r-dark;
+    border-color: $r-dark;
+    color: white;
+  }
+}
+
+// ---- EXPORT ROW ----
+.settings-export-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  &__hint {
+    font-size: 0.83rem;
+    color: $r-muted;
+  }
 }

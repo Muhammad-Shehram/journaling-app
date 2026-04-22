@@ -31,7 +31,7 @@ $topbar-height:    52px;
   overflow-x: hidden;
   flex-shrink: 0;
   z-index: 100;
-  transition: transform 0.25s ease;
+  transition: width 0.25s ease, min-width 0.25s ease, transform 0.25s ease;
   scrollbar-width: none;
   &::-webkit-scrollbar { display: none; }
 }
@@ -54,13 +54,95 @@ $topbar-height:    52px;
 }
 
 // ---- BRAND ----
+.sidebar__toprow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 4px 20px 8px;
+}
+
 .sidebar__brand {
   font-family: $headers-font;
   font-size: 1.2rem;
   font-weight: 800;
   color: white;
   letter-spacing: -0.03em;
-  padding: 4px 8px 20px;
+}
+
+.sidebar__collapse-btn {
+  display: none; // mobile doesn't need this (topbar hamburger handles it)
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.45);
+  font-size: 0.9rem;
+  padding: 6px 8px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+  flex-shrink: 0;
+
+  &:hover {
+    color: rgba(255,255,255,0.9);
+    background: $sidebar-hover;
+  }
+
+  @media (min-width: 769px) { display: flex; align-items: center; }
+}
+
+.sidebar__expand-btn {
+  display: none; // only shown when sidebar is collapsed
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 95;
+  background: #1B2A4A;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: color 0.15s, background 0.15s;
+
+  &:hover {
+    color: white;
+    background: darken(#1B2A4A, 4%);
+  }
+}
+
+// ---- DESKTOP COLLAPSED STATE (narrow rail) ----
+.app-shell.sidebar-collapsed {
+  @media (min-width: 769px) {
+    .app-sidebar {
+      width: 44px;
+      min-width: 44px;
+    }
+
+    // Hide brand so the button isn't pushed off-screen
+    .sidebar__brand {
+      display: none;
+    }
+
+    .sidebar__toprow {
+      justify-content: center;
+      padding: 12px 0;
+    }
+
+    // Hide all nav content — clean rail with only the hamburger
+    .sidebar__new-entry-btn,
+    .sidebar__nav-item,
+    .sidebar__section-label,
+    .sidebar__journal-list,
+    .sidebar__new-journal,
+    .sidebar__divider,
+    .sidebar__footer {
+      display: none;
+    }
+  }
 }
 
 // ---- NEW ENTRY BUTTON ----
@@ -189,6 +271,80 @@ $topbar-height:    52px;
   flex-shrink: 0;
 }
 
+// ---- JOURNAL ITEM WRAPPER (edit/delete on hover) ----
+.sidebar__journal-item-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &:hover .sidebar__journal-actions {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  // Shrink the count badge on hover so it doesn't overlap the actions
+  &:hover .sidebar__journal-count {
+    opacity: 0;
+  }
+}
+
+.sidebar__journal-actions {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 2px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+
+.sidebar__journal-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  font-size: 0.7rem;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+  transition: color 0.15s, background 0.15s;
+  flex-shrink: 0;
+
+  &:hover {
+    color: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.1);
+    text-decoration: none;
+  }
+
+  &--danger:hover {
+    color: #FC8181;
+    background: rgba(252,129,129,0.12);
+  }
+
+  // button_to wraps content in a <form> — reset its styling
+  form {
+    margin: 0;
+    display: flex;
+  }
+
+  button {
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+}
+
 // ---- NEW JOURNAL LINK ----
 .sidebar__new-journal {
   display: flex;
@@ -250,6 +406,41 @@ $topbar-height:    52px;
   &--active {
     background: $sidebar-active;
     color: $sidebar-text-hi;
+  }
+}
+
+// ---- DIVIDER ----
+.sidebar__divider {
+  height: 1px;
+  background: $sidebar-border;
+  margin: 8px 0;
+}
+
+// ---- BADGE (Recently Deleted count) ----
+.sidebar__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 50px;
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.7);
+  font-size: 0.65rem;
+  font-weight: 700;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+// ---- MUTED nav item (Recently Deleted) ----
+.sidebar__nav-item--muted {
+  color: rgba(255,255,255,0.4);
+
+  i { color: rgba(255,255,255,0.3); }
+
+  &:hover {
+    color: $sidebar-text;
   }
 }
 

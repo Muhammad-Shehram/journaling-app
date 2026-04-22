@@ -22,10 +22,19 @@ Rails.application.routes.draw do
   root to: "pages#home"
 
   resource :settings, only: [:show] do
-    patch :update_profile, on: :member
-    patch :update_password, on: :member
-    delete :destroy_account, on: :member
+    patch  :update_profile,    on: :member
+    patch  :update_password,   on: :member
+    patch  :update_reminders,  on: :member
+    patch  :update_appearance, on: :member
+    delete :destroy_account,   on: :member
+    get    :export,            on: :member
   end
+
+  get    "/recently_deleted",             to: "recently_deleted#index",       as: :recently_deleted_index
+  patch  "/recently_deleted/recover_all", to: "recently_deleted#recover_all", as: :recover_all_recently_deleted
+  patch  "/recently_deleted/:id/recover", to: "recently_deleted#recover",     as: :recover_recently_deleted
+  delete "/recently_deleted/:id",         to: "recently_deleted#destroy",     as: :destroy_recently_deleted
+  delete "/recently_deleted",             to: "recently_deleted#purge_all",   as: :purge_all_recently_deleted
 
   resources :journals do
     resources :journal_entries

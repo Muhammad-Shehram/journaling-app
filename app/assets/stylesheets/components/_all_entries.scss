@@ -28,7 +28,7 @@ $r-error:        #E53E3E;
 .all-entries__title {
   font-size: 1.75rem;
   font-weight: 800;
-  color: rgba(255,255,255,0.92);
+  color: #1B2A4A;
   letter-spacing: -0.02em;
   margin: 0 0 8px;
 }
@@ -38,16 +38,16 @@ $r-error:        #E53E3E;
   align-items: center;
   gap: 8px;
   font-size: 0.88rem;
-  color: rgba(255,255,255,0.45);
+  color: #718096;
 
   strong {
-    color: rgba(255,255,255,0.75);
+    color: #2D3748;
     font-weight: 700;
   }
 }
 
 .all-entries__stats-sep {
-  color: rgba(255,255,255,0.2);
+  color: #CBD5E0;
 }
 
 // ---- MONTH GROUP ----
@@ -60,7 +60,7 @@ $r-error:        #E53E3E;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.3);
+  color: #A0AEC0;
   margin-bottom: 12px;
   padding-left: 2px;
 }
@@ -90,24 +90,24 @@ $r-error:        #E53E3E;
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background: rgba(124,111,247,0.12);
+  background: #EEF0FF;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 20px;
   font-size: 1.8rem;
-  color: rgba(124,111,247,0.6);
+  color: #7C6FF7;
 }
 
 .all-entries__empty-title {
   font-size: 1.3rem;
   font-weight: 700;
-  color: rgba(255,255,255,0.75);
+  color: #2D3748;
   margin-bottom: 8px;
 }
 
 .all-entries__empty-text {
-  color: rgba(255,255,255,0.35);
+  color: #718096;
   font-size: 0.95rem;
   margin-bottom: 28px;
   max-width: 340px;

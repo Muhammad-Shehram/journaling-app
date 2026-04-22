@@ -3,7 +3,7 @@
 // Two-panel shell: dark sidebar + dark main
 // ============================================
 
-$sidebar-bg:       #1B1F3B;
+$sidebar-bg:       #1B2A4A;
 $sidebar-hover:    rgba(255,255,255,0.06);
 $sidebar-active:   rgba(124,111,247,0.18);
 $sidebar-border:   rgba(255,255,255,0.08);
@@ -49,7 +49,7 @@ $topbar-height:    52px;
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  background: #0F1229;
+  background: #FAF9F7;
   position: relative;
 }
 
@@ -270,7 +270,7 @@ $topbar-height:    52px;
   left: 0;
   right: 0;
   height: $topbar-height;
-  background: $sidebar-bg;
+  background: #1B2A4A;
   align-items: center;
   padding: 0 16px;
   gap: 12px;

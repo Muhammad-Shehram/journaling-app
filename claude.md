@@ -116,11 +116,19 @@ These are invoked with `/skill-name` and load only when needed:
 
 ---
 
-### 🎯 Phase 5.5: Journal Identity (Deferred — post Rich Content)
-*Goal: Give each journal a unique visual identity like Apple Journal / Day One.*
+### 🎯 Phase 5.5: Infrastructure (Decided — implement before deployment)
+*Goal: Replace SQLite with production-grade Postgres and wire up email + background jobs.*
 
-- [ ] **Emoji/Icon picker on New Journal form** — Full icon grid (100+ icons across categories: activities, travel, food, nature, etc.) that sets a visual icon for the journal cover. Requires: new `icon` string column on `journals`, an icon picker UI component, and updating the bookshelf card to display the chosen icon. Reference: Apple Journal's icon grid UI (screenshots saved). Deferred until Phase 4 rich content is complete since it shares the same "visual identity" milestone.
-- [ ] Remove mood UI: Strip the mood picker from the entry form and the MOOD filter row from the entries index. The `mood` DB column stays but is not user-facing.
+| Layer | Choice | Why |
+|-------|--------|-----|
+| Database | Local Postgres (dev) + Supabase or Neon (prod) | Free tier, nice dashboard, production-ready |
+| Transactional email | Resend | Simple, free tier, ActionMailer-compatible |
+| Background jobs (reminders) | GoodJob | Postgres-backed, no Redis needed |
+
+- [x] Migrate from SQLite3 → PostgreSQL locally
+- [ ] Create Supabase or Neon project and wire up `DATABASE_URL` for production
+- [ ] Add Resend gem + configure ActionMailer SMTP (Devise forgot-password + future reminder emails)
+- [ ] Add GoodJob gem for scheduled/background jobs (email reminders)
 
 ---
 

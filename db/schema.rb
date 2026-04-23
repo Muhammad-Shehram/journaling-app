@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.2].define(version: 2026_04_22_150000) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -50,8 +53,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_22_150000) do
   end
 
   create_table "entry_tags", force: :cascade do |t|
-    t.integer "journal_entry_id", null: false
-    t.integer "tag_id", null: false
+    t.bigint "journal_entry_id", null: false
+    t.bigint "tag_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["journal_entry_id", "tag_id"], name: "index_entry_tags_on_journal_entry_id_and_tag_id", unique: true
@@ -66,7 +69,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_22_150000) do
     t.date "entry_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "journal_id", null: false
+    t.bigint "journal_id", null: false
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_journal_entries_on_deleted_at"
     t.index ["journal_id"], name: "index_journal_entries_on_journal_id"
@@ -74,7 +77,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_22_150000) do
 
   create_table "journals", force: :cascade do |t|
     t.string "name"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "color", default: "#7C6FF7"
@@ -84,7 +87,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_22_150000) do
 
   create_table "tags", force: :cascade do |t|
     t.string "name"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name", "user_id"], name: "index_tags_on_name_and_user_id", unique: true

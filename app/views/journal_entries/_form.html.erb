@@ -84,12 +84,15 @@
     Aa
   </button>
 
-  <div class="canvas__font-popup" data-font-picker-target="popup" role="dialog" aria-label="Font options">
+  <div class="canvas__font-popup" data-font-picker-target="popup" role="dialog" aria-label="Formatting options">
+
+    <%# — Fonts — %>
+    <div class="canvas__fp-section-label">Fonts</div>
     <% [
-      { key: "default", label: "Default",    preview: "Start writing…" },
-      { key: "serif",   label: "Serif",      preview: "Start writing…" },
-      { key: "sans",    label: "Sans-serif", preview: "Start writing…" },
-      { key: "mono",    label: "Monospace",  preview: "Start writing…" }
+      { key: "default", label: "Default",    preview: "The quick brown fox" },
+      { key: "serif",   label: "Serif",      preview: "The quick brown fox" },
+      { key: "sans",    label: "Sans-serif", preview: "The quick brown fox" },
+      { key: "mono",    label: "Monospace",  preview: "const hello = 'world'" }
     ].each do |font| %>
       <button class="canvas__font-option"
               type="button"
@@ -100,6 +103,62 @@
         <span class="canvas__font-preview canvas__font-preview--<%= font[:key] %>"><%= font[:preview] %></span>
       </button>
     <% end %>
+
+    <div class="canvas__fp-divider"></div>
+
+    <%# — Text Style — %>
+    <div class="canvas__fp-section-label">Text Style</div>
+    <div class="canvas__fp-grid">
+      <button class="canvas__fp-format-btn" type="button"
+              title="Bold" data-attr="bold"
+              data-action="mousedown->font-picker#format">
+        <strong>B</strong>
+      </button>
+      <button class="canvas__fp-format-btn" type="button"
+              title="Italic" data-attr="italic"
+              data-action="mousedown->font-picker#format">
+        <em>I</em>
+      </button>
+      <button class="canvas__fp-format-btn canvas__fp-format-btn--strike" type="button"
+              title="Strikethrough" data-attr="strike"
+              data-action="mousedown->font-picker#format">
+        S
+      </button>
+    </div>
+
+    <div class="canvas__fp-divider"></div>
+
+    <%# — Block Format — %>
+    <div class="canvas__fp-section-label">Block Format</div>
+    <% [
+      { attr: "heading1", label: "Heading",    icon: "fa-heading"    },
+      { attr: "quote",    label: "Quote",      icon: "fa-quote-left" },
+      { attr: "code",     label: "Code Block", icon: "fa-code"       }
+    ].each do |item| %>
+      <button class="canvas__fp-row" type="button"
+              data-attr="<%= item[:attr] %>"
+              data-action="mousedown->font-picker#format">
+        <i class="fa-solid <%= item[:icon] %> canvas__fp-row-icon"></i>
+        <span><%= item[:label] %></span>
+      </button>
+    <% end %>
+
+    <div class="canvas__fp-divider"></div>
+
+    <%# — Lists — %>
+    <div class="canvas__fp-section-label">Lists</div>
+    <% [
+      { attr: "bullet", label: "Bullet List",   icon: "fa-list-ul" },
+      { attr: "number", label: "Numbered List", icon: "fa-list-ol" }
+    ].each do |item| %>
+      <button class="canvas__fp-row" type="button"
+              data-attr="<%= item[:attr] %>"
+              data-action="mousedown->font-picker#format">
+        <i class="fa-solid <%= item[:icon] %> canvas__fp-row-icon"></i>
+        <span><%= item[:label] %></span>
+      </button>
+    <% end %>
+
   </div>
 
 </div>

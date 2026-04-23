@@ -20,6 +20,8 @@ Rails.application.routes.draw do
 
   # 2. This tells Rails: If someone is NOT logged in, show them the landing page.
   root to: "pages#home"
+  get "/terms",   to: "pages#terms",   as: :terms
+  get "/privacy", to: "pages#privacy", as: :privacy
 
   resource :settings, only: [:show] do
     patch  :update_profile,    on: :member

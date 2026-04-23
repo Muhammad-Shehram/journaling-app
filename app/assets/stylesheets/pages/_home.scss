@@ -22,12 +22,26 @@ $r-bg:           #F8F9FC;
   z-index: 100;
   padding: 20px 0;
 
+  // Light variant for legal pages (white bg, dark text)
+  &--light {
+    position: relative;
+    background: white;
+    border-bottom: 1px solid $r-border;
+    padding: 16px 0;
+  }
+
   &__brand {
     font-family: $headers-font;
     font-size: 1.5rem;
     font-weight: 800;
     color: white;
     letter-spacing: -0.03em;
+    text-decoration: none;
+
+    &--dark {
+      color: $r-dark;
+      &:hover { color: $r-accent; }
+    }
   }
 
   &__actions {
@@ -44,6 +58,11 @@ $r-bg:           #F8F9FC;
     transition: color 0.2s;
 
     &:hover { color: white; }
+
+    &--dark {
+      color: $r-muted;
+      &:hover { color: $r-text; }
+    }
   }
 
   &__cta {
@@ -61,6 +80,19 @@ $r-bg:           #F8F9FC;
     &:hover {
       background: rgba(white, 0.25);
       color: white;
+    }
+
+    &--dark {
+      background: $r-accent;
+      color: white;
+      border-color: $r-accent;
+      backdrop-filter: none;
+
+      &:hover {
+        background: darken($r-accent, 8%);
+        border-color: darken($r-accent, 8%);
+        color: white;
+      }
     }
   }
 }
@@ -324,6 +356,46 @@ $r-bg:           #F8F9FC;
   &--light {
     background: rgba(white, 0.15);
     color: lighten($r-accent, 25%);
+  }
+}
+
+// ---- SECONDARY FEATURE STRIP ----
+.feature-strip-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: white;
+  border: 1px solid $r-border;
+  border-radius: 16px;
+  padding: 24px 24px;
+  height: 100%;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: rgba($r-accent, 0.35);
+    box-shadow: 0 8px 28px rgba($r-dark, 0.05);
+    transform: translateY(-2px);
+  }
+
+  h4 {
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: $r-text;
+    margin: 0 0 5px 0;
+  }
+
+  p {
+    color: $r-muted;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  &__icon {
+    color: $r-accent;
+    font-size: 1.15rem;
+    margin-top: 2px;
+    flex-shrink: 0;
   }
 }
 

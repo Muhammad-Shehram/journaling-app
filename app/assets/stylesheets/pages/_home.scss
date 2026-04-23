@@ -13,6 +13,11 @@ $r-muted:        #718096;
 $r-border:       #E8EAF6;
 $r-bg:           #F8F9FC;
 
+// Smooth anchor scrolling for the landing page
+html:has(.hero-section) {
+  scroll-behavior: smooth;
+}
+
 // ---- LANDING NAV ----
 .landing-nav {
   position: absolute;
@@ -143,6 +148,15 @@ $r-bg:           #F8F9FC;
   font-weight: 600;
   margin-bottom: 28px;
   text-transform: uppercase;
+
+  &--float {
+    animation: badge-float 3.8s ease-in-out infinite;
+  }
+}
+
+@keyframes badge-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
 }
 
 .hero-title {
@@ -231,6 +245,20 @@ $r-bg:           #F8F9FC;
   color: rgba(white, 0.35);
   font-size: 1rem;
   animation: bobble 2.2s ease-in-out infinite;
+  text-decoration: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: color 0.2s ease, background 0.2s ease;
+
+  &:hover {
+    color: rgba(white, 0.75);
+    background: rgba(white, 0.08);
+  }
 }
 
 @keyframes bobble {

@@ -6,7 +6,7 @@
      @journal_entry.entry_date.strftime("%Y-%m-%d") :
      Date.today.strftime("%Y-%m-%d") %>
 
-<div class="canvas">
+<div class="canvas" data-controller="font-picker" data-font-picker-key-value="reflekto_font">
   <%= simple_form_for([@journal, @journal_entry], html: { class: "canvas__form", multipart: true }) do |f| %>
 
     <div class="canvas__bar">
@@ -74,4 +74,32 @@
     </div>
 
   <% end %>
+
+  <%# Aa — floating font picker %>
+  <button class="canvas__font-trigger"
+          type="button"
+          aria-label="Change writing font"
+          data-font-picker-target="trigger"
+          data-action="click->font-picker#toggle">
+    Aa
+  </button>
+
+  <div class="canvas__font-popup" data-font-picker-target="popup" role="dialog" aria-label="Font options">
+    <% [
+      { key: "default", label: "Default",    preview: "Start writing…" },
+      { key: "serif",   label: "Serif",      preview: "Start writing…" },
+      { key: "sans",    label: "Sans-serif", preview: "Start writing…" },
+      { key: "mono",    label: "Monospace",  preview: "Start writing…" }
+    ].each do |font| %>
+      <button class="canvas__font-option"
+              type="button"
+              data-font="<%= font[:key] %>"
+              data-font-picker-target="option"
+              data-action="click->font-picker#select">
+        <span class="canvas__font-name"><%= font[:label] %></span>
+        <span class="canvas__font-preview canvas__font-preview--<%= font[:key] %>"><%= font[:preview] %></span>
+      </button>
+    <% end %>
+  </div>
+
 </div>

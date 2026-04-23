@@ -14,15 +14,11 @@ $r-bg:           #F8F9FC;
 $r-error:        #E53E3E;
 
 // ---- PAGE WRAPPER ----
+// Full-width surface — writing area IS the page, no card container
 .canvas {
-  max-width: 900px;
-  margin: 40px auto 80px;
-  padding: 0 32px;
-
-  @media (max-width: 768px) {
-    margin: 0;
-    padding: 0;
-  }
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
 }
 
 // Settings page also sits in the dark main area
@@ -30,20 +26,10 @@ $r-error:        #E53E3E;
   color: inherit;
 }
 
-// ---- THE FORM CARD ----
+// ---- THE FORM (flat document surface, no card) ----
 .canvas__form {
-  background: white;
-  border-radius: 16px;
-  border: 1px solid $r-border;
-  box-shadow: 0 4px 24px rgba($r-dark, 0.06);
-  overflow: hidden;
-
-  @media (max-width: 768px) {
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
-    min-height: calc(100dvh - 60px);
-  }
+  background: transparent;
+  min-height: 100dvh;
 }
 
 // ---- TOP ACTION BAR ----
@@ -51,16 +37,22 @@ $r-error:        #E53E3E;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 24px;
+  padding: 14px 80px;
   border-bottom: 1px solid $r-border;
   min-height: 60px;
-  background: white;
+  background: rgba(#FAF9F7, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
   z-index: 10;
 
+  @media (max-width: 1200px) {
+    padding: 14px 64px;
+  }
+
   @media (max-width: 768px) {
-    padding: 12px 20px;
+    padding: 12px 24px;
   }
 }
 
@@ -123,10 +115,14 @@ $r-error:        #E53E3E;
 
 // ---- FORM BODY ----
 .canvas__body {
-  padding: 36px 48px 56px;
+  padding: 40px 80px 120px;
+
+  @media (max-width: 1200px) {
+    padding: 36px 64px 100px;
+  }
 
   @media (max-width: 768px) {
-    padding: 28px 24px 40px;
+    padding: 28px 24px 100px;
   }
 
   // Reset simple_form Bootstrap form-group wrappers
@@ -783,7 +779,7 @@ trix-editor {
   background: transparent !important;
   border: none !important;
   padding: 0 !important;
-  min-height: 55vh;
+  min-height: calc(100dvh - 380px);
   outline: none !important;
   box-shadow: none !important;
 
@@ -918,4 +914,138 @@ trix-editor {
     transform: none;
     box-shadow: none;
   }
+}
+
+// ============================================
+// FONT PICKER — "Aa" floating button + popup
+// ============================================
+
+// Font variant classes — applied to .canvas by Stimulus, target the trix editor
+.canvas--font-serif   trix-editor { font-family: Georgia, 'Times New Roman', serif !important; }
+.canvas--font-sans    trix-editor { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif !important; }
+.canvas--font-mono    trix-editor { font-family: 'Courier New', ui-monospace, monospace !important; }
+// .canvas--font-default leaves trix-editor at $body-font (the base rule above)
+
+// Also apply font to the title input for cohesion
+.canvas--font-serif   .canvas__title-input { font-family: Georgia, 'Times New Roman', serif !important; }
+.canvas--font-sans    .canvas__title-input { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif !important; }
+.canvas--font-mono    .canvas__title-input { font-family: 'Courier New', ui-monospace, monospace !important; }
+
+// Floating "Aa" trigger button
+.canvas__font-trigger {
+  position: fixed;
+  bottom: 32px;
+  right: 40px;
+  z-index: 100;
+  background: white;
+  border: 1px solid $r-border;
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: $r-accent;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba($r-dark, 0.10);
+  letter-spacing: 0.02em;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+  font-family: $body-font;
+
+  &:hover {
+    border-color: $r-accent;
+    box-shadow: 0 4px 20px rgba($r-accent, 0.2);
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $r-accent;
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 768px) {
+    bottom: 20px;
+    right: 20px;
+  }
+}
+
+// Font picker popup card
+.canvas__font-popup {
+  position: fixed;
+  bottom: 84px;
+  right: 40px;
+  z-index: 100;
+  background: white;
+  border: 1px solid $r-border;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba($r-dark, 0.14);
+  min-width: 220px;
+  padding: 8px;
+  display: none;
+  animation: popup-in 0.15s ease;
+
+  &.is-open { display: block; }
+
+  @media (max-width: 768px) {
+    bottom: 72px;
+    right: 20px;
+  }
+}
+
+@keyframes popup-in {
+  from { opacity: 0; transform: translateY(6px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+// Individual font option rows
+.canvas__font-option {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  text-align: left;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  font-family: $body-font;
+  transition: background 0.12s ease;
+
+  &:hover { background: $r-accent-light; }
+
+  &.is-active {
+    background: $r-accent-light;
+
+    .canvas__font-name { color: $r-accent; }
+
+    &::after {
+      content: "✓";
+      position: absolute;
+      right: 14px;
+      color: $r-accent;
+      font-weight: 700;
+    }
+  }
+
+  position: relative; // for the checkmark
+}
+
+.canvas__font-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: $r-text;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.canvas__font-preview {
+  font-size: 1rem;
+  color: $r-muted;
+  line-height: 1.4;
+  margin-top: 2px;
+
+  &--default  { font-family: $body-font; }
+  &--serif    { font-family: Georgia, 'Times New Roman', serif; }
+  &--sans     { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; }
+  &--mono     { font-family: 'Courier New', ui-monospace, monospace; }
 }

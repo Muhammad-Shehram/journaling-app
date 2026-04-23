@@ -22,9 +22,31 @@
 
       <%# Context strip: journal name on the left, date chip on the right %>
       <div class="canvas__context">
-        <span class="journal-pill" style="--journal-pill-color: <%= @journal.color || '#7C6FF7' %>">
-          <%= @journal.name %>
-        </span>
+        <% if @journal_entry.new_record? %>
+          <%# Interactive picker on the new-entry form %>
+          <div class="journal-switcher"
+               data-controller="journal-picker"
+               data-journal-picker-journals-value="<%= @sidebar_journals.map { |j|
+                 { id: j.id, name: j.name, color: (j.color || '#7C6FF7'), path: journal_journal_entries_path(j) }
+               }.to_json %>"
+               data-journal-picker-new-journal-url-value="<%= new_journal_path %>"
+               data-journal-picker-current-id-value="<%= @journal.id %>">
+            <button type="button"
+                    class="journal-pill journal-pill--picker"
+                    style="--journal-pill-color: <%= @journal.color || '#7C6FF7' %>"
+                    data-journal-picker-target="trigger"
+                    data-action="click->journal-picker#toggle">
+              <span data-journal-picker-target="pillLabel"><%= @journal.name %></span>
+              <i class="fa-solid fa-chevron-down journal-pill__chevron"></i>
+            </button>
+            <div class="journal-picker-dropdown" data-journal-picker-target="dropdown"></div>
+          </div>
+        <% else %>
+          <%# Static pill on the edit form %>
+          <span class="journal-pill" style="--journal-pill-color: <%= @journal.color || '#7C6FF7' %>">
+            <%= @journal.name %>
+          </span>
+        <% end %>
         <%= f.text_field :entry_date,
                         type: "date",
                         class: "canvas__date-chip",
@@ -32,14 +54,20 @@
                         value: date_value %>
       </div>
 
-      <%# Title %>
+      <%# Title — textarea so long prompts wrap instead of scrolling horizontally %>
       <%= f.input :title,
                   label: false,
+                  as: :text,
                   placeholder: "Title",
                   input_html: {
                     class: "canvas__title-input",
                     autofocus: @journal_entry.new_record?,
-                    "aria-label": "Entry title"
+                    "aria-label": "Entry title",
+                    rows: 1,
+                    data: {
+                      action: "keydown->font-picker#titleKeydown input->font-picker#autoResizeTitle",
+                      "font-picker-target": "titleInput"
+                    }
                   } %>
 
       <div class="canvas__divider"></div>
@@ -52,24 +80,6 @@
                              "aria-label": "Entry content" %>
       </div>
 
-      <%# Photo attachment %>
-      <div class="canvas__photo-upload">
-        <label class="canvas__photo-label" for="cover_photo_input">
-          <i class="fa-solid fa-image"></i>
-          <span>Add a photo</span>
-        </label>
-        <%= f.file_field :cover_photo,
-                         id: "cover_photo_input",
-                         accept: "image/*",
-                         class: "canvas__photo-file-input",
-                         "aria-label": "Cover photo" %>
-        <% if @journal_entry.cover_photo.attached? %>
-          <div class="canvas__photo-preview">
-            <%= image_tag @journal_entry.cover_photo, class: "canvas__photo-thumb" %>
-            <span class="canvas__photo-filename"><%= @journal_entry.cover_photo.filename %></span>
-          </div>
-        <% end %>
-      </div>
 
     </div>
 

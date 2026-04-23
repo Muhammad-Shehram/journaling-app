@@ -47,8 +47,13 @@ class SettingsController < ApplicationController
   end
 
   def destroy_account
-    current_user.destroy
-    sign_out current_user
+    unless current_user.valid_password?(params[:confirm_password].to_s)
+      redirect_to settings_path, alert: "Incorrect password. Account deletion cancelled."
+      return
+    end
+    user = current_user
+    sign_out(user)
+    user.destroy
     redirect_to root_path, notice: "Your account has been deleted."
   end
 

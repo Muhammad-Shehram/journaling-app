@@ -1,0 +1,23 @@
+<div class="prompts-index">
+
+  <div class="prompts-index__header">
+    <h1 class="prompts-index__title">Writing Prompts</h1>
+    <p class="prompts-index__sub">Pick a category to find your next prompt</p>
+  </div>
+
+  <div class="prompts-category-list">
+    <% @categories.each do |cat| %>
+      <%= link_to prompt_category_path(cat[:name].downcase), class: "prompts-category-row" do %>
+        <div class="prompts-category-row__icon">
+          <i class="fa-solid <%= cat[:icon] %>"></i>
+        </div>
+        <div class="prompts-category-row__body">
+          <span class="prompts-category-row__name"><%= cat[:name] %></span>
+          <span class="prompts-category-row__count"><%= cat[:count] %> prompts</span>
+        </div>
+        <i class="fa-solid fa-chevron-right prompts-category-row__chevron"></i>
+      <% end %>
+    <% end %>
+  </div>
+
+</div>

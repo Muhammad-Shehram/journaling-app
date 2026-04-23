@@ -248,6 +248,9 @@ $r-error:        #E53E3E;
   box-shadow: none !important;
   outline: none;
   display: block;
+  // Textarea-specific: no resize handle, no scrollbar, grows via JS
+  resize: none !important;
+  overflow: hidden !important;
 
   &::placeholder {
     color: rgba($r-muted, 0.45) !important;
@@ -345,6 +348,104 @@ $r-error:        #E53E3E;
     border-radius: 50%;
     background: rgba(white, 0.55);
   }
+
+  // Clickable variant used on the new-entry form
+  &--picker {
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+
+    &:hover { opacity: 0.88; }
+  }
+}
+
+.journal-pill__chevron {
+  font-size: 0.6rem;
+  opacity: 0.75;
+  margin-left: 2px;
+}
+
+// ---- Journal picker dropdown ----
+
+.journal-switcher {
+  position: relative;
+}
+
+.journal-picker-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  background: #fff;
+  border: 1.5px solid $r-border;
+  border-radius: 10px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+  min-width: 210px;
+  z-index: 200;
+  overflow: hidden;
+
+  &.is-open { display: block; }
+}
+
+.journal-picker-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.1s ease;
+
+  &:hover { background: $r-bg; }
+
+  &.is-current { background: $r-accent-light; }
+
+  &__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  &__name {
+    flex: 1;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $r-text;
+  }
+
+  &__check {
+    font-size: 0.7rem;
+    color: $r-accent;
+  }
+}
+
+.journal-picker-divider {
+  margin: 0;
+  border: none;
+  border-top: 1px solid $r-border;
+}
+
+.journal-picker-new {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  color: $r-accent;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.1s ease;
+
+  &:hover {
+    background: $r-accent-light;
+    text-decoration: none;
+  }
+
+  i { font-size: 0.72rem; }
 }
 
 // ============================================

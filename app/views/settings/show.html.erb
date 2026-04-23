@@ -190,11 +190,20 @@
     <p class="settings-danger__warning">
       This action is <strong>irreversible</strong>. All your journals, entries, and data will be permanently deleted.
     </p>
-    <%= button_to destroy_account_settings_path,
-                  method: :delete,
-                  class: "settings-btn settings-btn--danger",
-                  data: { turbo_confirm: "Are you absolutely sure? All your journals and entries will be deleted forever." } do %>
-      <i class="fa-solid fa-trash-can"></i> Delete my account
+    <%= form_with url: destroy_account_settings_path, method: :delete, class: "settings-form" do %>
+      <div class="settings-form__row">
+        <%= label_tag :confirm_password, "Enter your password to confirm", class: "settings-form__label" %>
+        <%= password_field_tag :confirm_password, nil,
+              class: "settings-form__input",
+              placeholder: "Your current password",
+              autocomplete: "current-password",
+              required: true %>
+      </div>
+      <button type="submit"
+              class="settings-btn settings-btn--danger"
+              data-turbo-confirm="Are you absolutely sure? All your journals and entries will be deleted forever.">
+        <i class="fa-solid fa-trash-can"></i> Delete my account
+      </button>
     <% end %>
   </section>
 

@@ -89,15 +89,21 @@ These are invoked with `/skill-name` and load only when needed:
 
 ---
 
-### ✍️ Phase 4: The "Apple" Polish (Rich Content)
+### ✅ Phase 4: The "Apple" Polish (Rich Content) — COMPLETE
 *Goal: Upgrade from basic text to a premium writing experience.*
 
-- [ ] Migration to ActionText: Upgrade content field to Rich Text (Bold, Italics, Links)
-- [ ] Media & Photos: Allow photo attachments via ActiveStorage
-- [ ] Search & Filtering: Search entries by title or filter by mood/date
-- [ ] Journaling Prompts: **Dedicated `/prompts` page** (not inline chips on the form). Browse a curated library of prompts organized by category (Reflection, Gratitude, Creativity, etc.). Tapping a prompt opens `new entry` pre-filled with that prompt as the title or starter text. This is the Day One "Templates" UX — intentional, not cluttered. The inline prompt chips currently on the form are a placeholder and should be removed when this page is built.
-- [x] Mood Tracking: Built as emoji picker. **Designer note (April 21 2026): emoji moods feel consumer/childish and should be deprioritized.** The `mood` DB column is preserved for potential future use (e.g. a hidden private field), but the mood picker UI should be removed from the entry form and the mood filter row removed from the entries index. Tags are the professional replacement — they are flexible, user-defined, and cross-journal.
-- [ ] Settings Page: Dedicated `/settings` page for the logged-in user. Minimum: change display name, change email, change password, delete account. Can expand later with notification preferences and theme options.
+- [x] Migration to ActionText: Rich text editor with Bold, Italic, Strikethrough, Headings, Quotes, Code Blocks, Lists
+- [x] Media & Photos: Cover photo attachment via ActiveStorage (`cover_photo` field on entries) — UI hidden for now, backend intact
+- [x] Search & Filtering: Title search, mood filter, date range (from/to), tag filter — all on entries index
+- [x] Tags: Tag/EntryTag models with user-scoped tags, autocomplete chip input (Stimulus controller)
+- [x] Mood Tracking: `mood` DB column preserved; emoji picker UI **removed** from form per April 21 2026 designer note (tags replace moods as the professional alternative)
+- [x] Settings Page: `/settings` with profile edit, password change, reminder preferences, dark mode toggle, data export, and account deletion
+- [x] Writing Stats Widget: Dashboard shows total entries, journals, words, current streak, longest streak
+- [x] Calendar View: Month-view calendar on entries index with entry indicators and month navigation (Stimulus controller)
+- [x] Soft Delete / Recently Deleted: 30-day recovery window, bulk recover/purge, auto-expiry
+- [x] Dark Mode: Toggle in settings, persisted to DB (`dark_mode` column on users)
+- [x] Data Export: Plain-text download of all entries
+- [x] Journaling Prompts: Two-level `/prompts` page — category list → per-category prompt cards. Clicking a prompt opens new entry pre-filled with prompt as title. Journal picker pill on new-entry form lets user switch journals before writing.
 
 ---
 
@@ -113,6 +119,8 @@ These are invoked with `/skill-name` and load only when needed:
 - [x] Bookshelf Cleanup: Removed "New Journal" ghost card from grid (top-right button is the only entry point)
 - [x] Date Formatting: Change `2026-04-15` to `April 15, 2026`
 - [x] Empty States: Nice views for "No entries yet"
+- [ ] **Dark Mode Theme:** Wire the existing `dark_mode` DB toggle to actually apply a dark CSS theme across all pages (sidebar, canvas, cards, forms, settings). The toggle exists and persists — the actual dark stylesheet/class needs to be implemented.
+- [ ] **Mobile Responsiveness:** Full responsive pass across all pages. Target: iPhone XR (375×896) and all larger devices — iPhone 11/12/13/14/15, Samsung Galaxy S/A series, iPad (768px+), iPad Pro. Every page must be visually clean at these breakpoints: sidebar collapses to hamburger on mobile, canvas/form adapts, prompts grid stacks, settings cards stack, bookshelf grid reflows.
 
 ---
 
@@ -143,13 +151,18 @@ These are invoked with `/skill-name` and load only when needed:
 ## Current Status
 **Branch:** `phase-4-rich-content`
 
-**Phases Complete:** Phase 1, Phase 2, Phase 3, Phase 5 (UI/UX Polish)
+**Phases Complete:** Phase 1, Phase 2, Phase 3, Phase 4 ✅, Phase 5 (partial — 9/11 done)
 
-**Current Phase:** Phase 4 — Rich Content (in progress)
+**Current Phase:** Phase 5 — two tasks remaining (Dark Mode Theme + Mobile Responsiveness)
 
-**Completed (April 21, 2026):** ActionText + ActiveStorage, mood picker (to be removed), journaling prompts (inline — to be replaced by proper prompts page), mood + date + tag filters, Tag/EntryTag models, Settings page, writing stats widget, calendar view
+**Completed since last update (April 23, 2026):**
+- Journaling Prompts: two-level category → prompt page, journal picker on new-entry form
+- Title textarea auto-resize (no more horizontal scrolling on long prompts)
+- Enter key on title → focus Trix editor; Shift+Enter → newline
+- Full OWASP security audit + all 8 findings fixed (XSS, rate limiting, lockable, cover photo validation, account deletion password confirmation, faker moved to dev/test, config.hosts, require_master_key)
+- Cover photo UI hidden from form (backend intact)
 
-**Next Tasks:** Remove mood UI → promote tag input to primary position on entry form; build proper `/prompts` page
+**Next Session:** Dark Mode Theme + Mobile Responsiveness (Phase 5 remaining tasks)
 
 ---
 
@@ -173,5 +186,5 @@ These are invoked with `/skill-name` and load only when needed:
 
 ---
 
-**Last Updated:** April 21, 2026
-**Current Focus:** Phase 5 — UI/UX Polish (branch: `ui-ux-polish`)
+**Last Updated:** April 23, 2026
+**Current Focus:** Phase 5 — Dark Mode Theme + Mobile Responsiveness (branch: `phase-4-rich-content`)

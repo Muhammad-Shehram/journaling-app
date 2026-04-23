@@ -37,17 +37,23 @@ export default class extends Controller {
   }
 
   renderChips() {
-    this.chipsTarget.innerHTML = this.tags.map(tag =>
-      `<span class="tag-chip">
-        ${tag}
-        <button type="button" class="tag-chip__remove" data-name="${tag}">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </span>`
-    ).join("")
+    this.chipsTarget.innerHTML = ""
+    this.tags.forEach(tag => {
+      const span = document.createElement("span")
+      span.className = "tag-chip"
+      span.textContent = tag
 
-    this.chipsTarget.querySelectorAll(".tag-chip__remove").forEach(btn => {
-      btn.addEventListener("click", () => this.removeTag(btn.dataset.name))
+      const btn = document.createElement("button")
+      btn.type = "button"
+      btn.className = "tag-chip__remove"
+      btn.dataset.name = tag
+      btn.addEventListener("click", () => this.removeTag(tag))
+
+      const icon = document.createElement("i")
+      icon.className = "fa-solid fa-xmark"
+      btn.appendChild(icon)
+      span.appendChild(btn)
+      this.chipsTarget.appendChild(span)
     })
 
     this.fieldTarget.value = this.tags.join(", ")
@@ -63,12 +69,15 @@ export default class extends Controller {
 
     if (!matches.length) { this.hideSuggestions(); return }
 
-    this.suggestionsTarget.innerHTML = matches.map(t =>
-      `<button type="button" class="tag-suggestion" data-tag="${t}">${t}</button>`
-    ).join("")
-
-    this.suggestionsTarget.querySelectorAll(".tag-suggestion").forEach(btn => {
-      btn.addEventListener("click", () => this.addTag(btn.dataset.tag))
+    this.suggestionsTarget.innerHTML = ""
+    matches.forEach(t => {
+      const btn = document.createElement("button")
+      btn.type = "button"
+      btn.className = "tag-suggestion"
+      btn.dataset.tag = t
+      btn.textContent = t
+      btn.addEventListener("click", () => this.addTag(t))
+      this.suggestionsTarget.appendChild(btn)
     })
 
     this.suggestionsTarget.style.display = "block"

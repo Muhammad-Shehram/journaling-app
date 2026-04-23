@@ -22,6 +22,7 @@ class JournalEntriesController < ApplicationController
 
   def new
     @journal_entry = @journal.journal_entries.build
+    @journal_entry.title = params[:title].presence
     @journal_entry.entry_date = Date.today
     @user_tags = current_user.tags.order(:name)
   end

@@ -57,6 +57,12 @@
               All Entries
             <% end %>
 
+            <%= link_to prompts_path,
+                        class: "sidebar__nav-item #{'sidebar__nav-item--active' if controller_name == 'prompts'}" do %>
+              <i class="fa-solid fa-lightbulb"></i>
+              Prompts
+            <% end %>
+
             <% if @sidebar_journals.any? %>
               <div class="sidebar__section-label">Journals</div>
               <ul class="sidebar__journal-list">

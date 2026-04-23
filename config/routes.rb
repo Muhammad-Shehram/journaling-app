@@ -38,6 +38,9 @@ Rails.application.routes.draw do
   delete "/recently_deleted/:id",         to: "recently_deleted#destroy",     as: :destroy_recently_deleted
   delete "/recently_deleted",             to: "recently_deleted#purge_all",   as: :purge_all_recently_deleted
 
+  get "/prompts",           to: "prompts#index", as: :prompts
+  get "/prompts/:category", to: "prompts#show",  as: :prompt_category
+
   resources :journals do
     resources :journal_entries
   end

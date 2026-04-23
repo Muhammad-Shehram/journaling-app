@@ -8,9 +8,17 @@ class JournalEntry < ApplicationRecord
 
   validates :title, presence: true
   validates :entry_date, presence: true
+  validate :cover_photo_is_image, if: -> { cover_photo.attached? }
 
   scope :active,           -> { where(deleted_at: nil) }
   scope :recently_deleted, -> { where.not(deleted_at: nil).where("deleted_at > ?", 30.days.ago) }
+
+  def cover_photo_is_image
+    unless cover_photo.content_type.start_with?("image/")
+      errors.add(:cover_photo, "must be an image file (JPEG, PNG, GIF, WebP)")
+      cover_photo.purge
+    end
+  end
 
   def soft_delete!
     update!(deleted_at: Time.current)

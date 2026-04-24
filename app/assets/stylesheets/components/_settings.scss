@@ -140,6 +140,91 @@ $r-error:        #E53E3E;
   }
 }
 
+// ---- PASSWORD FIELD WRAPPER (icon + eye toggle) ----
+.settings-pw-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.settings-pw-icon {
+  position: absolute;
+  left: 14px;
+  font-size: 0.82rem;
+  color: $r-muted;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.settings-form__input--pw {
+  padding-left: 38px !important;
+  padding-right: 42px !important;
+}
+
+.settings-pw-eye {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  padding: 4px 6px;
+  cursor: pointer;
+  color: $r-muted;
+  font-size: 0.88rem;
+  line-height: 1;
+  transition: color 0.15s;
+
+  &:hover { color: $r-text; }
+  &:focus  { outline: none; }
+}
+
+.settings-pw-separator {
+  height: 1px;
+  background: $r-border;
+  margin: 2px 0;
+}
+
+// Show req-list when a settings password row is focused
+.settings-form__row:focus-within .req-list {
+  max-height: 120px;
+  opacity: 1;
+  padding: 8px 0 0 0;
+}
+
+// Override white req-item colour — auth styles assume a dark bg, settings is light
+.settings-card .req-item {
+  color: $r-muted;
+
+  .req-icon { opacity: 0.45; }
+
+  &.req--met {
+    color: #48BB78;
+    .req-icon { color: #48BB78; opacity: 1; }
+  }
+}
+
+// ---- STATIC EMAIL DISPLAY ----
+.settings-email-static {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid $r-border;
+  border-radius: 10px;
+  font-size: 0.93rem;
+  color: $r-muted;
+  background: $r-bg;
+  cursor: default;
+
+  &__note {
+    font-size: 0.78rem;
+    color: rgba($r-muted, 0.75);
+    margin: 5px 0 0 2px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    i { font-size: 0.7rem; }
+  }
+}
+
 // ---- BUTTONS ----
 .settings-btn {
   display: inline-flex;
@@ -318,6 +403,12 @@ $r-error:        #E53E3E;
   }
 }
 
+// ---- MOBILE DAY CHIPS ----
+@media (max-width: 400px) {
+  .settings-day-chips { gap: 4px; }
+  .settings-day-chip  { width: 38px; height: 38px; font-size: 0.7rem; }
+}
+
 // ---- EXPORT ROW ----
 .settings-export-row {
   display: flex;
@@ -328,5 +419,234 @@ $r-error:        #E53E3E;
   &__hint {
     font-size: 0.83rem;
     color: $r-muted;
+  }
+}
+
+// ============================================
+// DELETE ACCOUNT — GitHub-style 3-step modal
+// ============================================
+
+.delete-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+
+  &.is-open { display: flex; }
+}
+
+.delete-modal__box {
+  background: white;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 440px;
+  margin: 16px;
+  padding: 40px 36px 36px;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  animation: modalIn 0.2s ease;
+
+  @media (max-width: 480px) { padding: 32px 20px 24px; }
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95) translateY(-8px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+
+.delete-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: $r-muted;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s, background 0.15s;
+
+  &:hover { color: $r-text; background: $r-bg; }
+}
+
+.delete-modal__account-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: rgba($r-error, 0.08);
+  color: $r-error;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  margin: 0 auto 16px;
+}
+
+.delete-modal__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: $r-dark;
+  margin: 0 0 6px;
+}
+
+.delete-modal__email-display {
+  font-size: 0.88rem;
+  color: $r-muted;
+  margin: 0 0 28px;
+}
+
+.delete-modal__cta {
+  width: 100%;
+  padding: 12px 20px;
+  background: $r-dark;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  font-family: $body-font;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover { background: darken($r-dark, 6%); }
+
+  &--understood {
+    background: $r-error;
+    &:hover { background: darken($r-error, 8%); }
+  }
+}
+
+.delete-modal__warning-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(237, 137, 54, 0.08);
+  border: 1px solid rgba(237, 137, 54, 0.3);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #C05621;
+  text-align: left;
+  margin-bottom: 20px;
+
+  i { flex-shrink: 0; margin-top: 2px; }
+}
+
+.delete-modal__consequences {
+  text-align: left;
+  padding-left: 20px;
+  margin: 0 0 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  li {
+    font-size: 0.88rem;
+    color: $r-text;
+    line-height: 1.5;
+  }
+}
+
+.delete-modal__confirm-label {
+  font-size: 0.88rem;
+  color: $r-text;
+  margin: 0 0 14px;
+  text-align: left;
+  line-height: 1.5;
+}
+
+.delete-modal__email-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid $r-border;
+  border-radius: 10px;
+  font-size: 0.93rem;
+  font-family: $body-font;
+  color: $r-text;
+  background: $r-bg;
+  margin-bottom: 16px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  box-sizing: border-box;
+
+  &::placeholder { color: rgba($r-muted, 0.5); }
+
+  &:focus {
+    outline: none;
+    border-color: $r-error;
+    box-shadow: 0 0 0 3px rgba($r-error, 0.1);
+    background: white;
+  }
+}
+
+.delete-modal__submit {
+  width: 100%;
+  padding: 12px 20px;
+  background: $r-error;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  font-family: $body-font;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  &:disabled { opacity: 0.4; cursor: not-allowed; }
+  &:not(:disabled):hover { background: darken($r-error, 8%); }
+}
+
+// ============================================
+// SETTINGS — MOBILE RESPONSIVE
+// ============================================
+
+@media (max-width: 540px) {
+  .settings-header__title { font-size: 1.5rem; }
+
+  .settings-card { padding: 18px 16px; }
+
+  .settings-card__header { gap: 10px; margin-bottom: 18px; }
+
+  .settings-card__icon {
+    width: 34px;
+    height: 34px;
+    font-size: 0.9rem;
+  }
+
+  .settings-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .settings-export-row {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .settings-btn { width: auto; }
+  }
+
+  // Password fields on mobile — keep usable
+  .settings-pw-wrap {
+    .settings-form__input--pw { font-size: 0.88rem; }
+  }
+
+  // Delete modal — full screen feel on phones
+  .delete-modal__box {
+    border-radius: 14px;
+    padding: 32px 18px 24px;
   }
 }

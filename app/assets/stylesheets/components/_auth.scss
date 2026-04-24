@@ -51,9 +51,10 @@ $auth-success:  #68D391;
   width: 100%;
   max-width: 440px;
   background: $auth-card-bg;
-  border: 1px solid $auth-border;
+  border: 1px solid rgba(255, 255, 255, 0.13);
   border-radius: 18px;
   padding: 28px 32px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
 
   @media (max-width: 480px) {
     padding: 22px 18px;
@@ -152,11 +153,22 @@ $auth-success:  #68D391;
 // ---- PASSWORD REQUIREMENTS ----
 .req-list {
   list-style: none;
-  padding: 6px 0 0 0;
   margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 3px;
+  // Hidden by default — slides in when password field is focused
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.25s ease, opacity 0.2s ease, padding 0.2s ease;
+}
+
+.input-group-wrapper:focus-within .req-list {
+  max-height: 120px;
+  opacity: 1;
+  padding: 8px 0 0 0;
 }
 
 .req-item {
@@ -228,17 +240,18 @@ $auth-success:  #68D391;
     font-family: $headers-font;
     cursor: pointer;
     letter-spacing: 0.01em;
+    box-shadow: 0 4px 20px rgba($auth-accent, 0.38);
     transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
 
     &:hover {
       background: darken($auth-accent, 8%);
       transform: translateY(-1px);
-      box-shadow: 0 8px 24px rgba($auth-accent, 0.4);
+      box-shadow: 0 8px 32px rgba($auth-accent, 0.55);
     }
 
     &:active {
       transform: translateY(0);
-      box-shadow: none;
+      box-shadow: 0 2px 10px rgba($auth-accent, 0.3);
     }
   }
 }

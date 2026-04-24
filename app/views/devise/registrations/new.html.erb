@@ -15,19 +15,34 @@
 
       <div class="form-inputs">
 
+        <%# Name %>
+        <div class="input-group-wrapper">
+          <%= f.label :name, "Your name" %>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-user input-icon"></i>
+            <%= f.input_field :name,
+                              required: true,
+                              autofocus: true,
+                              autocomplete: "name",
+                              placeholder: "What should we call you?",
+                              class: "auth-input" %>
+          </div>
+        </div>
+
+        <%# Email %>
         <div class="input-group-wrapper">
           <%= f.label :email, "Email address" %>
           <div class="input-wrapper">
             <i class="fa-solid fa-envelope input-icon"></i>
             <%= f.input_field :email,
                               required: true,
-                              autofocus: true,
                               autocomplete: "email",
                               placeholder: "you@example.com",
                               class: "auth-input" %>
           </div>
         </div>
 
+        <%# Password %>
         <div class="input-group-wrapper" data-controller="password">
           <%= f.label :password, "Password" %>
           <div class="input-wrapper">
@@ -58,6 +73,7 @@
           </ul>
         </div>
 
+        <%# Confirm password %>
         <div class="input-group-wrapper" data-controller="password">
           <%= f.label :password_confirmation, "Confirm password" %>
           <div class="input-wrapper">

@@ -1247,3 +1247,37 @@ trix-editor {
   &--sans     { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; }
   &--mono     { font-family: 'Courier New', ui-monospace, monospace; }
 }
+
+// ============================================
+// MOBILE RESPONSIVE
+// ============================================
+
+@media (max-width: 540px) {
+  // Journal pill — smaller on mobile
+  .journal-pill {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  // Context strip — stack on very small screens
+  .canvas__context {
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  // Tag input — full width pill on mobile
+  .tag-input-wrap {
+    border-radius: 12px;
+  }
+
+  // Title — slightly smaller on mobile
+  .canvas__title-input {
+    font-size: 1.6rem !important;
+  }
+
+  // Canvas bar icons — tighten padding
+  .canvas__icon-btn {
+    width: 36px;
+    height: 36px;
+  }
+}

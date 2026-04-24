@@ -241,3 +241,30 @@ $r-bg:           #F8F9FC;
     &:hover { text-decoration: underline; }
   }
 }
+
+// ============================================
+// MOBILE RESPONSIVE
+// ============================================
+
+@media (max-width: 540px) {
+  .prompts-index__title { font-size: 1.5rem; }
+
+  .prompts-show__header {
+    gap: 12px;
+  }
+
+  .prompts-show__title { font-size: 1.5rem; }
+
+  .prompts-show__item {
+    padding: 24px 20px;
+  }
+
+  .prompts-show__item-text {
+    font-size: 1rem;
+  }
+
+  .prompts-category-row {
+    padding: 16px;
+    gap: 12px;
+  }
+}

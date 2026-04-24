@@ -107,7 +107,7 @@ These are invoked with `/skill-name` and load only when needed:
 
 ---
 
-### 💅 Phase 5: UI/UX Polish (The "Final Look")
+### ✅ Phase 5: UI/UX Polish (The "Final Look") — COMPLETE
 *Goal: Transform basic HTML into sleek design using Bootstrap + Le Wagon stylesheet.*
 
 - [x] CSS/Bootstrap Integration: Style Journals as cards/books (dark mode)
@@ -119,8 +119,11 @@ These are invoked with `/skill-name` and load only when needed:
 - [x] Bookshelf Cleanup: Removed "New Journal" ghost card from grid (top-right button is the only entry point)
 - [x] Date Formatting: Change `2026-04-15` to `April 15, 2026`
 - [x] Empty States: Nice views for "No entries yet"
-- [ ] **Dark Mode Theme:** Wire the existing `dark_mode` DB toggle to actually apply a dark CSS theme across all pages (sidebar, canvas, cards, forms, settings). The toggle exists and persists — the actual dark stylesheet/class needs to be implemented.
-- [ ] **Mobile Responsiveness:** Full responsive pass across all pages. Target: iPhone XR (375×896) and all larger devices — iPhone 11/12/13/14/15, Samsung Galaxy S/A series, iPad (768px+), iPad Pro. Every page must be visually clean at these breakpoints: sidebar collapses to hamburger on mobile, canvas/form adapts, prompts grid stacks, settings cards stack, bookshelf grid reflows.
+- [x] **Dark Mode Theme:** Canvas-only dark mode wired to `dark_mode` DB column. `body.dark-mode` class toggled via `dark_mode_controller.js` (Stimulus, instant AJAX — no save button). `_dark_mode.scss` covers app-main, entry cards, bookshelf, settings, prompts, recently deleted, writing canvas, forms. Sidebar stays dark navy (unchanged). Landing/auth/legal pages unaffected (class only applied when signed in).
+- [x] **Sign-up Page Polish:** Name field added (Devise permitted params), animated password req-list (CSS `:focus-within`), card border/shadow distinction, button resting glow.
+- [x] **Settings Improvements:** Read-only email field (`:email` removed from `profile_params`); password card with lock icons, eye toggles, separator, req-list, placeholders; GitHub-style 3-step delete account modal (type email to confirm); instant dark mode toggle (no Save needed); day chips driven by CSS `:has(:checked)` only.
+- [x] **Password Change UX Fix:** Both success and failure redirect to `settings_path(anchor: "password")` so the page scrolls to the password card instead of jumping to the top.
+- [x] **Mobile Responsiveness:** Full responsive pass — all pages clean at iPhone XR (375px) through iPad Pro. Entry cards, bookshelf grid, settings cards, prompts, recently deleted, writing canvas, filter bar all reflow correctly at mobile breakpoints.
 
 ---
 
@@ -149,20 +152,20 @@ These are invoked with `/skill-name` and load only when needed:
 ---
 
 ## Current Status
-**Branch:** `phase-4-rich-content`
+**Branch:** `phase-5-dark-mode-mobile`
 
-**Phases Complete:** Phase 1, Phase 2, Phase 3, Phase 4 ✅, Phase 5 (partial — 9/11 done)
+**Phases Complete:** Phase 1, Phase 2, Phase 3, Phase 4, Phase 5 ✅
 
-**Current Phase:** Phase 5 — two tasks remaining (Dark Mode Theme + Mobile Responsiveness)
+**Current Phase:** Phase 5.5 — Infrastructure (Postgres local ✅, Supabase/Neon prod + Resend + GoodJob remaining)
 
-**Completed since last update (April 23, 2026):**
-- Journaling Prompts: two-level category → prompt page, journal picker on new-entry form
-- Title textarea auto-resize (no more horizontal scrolling on long prompts)
-- Enter key on title → focus Trix editor; Shift+Enter → newline
-- Full OWASP security audit + all 8 findings fixed (XSS, rate limiting, lockable, cover photo validation, account deletion password confirmation, faker moved to dev/test, config.hosts, require_master_key)
-- Cover photo UI hidden from form (backend intact)
+**Completed since last update (April 24, 2026):**
+- Dark Mode Theme: canvas-only, instant AJAX toggle, `_dark_mode.scss` covers all in-app pages
+- Mobile Responsiveness: full pass across all pages, clean at 375px–iPad Pro
+- Sign-up page polish: name field, animated req-list, card glow, button resting glow
+- Settings: read-only email, password card with icons/eye toggles/separator/req-list, GitHub-style 3-step delete modal, instant dark mode toggle
+- Password change UX fix: redirects to `#password` anchor on both success and failure
 
-**Next Session:** Dark Mode Theme + Mobile Responsiveness (Phase 5 remaining tasks)
+**Next Session:** Phase 5.5 — wire up Supabase/Neon for production DB, Resend for email, GoodJob for reminders
 
 ---
 
@@ -186,5 +189,5 @@ These are invoked with `/skill-name` and load only when needed:
 
 ---
 
-**Last Updated:** April 23, 2026
-**Current Focus:** Phase 5 — Dark Mode Theme + Mobile Responsiveness (branch: `phase-4-rich-content`)
+**Last Updated:** April 24, 2026
+**Current Focus:** Phase 5.5 — Infrastructure (branch: `phase-5-dark-mode-mobile`)

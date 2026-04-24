@@ -15,7 +15,7 @@
       <div class="settings-card__icon"><i class="fa-solid fa-user"></i></div>
       <div>
         <h2 class="settings-card__title">Profile</h2>
-        <p class="settings-card__desc">Update your display name and email address</p>
+        <p class="settings-card__desc">Update your display name</p>
       </div>
     </div>
     <%= form_with model: current_user, url: update_profile_settings_path, method: :patch, class: "settings-form" do |f| %>
@@ -24,8 +24,11 @@
         <%= f.text_field :name, class: "settings-form__input", placeholder: "Your name", autocomplete: "name" %>
       </div>
       <div class="settings-form__row">
-        <%= f.label :email, "Email address", class: "settings-form__label" %>
-        <%= f.email_field :email, class: "settings-form__input", placeholder: "you@example.com", autocomplete: "email" %>
+        <div class="settings-form__label">Email address</div>
+        <div class="settings-email-static"><%= current_user.email %></div>
+        <p class="settings-email-static__note">
+          <i class="fa-solid fa-circle-info"></i> Email changes coming soon
+        </p>
       </div>
       <button type="submit" class="settings-btn settings-btn--primary">Save profile</button>
     <% end %>
@@ -40,18 +43,77 @@
       </div>
     </div>
     <%= form_with model: current_user, url: update_password_settings_path, method: :patch, class: "settings-form" do |f| %>
-      <div class="settings-form__row">
+
+      <%# Current password %>
+      <div class="settings-form__row" data-controller="password">
         <%= f.label :current_password, "Current password", class: "settings-form__label" %>
-        <%= f.password_field :current_password, class: "settings-form__input", autocomplete: "current-password" %>
+        <div class="settings-pw-wrap">
+          <i class="fa-solid fa-lock settings-pw-icon"></i>
+          <%= f.password_field :current_password,
+              class: "settings-form__input settings-form__input--pw",
+              autocomplete: "current-password",
+              placeholder: "Enter current password",
+              data: { password_target: "input" } %>
+          <button type="button" class="settings-pw-eye"
+                  data-password-target="toggleBtn"
+                  data-action="click->password#toggle">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
       </div>
-      <div class="settings-form__row">
+
+      <div class="settings-pw-separator"></div>
+
+      <%# New password + requirements %>
+      <div class="settings-form__row" data-controller="password">
         <%= f.label :password, "New password", class: "settings-form__label" %>
-        <%= f.password_field :password, class: "settings-form__input", autocomplete: "new-password" %>
+        <div class="settings-pw-wrap">
+          <i class="fa-solid fa-lock settings-pw-icon"></i>
+          <%= f.password_field :password,
+              class: "settings-form__input settings-form__input--pw",
+              autocomplete: "new-password",
+              placeholder: "Create new password",
+              data: { password_target: "input", action: "input->password#check" } %>
+          <button type="button" class="settings-pw-eye"
+                  data-password-target="toggleBtn"
+                  data-action="click->password#toggle">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+        <ul class="req-list" data-password-target="list">
+          <li class="req-item" data-req="req-length">
+            <i class="fa-solid fa-circle-check req-icon"></i> At least 12 characters
+          </li>
+          <li class="req-item" data-req="req-uppercase">
+            <i class="fa-solid fa-circle-check req-icon"></i> One uppercase letter
+          </li>
+          <li class="req-item" data-req="req-number">
+            <i class="fa-solid fa-circle-check req-icon"></i> One number
+          </li>
+          <li class="req-item" data-req="req-special">
+            <i class="fa-solid fa-circle-check req-icon"></i> One special character (!@#$%^&amp;*)
+          </li>
+        </ul>
       </div>
-      <div class="settings-form__row">
+
+      <%# Confirm new password %>
+      <div class="settings-form__row" data-controller="password">
         <%= f.label :password_confirmation, "Confirm new password", class: "settings-form__label" %>
-        <%= f.password_field :password_confirmation, class: "settings-form__input", autocomplete: "new-password" %>
+        <div class="settings-pw-wrap">
+          <i class="fa-solid fa-lock settings-pw-icon"></i>
+          <%= f.password_field :password_confirmation,
+              class: "settings-form__input settings-form__input--pw",
+              autocomplete: "new-password",
+              placeholder: "Confirm new password",
+              data: { password_target: "input" } %>
+          <button type="button" class="settings-pw-eye"
+                  data-password-target="toggleBtn"
+                  data-action="click->password#toggle">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
       </div>
+
       <button type="submit" class="settings-btn settings-btn--primary">Change password</button>
     <% end %>
   </section>
@@ -96,7 +158,7 @@
         <div class="settings-day-chips">
           <% active_days = current_user.reminder_days.to_s.split(",") %>
           <% %w[Mon Tue Wed Thu Fri Sat Sun].each do |day| %>
-            <label class="settings-day-chip <%= 'settings-day-chip--active' if active_days.include?(day) %>">
+            <label class="settings-day-chip">
               <%= check_box_tag "user[reminder_days_list][]", day,
                                 active_days.include?(day),
                                 class: "settings-day-chip__input" %>
@@ -136,19 +198,20 @@
       </div>
     </div>
 
-    <%= form_with url: update_appearance_settings_path, method: :patch do |f| %>
-      <div class="settings-toggle-row">
-        <div>
-          <div class="settings-toggle-row__label">Dark mode</div>
-          <div class="settings-toggle-row__sub">Switch to a dark colour scheme — coming soon</div>
-        </div>
-        <label class="toggle-switch">
-          <%= check_box_tag :dark_mode, "1", current_user.dark_mode, class: "toggle-switch__input" %>
-          <span class="toggle-switch__track"></span>
-        </label>
+    <div class="settings-toggle-row"
+         data-controller="dark-mode"
+         data-dark-mode-url-value="<%= update_appearance_settings_path %>">
+      <div>
+        <div class="settings-toggle-row__label">Dark mode</div>
+        <div class="settings-toggle-row__sub">Switch between light and dark themes</div>
       </div>
-      <button type="submit" class="settings-btn settings-btn--primary">Save appearance</button>
-    <% end %>
+      <label class="toggle-switch">
+        <%= check_box_tag :dark_mode, "1", current_user.dark_mode,
+            class: "toggle-switch__input",
+            data: { action: "change->dark-mode#toggle" } %>
+        <span class="toggle-switch__track"></span>
+      </label>
+    </div>
   </section>
 
   <%# ======================================== %>
@@ -190,21 +253,84 @@
     <p class="settings-danger__warning">
       This action is <strong>irreversible</strong>. All your journals, entries, and data will be permanently deleted.
     </p>
-    <%= form_with url: destroy_account_settings_path, method: :delete, class: "settings-form" do %>
-      <div class="settings-form__row">
-        <%= label_tag :confirm_password, "Enter your password to confirm", class: "settings-form__label" %>
-        <%= password_field_tag :confirm_password, nil,
-              class: "settings-form__input",
-              placeholder: "Your current password",
-              autocomplete: "current-password",
-              required: true %>
-      </div>
-      <button type="submit"
+
+    <div data-controller="delete-account"
+         data-delete-account-email-value="<%= current_user.email %>">
+
+      <button type="button"
               class="settings-btn settings-btn--danger"
-              data-turbo-confirm="Are you absolutely sure? All your journals and entries will be deleted forever.">
+              data-action="click->delete-account#open">
         <i class="fa-solid fa-trash-can"></i> Delete my account
       </button>
-    <% end %>
+
+      <%# ── GitHub-style 3-step confirmation modal ── %>
+      <div class="delete-modal-overlay"
+           data-delete-account-target="overlay"
+           data-action="click->delete-account#closeOnBackdrop">
+        <div class="delete-modal__box">
+
+          <button class="delete-modal__close" type="button"
+                  data-action="click->delete-account#close" aria-label="Close">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+
+          <%# Step 1 — Intent %>
+          <div data-delete-account-target="step1" class="delete-modal__step">
+            <div class="delete-modal__account-icon">
+              <i class="fa-solid fa-book-open-reader"></i>
+            </div>
+            <h3 class="delete-modal__title">Delete account</h3>
+            <p class="delete-modal__email-display"><%= current_user.email %></p>
+            <button type="button"
+                    class="delete-modal__cta"
+                    data-action="click->delete-account#advance2">
+              I want to delete my account
+            </button>
+          </div>
+
+          <%# Step 2 — Consequences %>
+          <div data-delete-account-target="step2" class="delete-modal__step" hidden>
+            <div class="delete-modal__warning-banner">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+              Unexpected bad things will happen if you don't read this!
+            </div>
+            <ul class="delete-modal__consequences">
+              <li>All your <strong>journals and entries</strong> will be permanently deleted</li>
+              <li>All tags, writing history, and stats will be gone <strong>forever</strong></li>
+              <li>You will be <strong>signed out immediately</strong> — this cannot be undone</li>
+            </ul>
+            <button type="button"
+                    class="delete-modal__cta delete-modal__cta--understood"
+                    data-action="click->delete-account#advance3">
+              I have read and understand these effects
+            </button>
+          </div>
+
+          <%# Step 3 — Type email to confirm %>
+          <div data-delete-account-target="step3" class="delete-modal__step" hidden>
+            <%= form_with url: destroy_account_settings_path, method: :delete, class: "delete-modal__form" do %>
+              <p class="delete-modal__confirm-label">
+                To confirm, type <strong><%= current_user.email %></strong> in the box below
+              </p>
+              <input type="text"
+                     name="confirm_email"
+                     class="delete-modal__email-input"
+                     data-delete-account-target="emailInput"
+                     data-action="input->delete-account#checkEmail"
+                     placeholder="<%= current_user.email %>"
+                     autocomplete="off" />
+              <button type="submit"
+                      class="delete-modal__submit"
+                      data-delete-account-target="submitBtn"
+                      disabled>
+                <i class="fa-solid fa-trash-can"></i> Delete this account
+              </button>
+            <% end %>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </section>
 
 </div>

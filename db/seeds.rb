@@ -7,8 +7,8 @@ User.destroy_all
 puts "Creating demo user..."
 alex = User.create!(
   email: "alex@reflekto.app",
-  password: "Reflect0!",
-  password_confirmation: "Reflect0!",
+  password: "@ReflektoApp711!",
+  password_confirmation: "@ReflektoApp711!",
   name: "Alex"
 )
 
@@ -165,6 +165,6 @@ gratitude.journal_entries.create!(
 
 puts ""
 puts "✅ Done! Created:"
-puts "   1 user      → alex@reflekto.app / Reflect0!"
+puts "   1 user      → alex@reflekto.app / @ReflektoApp711!"
 puts "   5 journals  → Journal (default), Daily Life, Work & Career, Travel, Gratitude"
 puts "   #{JournalEntry.count} entries    → hand-crafted, realistic content"

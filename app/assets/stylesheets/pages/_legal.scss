@@ -1,0 +1,193 @@
+// ============================================
+// REFLEKTO LEGAL PAGES — Terms & Privacy
+// ============================================
+
+$r-dark:   #1B1F3B;
+$r-accent: #7C6FF7;
+$r-text:   #2D3748;
+$r-muted:  #718096;
+$r-border: #E8EAF6;
+$r-bg:     #F8F9FC;
+
+.legal-page {
+  background: $r-bg;
+  min-height: calc(100vh - 57px);
+  padding: 64px 0 100px;
+}
+
+// ---- BACK LINK ----
+.legal-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: $r-muted;
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-decoration: none;
+  margin-bottom: 36px;
+  max-width: 720px;
+  transition: color 0.15s ease;
+
+  i { font-size: 0.78rem; }
+
+  &:hover { color: $r-accent; }
+}
+
+// ---- HEADER ----
+.legal-header {
+  max-width: 720px;
+  margin: 0 auto 56px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid $r-border;
+
+  &__label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $r-accent;
+    margin-bottom: 12px;
+  }
+
+  &__title {
+    font-family: $headers-font;
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: $r-dark;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+    line-height: 1.1;
+
+    @media (max-width: 768px) { font-size: 2rem; }
+  }
+
+  &__meta {
+    color: $r-muted;
+    font-size: 0.88rem;
+    margin: 0;
+  }
+}
+
+// ---- BODY ----
+.legal-body {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+// ---- SECTION ----
+.legal-section {
+  margin-bottom: 48px;
+
+  &--intro {
+    background: white;
+    border: 1px solid $r-border;
+    border-left: 4px solid $r-accent;
+    border-radius: 0 12px 12px 0;
+    padding: 20px 24px;
+    margin-bottom: 48px;
+
+    p {
+      color: $r-text;
+      font-size: 1.02rem;
+      line-height: 1.75;
+      margin: 0;
+      font-style: italic;
+    }
+  }
+
+  h2 {
+    font-family: $headers-font;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: $r-dark;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $r-border;
+  }
+
+  p {
+    color: $r-text;
+    font-size: 0.97rem;
+    line-height: 1.8;
+    margin-bottom: 14px;
+
+    &:last-child { margin-bottom: 0; }
+
+    strong { color: $r-dark; font-weight: 600; }
+
+    a {
+      color: $r-accent;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+
+      &:hover { color: darken($r-accent, 10%); }
+    }
+  }
+
+  ul {
+    margin: 12px 0 16px 0;
+    padding-left: 20px;
+
+    li {
+      color: $r-text;
+      font-size: 0.97rem;
+      line-height: 1.75;
+      margin-bottom: 6px;
+
+      strong { color: $r-dark; font-weight: 600; }
+    }
+  }
+}
+
+// ---- TABLE ----
+.legal-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.93rem;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid $r-border;
+
+  th {
+    background: $r-dark;
+    color: white;
+    font-weight: 600;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+  }
+
+  td {
+    padding: 11px 16px;
+    color: $r-text;
+    border-bottom: 1px solid $r-border;
+    vertical-align: top;
+    line-height: 1.6;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  tr:nth-child(even) td { background: $r-bg; }
+}
+
+// ---- CONTACT BLOCK ----
+.legal-contact {
+  background: white;
+  border: 1px solid $r-border;
+  border-radius: 10px;
+  padding: 16px 20px;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: $r-text;
+  display: inline-block;
+  margin-top: 8px;
+
+  a {
+    color: $r-accent;
+    text-decoration: none;
+
+    &:hover { text-decoration: underline; }
+  }
+}

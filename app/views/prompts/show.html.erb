@@ -1,0 +1,39 @@
+<div class="prompts-show">
+
+  <div class="prompts-show__header">
+    <%= link_to prompts_path, class: "prompts-show__back" do %>
+      <i class="fa-solid fa-arrow-left"></i>
+    <% end %>
+    <div class="prompts-show__meta">
+      <h1 class="prompts-show__title"><%= @category %></h1>
+      <p class="prompts-show__count"><%= @prompts.length %> prompts</p>
+    </div>
+  </div>
+
+  <% unless @sidebar_new_entry_journal %>
+    <div class="prompts-no-journal">
+      <i class="fa-solid fa-circle-info"></i>
+      You need a journal before you can write.
+      <%= link_to "Create your first journal", new_journal_path %>
+    </div>
+  <% end %>
+
+  <div class="prompts-show__list">
+    <% @prompts.each_with_index do |prompt, i| %>
+      <% if @sidebar_new_entry_journal %>
+        <%= link_to new_journal_journal_entry_path(@sidebar_new_entry_journal, title: prompt),
+                    class: "prompts-show__item" do %>
+          <p class="prompts-show__item-text"><%= prompt %></p>
+        <% end %>
+      <% else %>
+        <div class="prompts-show__item prompts-show__item--disabled">
+          <p class="prompts-show__item-text"><%= prompt %></p>
+        </div>
+      <% end %>
+      <% unless i == @prompts.length - 1 %>
+        <hr class="prompts-show__divider">
+      <% end %>
+    <% end %>
+  </div>
+
+</div>

@@ -1,0 +1,83 @@
+<div class="rd-page">
+
+  <div class="rd__header">
+    <div class="rd__header-text">
+      <h1 class="rd__title">Recently Deleted</h1>
+      <p class="rd__subtitle">Entries are available for 30 days. After that, they are permanently deleted.</p>
+    </div>
+    <% if @deleted_entries.any? %>
+      <div class="rd__header-actions">
+        <%= button_to recover_all_recently_deleted_path,
+                      method: :patch,
+                      class: "rd__action-btn rd__action-btn--recover",
+                      form: { data: { turbo_confirm: "Restore all deleted entries?" } } do %>
+          <i class="fa-solid fa-rotate-left"></i> Recover All
+        <% end %>
+        <%= button_to purge_all_recently_deleted_path,
+                      method: :delete,
+                      class: "rd__action-btn rd__action-btn--delete",
+                      form: { data: { turbo_confirm: "Permanently delete all entries? This cannot be undone." } } do %>
+          <i class="fa-solid fa-trash-can"></i> Delete All
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @deleted_entries.any? %>
+    <% @deleted_entries.group_by { |e| e.days_remaining }.sort_by { |days, _| days }.each do |days, entries| %>
+      <div class="rd__group">
+        <div class="rd__group-label">
+          <% if days == 1 %>
+            1 Day Remaining
+          <% else %>
+            <%= days %> Days Remaining
+          <% end %>
+        </div>
+
+        <div class="rd__entry-list">
+          <% entries.each do |entry| %>
+            <div class="rd__entry-card">
+              <div class="rd__entry-journal-dot" style="background: <%= entry.journal.color || '#7C6FF7' %>"></div>
+
+              <div class="rd__entry-main">
+                <div class="rd__entry-title"><%= entry.title %></div>
+                <div class="rd__entry-meta">
+                  <span class="rd__entry-journal"><%= entry.journal.name %></span>
+                  <span class="rd__entry-sep">·</span>
+                  <span class="rd__entry-date"><%= entry.entry_date.strftime("%A, %-d %B %Y") %></span>
+                </div>
+              </div>
+
+              <div class="rd__entry-actions">
+                <%= button_to recover_recently_deleted_path(entry),
+                              method: :patch,
+                              class: "rd__entry-btn rd__entry-btn--recover",
+                              title: "Restore entry",
+                              form: { class: "rd__entry-form" } do %>
+                  <i class="fa-solid fa-rotate-left"></i> Recover
+                <% end %>
+                <%= button_to destroy_recently_deleted_path(entry),
+                              method: :delete,
+                              class: "rd__entry-btn rd__entry-btn--delete",
+                              title: "Permanently delete",
+                              form: { class: "rd__entry-form", data: { turbo_confirm: "Permanently delete \"#{entry.title}\"? This cannot be undone." } } do %>
+                  <i class="fa-solid fa-trash-can"></i>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+  <% else %>
+    <div class="rd__empty">
+      <div class="rd__empty-icon">
+        <i class="fa-solid fa-trash-can"></i>
+      </div>
+      <div class="rd__empty-title">No deleted entries</div>
+      <p class="rd__empty-text">Entries you delete will appear here for 30 days before being permanently removed.</p>
+    </div>
+  <% end %>
+
+</div>

@@ -14,7 +14,7 @@ export default class extends Controller {
   check() {
     const val = this.inputTarget.value
     const rules = [
-      { id: "req-length",    test: v => v.length >= 8 },
+      { id: "req-length",    test: v => v.length >= 12 },
       { id: "req-uppercase", test: v => /[A-Z]/.test(v) },
       { id: "req-number",    test: v => /[0-9]/.test(v) },
       { id: "req-special",   test: v => /[!@#$%^&*]/.test(v) }

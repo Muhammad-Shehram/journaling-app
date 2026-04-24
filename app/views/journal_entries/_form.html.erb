@@ -6,8 +6,8 @@
      @journal_entry.entry_date.strftime("%Y-%m-%d") :
      Date.today.strftime("%Y-%m-%d") %>
 
-<div class="canvas">
-  <%= simple_form_for([@journal, @journal_entry], html: { class: "canvas__form" }) do |f| %>
+<div class="canvas" data-controller="font-picker" data-font-picker-key-value="reflekto_font">
+  <%= simple_form_for([@journal, @journal_entry], html: { class: "canvas__form", multipart: true }) do |f| %>
 
     <div class="canvas__bar">
       <%= link_to cancel_path, class: "canvas__cancel" do %>
@@ -20,11 +20,33 @@
 
     <div class="canvas__body">
 
-      <%# Apple Journal-style context strip: journal name on the left, date chip on the right %>
+      <%# Context strip: journal name on the left, date chip on the right %>
       <div class="canvas__context">
-        <span class="journal-pill" style="--journal-pill-color: <%= @journal.color || '#7C6FF7' %>">
-          <%= @journal.name %>
-        </span>
+        <% if @journal_entry.new_record? %>
+          <%# Interactive picker on the new-entry form %>
+          <div class="journal-switcher"
+               data-controller="journal-picker"
+               data-journal-picker-journals-value="<%= @sidebar_journals.map { |j|
+                 { id: j.id, name: j.name, color: (j.color || '#7C6FF7'), path: journal_journal_entries_path(j) }
+               }.to_json %>"
+               data-journal-picker-new-journal-url-value="<%= new_journal_path %>"
+               data-journal-picker-current-id-value="<%= @journal.id %>">
+            <button type="button"
+                    class="journal-pill journal-pill--picker"
+                    style="--journal-pill-color: <%= @journal.color || '#7C6FF7' %>"
+                    data-journal-picker-target="trigger"
+                    data-action="click->journal-picker#toggle">
+              <span data-journal-picker-target="pillLabel"><%= @journal.name %></span>
+              <i class="fa-solid fa-chevron-down journal-pill__chevron"></i>
+            </button>
+            <div class="journal-picker-dropdown" data-journal-picker-target="dropdown"></div>
+          </div>
+        <% else %>
+          <%# Static pill on the edit form %>
+          <span class="journal-pill" style="--journal-pill-color: <%= @journal.color || '#7C6FF7' %>">
+            <%= @journal.name %>
+          </span>
+        <% end %>
         <%= f.text_field :entry_date,
                         type: "date",
                         class: "canvas__date-chip",
@@ -32,30 +54,121 @@
                         value: date_value %>
       </div>
 
-      <%# Title — Day One-style oversized borderless field %>
+      <%# Title — textarea so long prompts wrap instead of scrolling horizontally %>
       <%= f.input :title,
                   label: false,
+                  as: :text,
                   placeholder: "Title",
                   input_html: {
                     class: "canvas__title-input",
                     autofocus: @journal_entry.new_record?,
-                    "aria-label": "Entry title"
+                    "aria-label": "Entry title",
+                    rows: 1,
+                    data: {
+                      action: "keydown->font-picker#titleKeydown input->font-picker#autoResizeTitle",
+                      "font-picker-target": "titleInput"
+                    }
                   } %>
 
       <div class="canvas__divider"></div>
 
-      <%# Content — open writing surface %>
-      <%= f.input :content,
-                  as: :text,
-                  label: false,
-                  placeholder: "Start writing…",
-                  input_html: {
-                    class: "canvas__content-input",
-                    rows: 14,
-                    "aria-label": "Entry content"
-                  } %>
+      <%# Rich text content area %>
+      <div class="canvas__rich-editor">
+        <%= f.rich_text_area :content,
+                             placeholder: "Start writing…",
+                             class: "canvas__content-input",
+                             "aria-label": "Entry content" %>
+      </div>
+
 
     </div>
 
   <% end %>
+
+  <%# Aa — floating font picker %>
+  <button class="canvas__font-trigger"
+          type="button"
+          aria-label="Change writing font"
+          data-font-picker-target="trigger"
+          data-action="click->font-picker#toggle">
+    Aa
+  </button>
+
+  <div class="canvas__font-popup" data-font-picker-target="popup" role="dialog" aria-label="Formatting options">
+
+    <%# — Fonts — %>
+    <div class="canvas__fp-section-label">Fonts</div>
+    <% [
+      { key: "default", label: "Default",    preview: "The quick brown fox" },
+      { key: "serif",   label: "Serif",      preview: "The quick brown fox" },
+      { key: "sans",    label: "Sans-serif", preview: "The quick brown fox" },
+      { key: "mono",    label: "Monospace",  preview: "const hello = 'world'" }
+    ].each do |font| %>
+      <button class="canvas__font-option"
+              type="button"
+              data-font="<%= font[:key] %>"
+              data-font-picker-target="option"
+              data-action="click->font-picker#select">
+        <span class="canvas__font-name"><%= font[:label] %></span>
+        <span class="canvas__font-preview canvas__font-preview--<%= font[:key] %>"><%= font[:preview] %></span>
+      </button>
+    <% end %>
+
+    <div class="canvas__fp-divider"></div>
+
+    <%# — Text Style — %>
+    <div class="canvas__fp-section-label">Text Style</div>
+    <div class="canvas__fp-grid">
+      <button class="canvas__fp-format-btn" type="button"
+              title="Bold" data-attr="bold"
+              data-action="mousedown->font-picker#format">
+        <strong>B</strong>
+      </button>
+      <button class="canvas__fp-format-btn" type="button"
+              title="Italic" data-attr="italic"
+              data-action="mousedown->font-picker#format">
+        <em>I</em>
+      </button>
+      <button class="canvas__fp-format-btn canvas__fp-format-btn--strike" type="button"
+              title="Strikethrough" data-attr="strike"
+              data-action="mousedown->font-picker#format">
+        S
+      </button>
+    </div>
+
+    <div class="canvas__fp-divider"></div>
+
+    <%# — Block Format — %>
+    <div class="canvas__fp-section-label">Block Format</div>
+    <% [
+      { attr: "heading1", label: "Heading",    icon: "fa-heading"    },
+      { attr: "quote",    label: "Quote",      icon: "fa-quote-left" },
+      { attr: "code",     label: "Code Block", icon: "fa-code"       }
+    ].each do |item| %>
+      <button class="canvas__fp-row" type="button"
+              data-attr="<%= item[:attr] %>"
+              data-action="mousedown->font-picker#format">
+        <i class="fa-solid <%= item[:icon] %> canvas__fp-row-icon"></i>
+        <span><%= item[:label] %></span>
+      </button>
+    <% end %>
+
+    <div class="canvas__fp-divider"></div>
+
+    <%# — Lists — %>
+    <div class="canvas__fp-section-label">Lists</div>
+    <% [
+      { attr: "bullet", label: "Bullet List",   icon: "fa-list-ul" },
+      { attr: "number", label: "Numbered List", icon: "fa-list-ol" }
+    ].each do |item| %>
+      <button class="canvas__fp-row" type="button"
+              data-attr="<%= item[:attr] %>"
+              data-action="mousedown->font-picker#format">
+        <i class="fa-solid <%= item[:icon] %> canvas__fp-row-icon"></i>
+        <span><%= item[:label] %></span>
+      </button>
+    <% end %>
+
+  </div>
+
 </div>

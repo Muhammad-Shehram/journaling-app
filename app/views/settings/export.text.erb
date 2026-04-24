@@ -1,0 +1,17 @@
+REFLEKTO EXPORT — <%= Date.today.strftime("%B %-d, %Y") %>
+Generated for: <%= current_user.email %>
+================================================================================
+<% entries.group_by { |e| e.journal.name }.sort_by { |name, _| name }.each do |journal_name, journal_entries| %>
+
+## <%= journal_name %>
+<% journal_entries.each do |entry| %>
+
+### <%= entry.title %>
+Date: <%= entry.entry_date.strftime("%B %-d, %Y") %>
+<% if entry.tags.any? %>Tags: <%= entry.tags.map(&:name).join(", ") %>
+<% end %>
+<%= entry.content.to_plain_text %>
+
+--------------------------------------------------------------------------------
+<% end %>
+<% end %>

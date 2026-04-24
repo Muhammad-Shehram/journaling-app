@@ -1,0 +1,210 @@
+<div class="settings-page">
+
+  <div class="settings-header">
+    <h1 class="settings-header__title">Settings</h1>
+    <p class="settings-header__sub">Manage your account and preferences</p>
+  </div>
+
+  <%# ======================================== %>
+  <%# ACCOUNT %>
+  <%# ======================================== %>
+  <div class="settings-section-label">Account</div>
+
+  <section class="settings-card" id="profile">
+    <div class="settings-card__header">
+      <div class="settings-card__icon"><i class="fa-solid fa-user"></i></div>
+      <div>
+        <h2 class="settings-card__title">Profile</h2>
+        <p class="settings-card__desc">Update your display name and email address</p>
+      </div>
+    </div>
+    <%= form_with model: current_user, url: update_profile_settings_path, method: :patch, class: "settings-form" do |f| %>
+      <div class="settings-form__row">
+        <%= f.label :name, "Display name", class: "settings-form__label" %>
+        <%= f.text_field :name, class: "settings-form__input", placeholder: "Your name", autocomplete: "name" %>
+      </div>
+      <div class="settings-form__row">
+        <%= f.label :email, "Email address", class: "settings-form__label" %>
+        <%= f.email_field :email, class: "settings-form__input", placeholder: "you@example.com", autocomplete: "email" %>
+      </div>
+      <button type="submit" class="settings-btn settings-btn--primary">Save profile</button>
+    <% end %>
+  </section>
+
+  <section class="settings-card" id="password">
+    <div class="settings-card__header">
+      <div class="settings-card__icon"><i class="fa-solid fa-lock"></i></div>
+      <div>
+        <h2 class="settings-card__title">Password</h2>
+        <p class="settings-card__desc">Change your login password</p>
+      </div>
+    </div>
+    <%= form_with model: current_user, url: update_password_settings_path, method: :patch, class: "settings-form" do |f| %>
+      <div class="settings-form__row">
+        <%= f.label :current_password, "Current password", class: "settings-form__label" %>
+        <%= f.password_field :current_password, class: "settings-form__input", autocomplete: "current-password" %>
+      </div>
+      <div class="settings-form__row">
+        <%= f.label :password, "New password", class: "settings-form__label" %>
+        <%= f.password_field :password, class: "settings-form__input", autocomplete: "new-password" %>
+      </div>
+      <div class="settings-form__row">
+        <%= f.label :password_confirmation, "Confirm new password", class: "settings-form__label" %>
+        <%= f.password_field :password_confirmation, class: "settings-form__input", autocomplete: "new-password" %>
+      </div>
+      <button type="submit" class="settings-btn settings-btn--primary">Change password</button>
+    <% end %>
+  </section>
+
+  <%# ======================================== %>
+  <%# REMINDERS %>
+  <%# ======================================== %>
+  <div class="settings-section-label">Reminders</div>
+
+  <section class="settings-card" id="reminders">
+    <div class="settings-card__header">
+      <div class="settings-card__icon"><i class="fa-solid fa-bell"></i></div>
+      <div>
+        <h2 class="settings-card__title">Daily Reminder</h2>
+        <p class="settings-card__desc">Get a nudge to write in your journal each day</p>
+      </div>
+    </div>
+
+    <%= form_with model: current_user, url: update_reminders_settings_path, method: :patch, class: "settings-form" do |f| %>
+
+      <%# Enable toggle %>
+      <div class="settings-toggle-row">
+        <div>
+          <div class="settings-toggle-row__label">Enable daily reminder</div>
+          <div class="settings-toggle-row__sub">Receive a reminder to journal each day</div>
+        </div>
+        <label class="toggle-switch">
+          <%= f.check_box :reminders_enabled, class: "toggle-switch__input", id: "reminders_enabled" %>
+          <span class="toggle-switch__track"></span>
+        </label>
+      </div>
+
+      <%# Time %>
+      <div class="settings-form__row settings-reminder-time">
+        <%= f.label :reminder_time, "Reminder time", class: "settings-form__label" %>
+        <%= f.time_field :reminder_time, class: "settings-form__input settings-form__input--time" %>
+      </div>
+
+      <%# Day chips %>
+      <div class="settings-form__row">
+        <div class="settings-form__label">Days</div>
+        <div class="settings-day-chips">
+          <% active_days = current_user.reminder_days.to_s.split(",") %>
+          <% %w[Mon Tue Wed Thu Fri Sat Sun].each do |day| %>
+            <label class="settings-day-chip <%= 'settings-day-chip--active' if active_days.include?(day) %>">
+              <%= check_box_tag "user[reminder_days_list][]", day,
+                                active_days.include?(day),
+                                class: "settings-day-chip__input" %>
+              <%= day %>
+            </label>
+          <% end %>
+        </div>
+      </div>
+
+      <%# Email toggle %>
+      <div class="settings-toggle-row">
+        <div>
+          <div class="settings-toggle-row__label">Send reminder email</div>
+          <div class="settings-toggle-row__sub">Email reminders will be available when email delivery is configured</div>
+        </div>
+        <label class="toggle-switch">
+          <%= f.check_box :reminder_email, class: "toggle-switch__input" %>
+          <span class="toggle-switch__track"></span>
+        </label>
+      </div>
+
+      <button type="submit" class="settings-btn settings-btn--primary">Save reminders</button>
+    <% end %>
+  </section>
+
+  <%# ======================================== %>
+  <%# APPEARANCE %>
+  <%# ======================================== %>
+  <div class="settings-section-label">Appearance</div>
+
+  <section class="settings-card" id="appearance">
+    <div class="settings-card__header">
+      <div class="settings-card__icon"><i class="fa-solid fa-moon"></i></div>
+      <div>
+        <h2 class="settings-card__title">Appearance</h2>
+        <p class="settings-card__desc">Customise how Reflekto looks</p>
+      </div>
+    </div>
+
+    <%= form_with url: update_appearance_settings_path, method: :patch do |f| %>
+      <div class="settings-toggle-row">
+        <div>
+          <div class="settings-toggle-row__label">Dark mode</div>
+          <div class="settings-toggle-row__sub">Switch to a dark colour scheme — coming soon</div>
+        </div>
+        <label class="toggle-switch">
+          <%= check_box_tag :dark_mode, "1", current_user.dark_mode, class: "toggle-switch__input" %>
+          <span class="toggle-switch__track"></span>
+        </label>
+      </div>
+      <button type="submit" class="settings-btn settings-btn--primary">Save appearance</button>
+    <% end %>
+  </section>
+
+  <%# ======================================== %>
+  <%# DATA %>
+  <%# ======================================== %>
+  <div class="settings-section-label">Data</div>
+
+  <section class="settings-card" id="data">
+    <div class="settings-card__header">
+      <div class="settings-card__icon"><i class="fa-solid fa-download"></i></div>
+      <div>
+        <h2 class="settings-card__title">Export entries</h2>
+        <p class="settings-card__desc">Download all your journal entries as a plain text file</p>
+      </div>
+    </div>
+    <div class="settings-export-row">
+      <%= link_to export_settings_path,
+                  class: "settings-btn settings-btn--primary",
+                  data: { turbo: false } do %>
+        <i class="fa-solid fa-file-arrow-down"></i> Export Data
+      <% end %>
+      <span class="settings-export-row__hint">All entries from all journals, formatted as readable text</span>
+    </div>
+  </section>
+
+  <%# ======================================== %>
+  <%# DANGER ZONE %>
+  <%# ======================================== %>
+  <div class="settings-section-label settings-section-label--danger">Danger zone</div>
+
+  <section class="settings-card settings-card--danger" id="danger">
+    <div class="settings-card__header">
+      <div class="settings-card__icon settings-card__icon--danger"><i class="fa-solid fa-triangle-exclamation"></i></div>
+      <div>
+        <h2 class="settings-card__title">Delete account</h2>
+        <p class="settings-card__desc">Permanently delete your account and all journals</p>
+      </div>
+    </div>
+    <p class="settings-danger__warning">
+      This action is <strong>irreversible</strong>. All your journals, entries, and data will be permanently deleted.
+    </p>
+    <%= form_with url: destroy_account_settings_path, method: :delete, class: "settings-form" do %>
+      <div class="settings-form__row">
+        <%= label_tag :confirm_password, "Enter your password to confirm", class: "settings-form__label" %>
+        <%= password_field_tag :confirm_password, nil,
+              class: "settings-form__input",
+              placeholder: "Your current password",
+              autocomplete: "current-password",
+              required: true %>
+      </div>
+      <button type="submit"
+              class="settings-btn settings-btn--danger"
+              data-turbo-confirm="Are you absolutely sure? All your journals and entries will be deleted forever.">
+        <i class="fa-solid fa-trash-can"></i> Delete my account
+      </button>
+    <% end %>
+  </section>
+
+</div>

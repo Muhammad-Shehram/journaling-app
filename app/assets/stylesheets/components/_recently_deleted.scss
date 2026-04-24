@@ -1,0 +1,245 @@
+// ============================================
+// RECENTLY DELETED PAGE
+// ============================================
+
+$r-dark:         #1B2A4A;
+$r-accent:       #7C6FF7;
+$r-accent-light: #EEF0FF;
+$r-text:         #2D3748;
+$r-muted:        #718096;
+$r-border:       #E2E8F0;
+$r-bg:           #FAF9F7;
+$r-error:        #E53E3E;
+
+.rd-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+
+  @media (max-width: 768px) { padding: 32px 16px 60px; }
+}
+
+// ---- HEADER ----
+.rd__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+
+.rd__title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: $r-dark;
+  letter-spacing: -0.02em;
+  margin: 0 0 6px;
+}
+
+.rd__subtitle {
+  font-size: 0.88rem;
+  color: $r-muted;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.rd__header-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.rd__action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border-radius: 9px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: $body-font;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+
+  i { font-size: 0.78rem; }
+
+  &--recover {
+    background: $r-accent-light;
+    color: $r-accent;
+
+    &:hover {
+      background: darken($r-accent-light, 4%);
+      color: darken($r-accent, 8%);
+    }
+  }
+
+  &--delete {
+    background: rgba($r-error, 0.08);
+    color: $r-error;
+
+    &:hover {
+      background: rgba($r-error, 0.14);
+    }
+  }
+}
+
+// ---- GROUP ----
+.rd__group {
+  margin-bottom: 28px;
+}
+
+.rd__group-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: $r-muted;
+  margin-bottom: 10px;
+  padding-left: 2px;
+}
+
+// ---- ENTRY LIST ----
+.rd__entry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rd__entry-card {
+  background: white;
+  border: 1px solid $r-border;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: box-shadow 0.15s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba($r-dark, 0.06);
+  }
+}
+
+.rd__entry-journal-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.rd__entry-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.rd__entry-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: $r-text;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 3px;
+}
+
+.rd__entry-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: $r-muted;
+}
+
+.rd__entry-journal {
+  font-weight: 500;
+}
+
+.rd__entry-sep {
+  color: lighten($r-muted, 15%);
+}
+
+.rd__entry-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.rd__entry-form {
+  display: inline;
+  margin: 0;
+}
+
+.rd__entry-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 7px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: $body-font;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  i { font-size: 0.72rem; }
+
+  &--recover {
+    background: $r-accent-light;
+    color: $r-accent;
+
+    &:hover {
+      background: darken($r-accent-light, 4%);
+    }
+  }
+
+  &--delete {
+    background: transparent;
+    color: lighten($r-muted, 10%);
+    padding: 6px 8px;
+
+    &:hover {
+      background: rgba($r-error, 0.08);
+      color: $r-error;
+    }
+  }
+}
+
+// ---- EMPTY STATE ----
+.rd__empty {
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.rd__empty-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: $r-bg;
+  border: 1.5px solid $r-border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 1.4rem;
+  color: lighten($r-muted, 10%);
+}
+
+.rd__empty-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: $r-text;
+  margin-bottom: 8px;
+}
+
+.rd__empty-text {
+  color: $r-muted;
+  font-size: 0.9rem;
+  max-width: 320px;
+  margin: 0 auto;
+  line-height: 1.6;
+}

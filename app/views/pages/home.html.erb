@@ -1,8 +1,28 @@
-<%# ============================================ %>
-<%# REFLEKTO LANDING PAGE                       %>
-<%# ============================================ %>
+<% content_for(:title) { "Reflekto — Private Journaling App | Write Freely, Think Clearly" } %>
+<% content_for(:head) do %>
+  <meta name="description" content="Reflekto is a free, private journaling app. Organize your thoughts across multiple colour-coded journals with rich text, tags, photos, and a distraction-free writing canvas. No ads, no tracking — just you and your words.">
+  <meta property="og:title" content="Reflekto — Your Private Journaling Space">
+  <meta property="og:description" content="A free, private journaling app with rich text, tags, photos, and a beautiful Day One-style writing canvas.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Reflekto",
+    "description": "A free private journaling web application with rich text editing, multiple journals, tags, and photo attachments.",
+    "applicationCategory": "LifestyleApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+<% end %>
 
-<%# ---- NAVBAR (logged-out only) ---- %>
+<%# ---- NAVBAR ---- %>
 <nav class="landing-nav">
   <div class="container d-flex align-items-center justify-content-between">
     <div class="landing-nav__brand">Reflekto</div>
@@ -13,7 +33,7 @@
   </div>
 </nav>
 
-<%# ---- HERO SECTION ---- %>
+<%# ---- HERO ---- %>
 <section class="hero-section">
   <div class="hero-glow hero-glow--top"></div>
   <div class="hero-glow hero-glow--bottom"></div>
@@ -21,10 +41,10 @@
   <div class="container position-relative">
     <div class="row justify-content-center text-center">
       <div class="col-lg-8 col-md-10">
-        <div class="hero-badge">✦ Your private journaling space</div>
+        <div class="hero-badge hero-badge--float">✦ Your private journaling space</div>
         <h1 class="hero-title">Your Journal.<br>Your Story.</h1>
         <p class="hero-subtitle">
-          Reflekto gives you a private, beautifully organized space to capture
+          Reflekto gives you a private, beautifully organised space to capture
           your thoughts, memories, and daily reflections — all in one place.
         </p>
         <div class="hero-actions">
@@ -36,13 +56,13 @@
     </div>
   </div>
 
-  <div class="hero-scroll-hint">
+  <a href="#features-start" class="hero-scroll-hint" aria-label="Scroll to features">
     <i class="fa-solid fa-chevron-down"></i>
-  </div>
+  </a>
 </section>
 
 <%# ---- TRUST BAR ---- %>
-<section class="trust-bar">
+<section class="trust-bar" id="features-start">
   <div class="container">
     <div class="row justify-content-center align-items-center g-0">
       <div class="col-auto trust-item">
@@ -54,11 +74,11 @@
       </div>
       <span class="trust-divider">·</span>
       <div class="col-auto trust-item">
-        <i class="fa-solid fa-face-smile"></i> Mood tracking
+        <i class="fa-solid fa-pen-nib"></i> Rich text &amp; photos
       </div>
       <span class="trust-divider">·</span>
       <div class="col-auto trust-item">
-        <i class="fa-solid fa-globe"></i> Access anywhere
+        <i class="fa-solid fa-tags"></i> Tags &amp; search
       </div>
     </div>
   </div>
@@ -73,14 +93,15 @@
       <p class="section-subtitle">Simple, focused tools that get out of the way and let you write.</p>
     </div>
 
-    <div class="row g-4">
+    <%# Primary 3-card row %>
+    <div class="row g-4 mb-4">
       <div class="col-md-4">
         <div class="feature-card">
           <div class="feature-icon">
             <i class="fa-solid fa-book-bookmark"></i>
           </div>
           <h3>Multiple Journals</h3>
-          <p>Separate notebooks for work, personal life, travel, ideas. Your thoughts stay organized, always.</p>
+          <p>Separate colour-coded notebooks for work, travel, personal life, ideas. Your thoughts stay organised across every chapter of your life.</p>
         </div>
       </div>
 
@@ -90,7 +111,7 @@
             <i class="fa-solid fa-lock"></i>
           </div>
           <h3>Completely Private</h3>
-          <p>Your journal belongs only to you. No sharing, no algorithms, no ads. Just your thoughts and a blank page.</p>
+          <p>Your journal belongs only to you. No sharing, no algorithms, no ads. Just your thoughts and a blank page — exactly as it should be.</p>
         </div>
       </div>
 
@@ -99,8 +120,30 @@
           <div class="feature-icon">
             <i class="fa-solid fa-pen-nib"></i>
           </div>
-          <h3>Rich Entries</h3>
-          <p>Log your mood, pick a date, write freely. Every entry is a vivid snapshot of your life.</p>
+          <h3>Distraction-Free Writing</h3>
+          <p>A full-screen writing surface that gets out of the way. Rich text formatting, your choice of font, and a clean design that makes writing feel effortless.</p>
+        </div>
+      </div>
+    </div>
+
+    <%# Secondary feature strip %>
+    <div class="row g-3 justify-content-center">
+      <div class="col-md-5">
+        <div class="feature-strip-card">
+          <i class="fa-solid fa-tags feature-strip-card__icon"></i>
+          <div>
+            <h4>Tags &amp; Search</h4>
+            <p>Tag entries with anything that matters. Filter and search across all your journals in seconds.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="feature-strip-card">
+          <i class="fa-solid fa-image feature-strip-card__icon"></i>
+          <div>
+            <h4>Photo Memories</h4>
+            <p>Attach a cover photo to any entry. Your memories deserve more than just words.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -119,7 +162,7 @@
       <div class="col-md-3 text-center how-step">
         <div class="step-number">01</div>
         <h4>Create an account</h4>
-        <p>Sign up free. No credit card, no nonsense. You're in within seconds.</p>
+        <p>Sign up free. No credit card, no nonsense. You're writing within seconds.</p>
       </div>
 
       <div class="col-md-1 step-arrow d-none d-md-flex">
@@ -129,7 +172,7 @@
       <div class="col-md-3 text-center how-step">
         <div class="step-number">02</div>
         <h4>Create a journal</h4>
-        <p>Name it whatever fits — "Daily Log", "Travel", "Work Notes". Make it yours.</p>
+        <p>Name it whatever fits — "Daily Log", "Travel", "Work Notes". Pick a colour, make it yours.</p>
       </div>
 
       <div class="col-md-1 step-arrow d-none d-md-flex">
@@ -139,7 +182,7 @@
       <div class="col-md-3 text-center how-step">
         <div class="step-number">03</div>
         <h4>Start writing</h4>
-        <p>Log your mood, write freely. Your story starts today.</p>
+        <p>Add tags, attach photos, format freely. Your story starts today — and it's entirely yours.</p>
       </div>
     </div>
   </div>
@@ -174,8 +217,8 @@
     <div class="footer-columns">
       <div class="footer-col">
         <p class="footer-col__heading">Legal</p>
-        <%= link_to "Terms of Service", "#", class: "footer-col__link" %>
-        <%= link_to "Privacy Policy", "#", class: "footer-col__link" %>
+        <%= link_to "Terms of Service", terms_path, class: "footer-col__link" %>
+        <%= link_to "Privacy Policy", privacy_path, class: "footer-col__link" %>
       </div>
       <div class="footer-col">
         <p class="footer-col__heading">Company</p>

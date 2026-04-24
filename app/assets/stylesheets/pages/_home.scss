@@ -13,6 +13,11 @@ $r-muted:        #718096;
 $r-border:       #E8EAF6;
 $r-bg:           #F8F9FC;
 
+// Smooth anchor scrolling for the landing page
+html:has(.hero-section) {
+  scroll-behavior: smooth;
+}
+
 // ---- LANDING NAV ----
 .landing-nav {
   position: absolute;
@@ -22,12 +27,26 @@ $r-bg:           #F8F9FC;
   z-index: 100;
   padding: 20px 0;
 
+  // Light variant for legal pages (white bg, dark text)
+  &--light {
+    position: relative;
+    background: white;
+    border-bottom: 1px solid $r-border;
+    padding: 16px 0;
+  }
+
   &__brand {
     font-family: $headers-font;
     font-size: 1.5rem;
     font-weight: 800;
     color: white;
     letter-spacing: -0.03em;
+    text-decoration: none;
+
+    &--dark {
+      color: $r-dark;
+      &:hover { color: $r-accent; }
+    }
   }
 
   &__actions {
@@ -44,6 +63,11 @@ $r-bg:           #F8F9FC;
     transition: color 0.2s;
 
     &:hover { color: white; }
+
+    &--dark {
+      color: $r-muted;
+      &:hover { color: $r-text; }
+    }
   }
 
   &__cta {
@@ -61,6 +85,19 @@ $r-bg:           #F8F9FC;
     &:hover {
       background: rgba(white, 0.25);
       color: white;
+    }
+
+    &--dark {
+      background: $r-accent;
+      color: white;
+      border-color: $r-accent;
+      backdrop-filter: none;
+
+      &:hover {
+        background: darken($r-accent, 8%);
+        border-color: darken($r-accent, 8%);
+        color: white;
+      }
     }
   }
 }
@@ -111,6 +148,15 @@ $r-bg:           #F8F9FC;
   font-weight: 600;
   margin-bottom: 28px;
   text-transform: uppercase;
+
+  &--float {
+    animation: badge-float 3.8s ease-in-out infinite;
+  }
+}
+
+@keyframes badge-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
 }
 
 .hero-title {
@@ -199,6 +245,20 @@ $r-bg:           #F8F9FC;
   color: rgba(white, 0.35);
   font-size: 1rem;
   animation: bobble 2.2s ease-in-out infinite;
+  text-decoration: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: color 0.2s ease, background 0.2s ease;
+
+  &:hover {
+    color: rgba(white, 0.75);
+    background: rgba(white, 0.08);
+  }
 }
 
 @keyframes bobble {
@@ -324,6 +384,46 @@ $r-bg:           #F8F9FC;
   &--light {
     background: rgba(white, 0.15);
     color: lighten($r-accent, 25%);
+  }
+}
+
+// ---- SECONDARY FEATURE STRIP ----
+.feature-strip-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: white;
+  border: 1px solid $r-border;
+  border-radius: 16px;
+  padding: 24px 24px;
+  height: 100%;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: rgba($r-accent, 0.35);
+    box-shadow: 0 8px 28px rgba($r-dark, 0.05);
+    transform: translateY(-2px);
+  }
+
+  h4 {
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: $r-text;
+    margin: 0 0 5px 0;
+  }
+
+  p {
+    color: $r-muted;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  &__icon {
+    color: $r-accent;
+    font-size: 1.15rem;
+    margin-top: 2px;
+    flex-shrink: 0;
   }
 }
 

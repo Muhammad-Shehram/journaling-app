@@ -1,0 +1,243 @@
+// ============================================
+// REFLEKTO PROMPTS PAGES
+// ============================================
+
+$r-dark:         #1B2A4A;
+$r-accent:       #7C6FF7;
+$r-accent-light: #EEF0FF;
+$r-text:         #2D3748;
+$r-muted:        #718096;
+$r-border:       #E2E8F0;
+$r-bg:           #F8F9FC;
+
+// ============================================
+// INDEX — Category list
+// ============================================
+
+.prompts-index {
+  max-width: 680px;
+  margin: 48px auto 80px;
+  padding: 0 24px;
+
+  @media (max-width: 768px) {
+    margin: 24px auto 60px;
+    padding: 0 16px;
+  }
+}
+
+.prompts-index__header {
+  margin-bottom: 32px;
+}
+
+.prompts-index__title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: $r-dark;
+  margin: 0 0 4px;
+  letter-spacing: -0.02em;
+}
+
+.prompts-index__sub {
+  font-size: 0.95rem;
+  color: $r-muted;
+  margin: 0;
+}
+
+// ---- Category rows ----
+
+.prompts-category-list {
+  background: #fff;
+  border: 1.5px solid $r-border;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.prompts-category-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  text-decoration: none;
+  border-bottom: 1px solid $r-border;
+  transition: background 0.12s ease;
+
+  &:last-child { border-bottom: none; }
+
+  &:hover {
+    background: $r-bg;
+    text-decoration: none;
+
+    .prompts-category-row__chevron {
+      transform: translateX(3px);
+    }
+  }
+
+  &__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: $r-accent-light;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    i {
+      font-size: 1rem;
+      color: $r-accent;
+    }
+  }
+
+  &__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: $r-dark;
+  }
+
+  &__count {
+    font-size: 0.8rem;
+    color: $r-muted;
+  }
+
+  &__chevron {
+    font-size: 0.75rem;
+    color: $r-muted;
+    transition: transform 0.12s ease;
+  }
+}
+
+// ============================================
+// SHOW — Prompts within a category
+// ============================================
+
+.prompts-show {
+  max-width: 620px;
+  margin: 48px auto 80px;
+  padding: 0 24px;
+
+  @media (max-width: 768px) {
+    margin: 24px auto 60px;
+    padding: 0 16px;
+  }
+}
+
+.prompts-show__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.prompts-show__back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: $r-bg;
+  border: 1.5px solid $r-border;
+  color: $r-muted;
+  text-decoration: none;
+  flex-shrink: 0;
+  margin-top: 4px;
+  transition: background 0.12s ease, color 0.12s ease;
+
+  &:hover {
+    background: $r-accent-light;
+    color: $r-accent;
+    text-decoration: none;
+  }
+}
+
+.prompts-show__meta { flex: 1; }
+
+.prompts-show__title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: $r-dark;
+  margin: 0 0 4px;
+  letter-spacing: -0.02em;
+}
+
+.prompts-show__count {
+  font-size: 0.875rem;
+  color: $r-muted;
+  margin: 0;
+}
+
+// ---- Prompt items ----
+
+.prompts-show__list {
+  background: #fff;
+  border: 1.5px solid $r-border;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.prompts-show__divider {
+  margin: 0;
+  border: none;
+  border-top: 1px solid $r-border;
+}
+
+.prompts-show__item {
+  display: block;
+  padding: 32px 28px;
+  text-decoration: none;
+  transition: background 0.12s ease;
+
+  &:hover {
+    background: $r-bg;
+    text-decoration: none;
+
+    .prompts-show__item-text {
+      color: $r-accent;
+    }
+  }
+
+  &--disabled {
+    cursor: default;
+
+    &:hover {
+      background: transparent;
+    }
+  }
+}
+
+.prompts-show__item-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: $r-dark;
+  line-height: 1.5;
+  text-align: center;
+  margin: 0;
+  transition: color 0.12s ease;
+}
+
+// ---- No-journal banner (shared) ----
+
+.prompts-no-journal {
+  background: $r-accent-light;
+  border: 1px solid $r-accent;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  font-size: 0.9rem;
+  color: $r-dark;
+
+  a {
+    color: $r-accent;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover { text-decoration: underline; }
+  }
+}

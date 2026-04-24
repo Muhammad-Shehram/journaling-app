@@ -22,12 +22,18 @@ $r-error:        #E53E3E;
   @media (max-width: 768px) { padding: 32px 16px 60px; }
 }
 
+// ---- JOURNAL HEADER (sidebar layout — no back link) ----
+.entries__header {
+  margin-bottom: 28px;
+}
+
 // ---- HEADER ----
 .entries__header {
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-bottom: 32px;
+  // Note: back link removed — sidebar handles journal navigation
 }
 
 .entries__header-main {
@@ -285,6 +291,325 @@ $r-error:        #E53E3E;
   height: 24px;
 
   &:hover { color: $r-text; }
+}
+
+// ---- TAG BADGES (on entry cards and show page) ----
+.entry-tag-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 50px;
+  background: rgba($r-accent, 0.1);
+  color: $r-accent;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+
+  &--link {
+    text-decoration: none;
+    transition: background 0.15s;
+    &:hover { background: rgba($r-accent, 0.2); color: $r-accent; }
+  }
+}
+
+// ---- FILTER BAR ----
+.entries__filters {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.entries__filter-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.entries__filter-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: $r-muted;
+  white-space: nowrap;
+  min-width: 40px;
+}
+
+.entries__mood-filters {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.mood-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid $r-border;
+  background: white;
+  font-size: 1.1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.12s ease, background 0.15s ease;
+
+  &:hover {
+    border-color: $r-accent;
+    transform: scale(1.12);
+    background: $r-accent-light;
+  }
+
+  &--active {
+    border-color: $r-accent;
+    background: $r-accent-light;
+    box-shadow: 0 0 0 2px rgba($r-accent, 0.2);
+  }
+}
+
+.entries__date-range {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.entries__date-input {
+  padding: 7px 12px;
+  border: 1px solid $r-border;
+  border-radius: 8px;
+  font-size: 0.83rem;
+  font-family: $body-font;
+  color: $r-text;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.15s;
+
+  &:focus {
+    outline: none;
+    border-color: $r-accent;
+    box-shadow: 0 0 0 2px rgba($r-accent, 0.12);
+  }
+}
+
+.entries__date-sep {
+  color: $r-muted;
+  font-size: 0.85rem;
+}
+
+.entries__date-apply {
+  padding: 7px 14px;
+  border-radius: 8px;
+  background: $r-accent;
+  color: white;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-family: $body-font;
+  transition: background 0.15s ease;
+
+  &:hover { background: darken($r-accent, 8%); }
+}
+
+.entries__active-filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+
+.active-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 50px;
+  background: $r-accent;
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s;
+
+  i { font-size: 0.65rem; opacity: 0.8; }
+
+  &:hover {
+    background: darken($r-accent, 8%);
+    color: white;
+  }
+}
+
+// ---- TAG FILTERS (filter bar) ----
+.entries__tag-filters {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tag-filter-chip {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 50px;
+  border: 1.5px solid $r-border;
+  background: white;
+  color: $r-muted;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s;
+
+  &:hover {
+    border-color: $r-accent;
+    color: $r-accent;
+    background: $r-accent-light;
+  }
+
+  &--active {
+    border-color: $r-accent;
+    background: $r-accent-light;
+    color: $r-accent;
+  }
+}
+
+// ---- VIEW TOGGLE ----
+.view-toggle-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.view-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1.5px solid $r-border;
+  background: white;
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: $r-muted;
+  cursor: pointer;
+  font-family: $body-font;
+  transition: all 0.15s;
+
+  i { font-size: 0.75rem; }
+
+  &:hover {
+    border-color: $r-accent;
+    color: $r-accent;
+  }
+
+  &--active {
+    border-color: $r-accent;
+    background: $r-accent-light;
+    color: $r-accent;
+  }
+}
+
+// ---- CALENDAR VIEW ----
+.calendar-view {
+  background: white;
+  border: 1px solid $r-border;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 28px;
+}
+
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.cal-month-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: $r-text;
+}
+
+.cal-nav-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid $r-border;
+  background: white;
+  color: $r-muted;
+  font-size: 0.78rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+
+  &:hover {
+    border-color: $r-accent;
+    color: $r-accent;
+    background: $r-accent-light;
+  }
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.cal-header {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: $r-muted;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 6px 0;
+}
+
+.cal-day {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: $r-text;
+  text-decoration: none;
+  cursor: default;
+  gap: 2px;
+  transition: background 0.12s;
+
+  &--empty { background: none !important; }
+
+  &--today {
+    font-weight: 800;
+    color: $r-accent;
+  }
+
+  &--has-entry {
+    background: color-mix(in srgb, var(--cal-color, #{$r-accent}) 10%, white);
+    cursor: pointer;
+    font-weight: 700;
+
+    &:hover {
+      background: color-mix(in srgb, var(--cal-color, #{$r-accent}) 20%, white);
+    }
+  }
+}
+
+.cal-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 // ---- EMPTY STATE ----

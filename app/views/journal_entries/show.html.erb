@@ -32,9 +32,6 @@
           <%= @journal.name %>
         </span>
         <span class="canvas__context-date">
-          <% if @journal_entry.mood.present? %>
-            <span class="canvas__context-mood" aria-label="Mood"><%= @journal_entry.mood %></span>
-          <% end %>
           <%= @journal_entry.entry_date.strftime("%B %-d, %Y") %>
         </span>
       </div>
@@ -43,9 +40,25 @@
 
       <div class="canvas__divider"></div>
 
+      <% if @journal_entry.cover_photo.attached? %>
+        <div class="canvas__cover-photo">
+          <%= image_tag @journal_entry.cover_photo, class: "canvas__cover-img" %>
+        </div>
+      <% end %>
+
       <div class="canvas__content-display">
-        <%= simple_format(@journal_entry.content) %>
+        <%= @journal_entry.content %>
       </div>
+
+      <% if @journal_entry.tags.any? %>
+        <div class="canvas__tags">
+          <% @journal_entry.tags.each do |tag| %>
+            <%= link_to "##{tag.name}",
+                        journal_journal_entries_path(@journal, tag: tag.name),
+                        class: "entry-tag-badge entry-tag-badge--link" %>
+          <% end %>
+        </div>
+      <% end %>
 
     </div>
 

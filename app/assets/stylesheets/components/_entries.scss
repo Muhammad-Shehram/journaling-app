@@ -647,3 +647,44 @@ $r-error:        #E53E3E;
   margin-right: auto;
   line-height: 1.6;
 }
+
+// ============================================
+// MOBILE RESPONSIVE
+// ============================================
+
+@media (max-width: 540px) {
+  // Header — stack title and new-entry button
+  .entries__header-main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  // Filter bar — stack each filter row vertically
+  .entries__filter-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  // Date range — stack from/to inputs
+  .entries__date-range {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .entries__date-input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .entries__date-sep { display: none; }
+
+  // Entry card — shrink fixed date block slightly
+  .entry-card__date {
+    width: 56px;
+    min-width: 56px;
+  }
+
+  .entry-card__day { font-size: 1.3rem; }
+}

@@ -124,3 +124,19 @@ $r-error:        #E53E3E;
   margin-right: auto;
   line-height: 1.6;
 }
+
+// ============================================
+// MOBILE RESPONSIVE
+// ============================================
+
+@media (max-width: 540px) {
+  .all-entries__header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .all-entries__title { font-size: 1.4rem; }
+
+  .all-entries__stats { font-size: 0.82rem; }
+}

@@ -309,3 +309,34 @@ $journal-colors: #7C6FF7, #F687B3, #4FD1C5, #F6AD55, #63B3ED, #FC8181;
   margin-right: auto;
   line-height: 1.6;
 }
+
+// ============================================
+// MOBILE RESPONSIVE
+// ============================================
+
+@media (max-width: 540px) {
+  .bookshelf__title {
+    font-size: 1.5rem;
+  }
+
+  .bookshelf__new-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .journal-card__body {
+    padding: 18px 16px 14px;
+  }
+
+  .journal-card__name {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .bookshelf__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}

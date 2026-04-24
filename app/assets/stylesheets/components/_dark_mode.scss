@@ -1,0 +1,634 @@
+// ============================================
+// REFLEKTO DARK MODE — Canvas-Only Theme
+// Sidebar stays dark navy; only app-main flips.
+// Applied via body.dark-mode (set in layout).
+// ============================================
+
+$dm-bg:           #111827;
+$dm-card:         #1A2537;
+$dm-card-hover:   #1F2D42;
+$dm-input:        #0F172A;
+$dm-border:       rgba(255, 255, 255, 0.08);
+$dm-text:         #E2E8F0;
+$dm-muted:        rgba(255, 255, 255, 0.45);
+$dm-heading:      #F1F5F9;
+$dm-accent:       #7C6FF7;
+$dm-accent-hover: rgba(124, 111, 247, 0.15);
+
+body.dark-mode {
+
+  // ---- CANVAS SHELL ----
+  .app-main {
+    background: $dm-bg;
+    color: $dm-text;
+  }
+
+  // ---- MOBILE TOPBAR (already dark — just keep it consistent) ----
+  .app-topbar {
+    background: #1B2A4A;
+    border-bottom-color: $dm-border;
+  }
+
+  // ---- WRITING CANVAS (forms) ----
+  .canvas__bar {
+    background: rgba(17, 24, 39, 0.92);
+    border-bottom-color: $dm-border;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .canvas__cancel {
+    color: $dm-muted;
+    &:hover { color: $dm-text; }
+  }
+
+  .canvas__title-input {
+    color: $dm-heading !important;
+    caret-color: $dm-text;
+
+    &::placeholder { color: rgba(255, 255, 255, 0.25) !important; }
+  }
+
+  .canvas__divider {
+    background: $dm-border;
+  }
+
+  .canvas__content-input {
+    color: $dm-text !important;
+    &::placeholder { color: $dm-muted !important; }
+  }
+
+  .canvas__context-strip {
+    border-top-color: $dm-border;
+  }
+
+  .canvas__context-label {
+    color: $dm-muted;
+  }
+
+  // Date chip (native date input styled as pill)
+  .canvas__date-chip {
+    background: $dm-card !important;
+    border-color: $dm-border !important;
+    color: $dm-muted !important;
+
+    &:hover { border-color: $dm-accent !important; }
+    &:focus {
+      outline-color: $dm-accent !important;
+      border-color: $dm-accent !important;
+    }
+  }
+
+  // Journal picker pill + dropdown
+  .journal-pill {
+    background: $dm-card;
+    border-color: $dm-border;
+    color: $dm-text;
+  }
+
+  .journal-picker-dropdown {
+    background: $dm-card;
+    border-color: $dm-border;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+  }
+
+  .journal-picker-item {
+    &:hover { background: rgba(255, 255, 255, 0.06); }
+    &.is-current { background: $dm-accent-hover; }
+
+    &__name { color: $dm-text; }
+  }
+
+  .journal-picker-divider {
+    border-top-color: $dm-border;
+  }
+
+  // Tag input
+  .tag-input-wrap {
+    background: $dm-input;
+    border-color: $dm-border;
+
+    &:focus-within {
+      border-color: $dm-accent;
+      box-shadow: 0 0 0 3px rgba(124, 111, 247, 0.15);
+      background: $dm-input;
+    }
+  }
+
+  .tag-input-field {
+    color: $dm-text;
+    &::placeholder { color: $dm-muted; }
+  }
+
+  .tag-input-icon {
+    color: $dm-muted;
+  }
+
+  // Trix rich text editor
+  trix-editor {
+    color: $dm-text;
+    caret-color: $dm-text;
+    background: transparent;
+  }
+
+  trix-toolbar {
+    background: $dm-card;
+    border-bottom: 1px solid $dm-border;
+
+    .trix-button {
+      color: $dm-muted;
+      background: transparent;
+      border-color: $dm-border;
+
+      &:hover, &.trix-active {
+        color: $dm-text;
+        background: rgba(255, 255, 255, 0.08);
+      }
+    }
+
+    .trix-button-group {
+      border-color: $dm-border;
+    }
+
+    .trix-button--icon::before {
+      opacity: 0.6;
+    }
+  }
+
+  // ---- ENTRY CARDS ----
+  .entry-card {
+    background: $dm-card;
+    border-color: $dm-border;
+
+    &:hover {
+      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.3);
+      border-color: rgba($dm-accent, 0.3);
+    }
+  }
+
+  .entry-card__date {
+    background: darken($dm-card, 4%);
+    border-right-color: $dm-border;
+  }
+
+  .entry-card__month,
+  .entry-card__weekday {
+    color: $dm-muted;
+  }
+
+  .entry-card__body {
+    color: $dm-text;
+  }
+
+  .entry-card__title {
+    color: $dm-heading;
+  }
+
+  .entry-card__preview {
+    color: $dm-muted;
+  }
+
+  .entry-card__meta {
+    color: $dm-muted;
+    border-top-color: $dm-border;
+  }
+
+  // Entries page headings and layout
+  .entries__title,
+  .entries__journal-title,
+  h1, h2, h3, h4 {
+    color: $dm-heading;
+  }
+
+  .entries__subtitle,
+  .entries__count {
+    color: $dm-muted;
+  }
+
+  // Filter bar / search inputs
+  .entries__filters,
+  .all-entries__filters {
+    input, select {
+      background: $dm-card;
+      border-color: $dm-border;
+      color: $dm-text;
+
+      &::placeholder { color: $dm-muted; }
+      &:focus {
+        border-color: $dm-accent;
+        box-shadow: 0 0 0 3px rgba(124, 111, 247, 0.12);
+      }
+    }
+  }
+
+  // Empty states
+  .entries__empty,
+  .all-entries__empty {
+    color: $dm-muted;
+
+    i { color: rgba(255, 255, 255, 0.2); }
+  }
+
+  // Calendar (if rendered inside entries)
+  .cal-grid {
+    border-color: $dm-border;
+  }
+
+  .cal-cell {
+    border-color: $dm-border;
+    color: $dm-muted;
+
+    &--today { background: $dm-accent-hover; color: $dm-accent; }
+    &--has-entry { color: $dm-text; }
+    &--other-month { color: rgba(255, 255, 255, 0.2); }
+  }
+
+  .cal-header {
+    color: $dm-muted;
+  }
+
+  // Tag pills on entry cards
+  .entry-tag {
+    background: rgba(124, 111, 247, 0.15);
+    color: $dm-accent;
+  }
+
+  // ---- ALL ENTRIES VIEW ----
+  .all-entries__title {
+    color: $dm-heading;
+  }
+
+  .all-entries__stats {
+    color: $dm-muted;
+
+    strong { color: $dm-text; }
+  }
+
+  .all-entries__stats-sep {
+    color: rgba(255, 255, 255, 0.15);
+  }
+
+  // ---- BOOKSHELF ----
+  .bookshelf {
+    color: $dm-text;
+  }
+
+  .bookshelf__title {
+    color: $dm-heading;
+  }
+
+  .bookshelf__subtitle {
+    color: $dm-muted;
+  }
+
+  .stat-card {
+    background: $dm-card;
+    border-color: $dm-border;
+    box-shadow: none;
+
+    &__label { color: $dm-muted; }
+  }
+
+  .journal-card {
+    background: $dm-card;
+    border-color: $dm-border;
+
+    &:hover {
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+      border-color: rgba($dm-accent, 0.3);
+    }
+  }
+
+  .journal-card__name {
+    color: $dm-heading;
+  }
+
+  .journal-card__meta {
+    color: $dm-muted;
+
+    i { color: rgba(255, 255, 255, 0.25); }
+  }
+
+  .journal-card__actions {
+    background: $dm-card;
+    border-top-color: $dm-border;
+  }
+
+  // New journal form (color picker preview)
+  .book-preview {
+    background: $dm-card;
+    border-color: $dm-border;
+  }
+
+  // ---- SETTINGS PAGE ----
+  .settings-page {
+    color: $dm-text;
+  }
+
+  .settings-page__title,
+  .settings-page__header h1 {
+    color: $dm-heading;
+  }
+
+  .settings-page__sub {
+    color: $dm-muted;
+  }
+
+  .settings-card {
+    background: $dm-card;
+    border-color: $dm-border;
+    box-shadow: none;
+
+    &__title { color: $dm-heading; }
+    &__desc  { color: $dm-muted; }
+
+    &__icon {
+      background: $dm-accent-hover;
+
+      &--danger {
+        background: rgba(229, 62, 62, 0.12);
+      }
+    }
+  }
+
+  .settings-label {
+    color: $dm-text;
+  }
+
+  .settings-toggle-row {
+    border-bottom-color: $dm-border;
+
+    &__label { color: $dm-text; }
+    &__sub   { color: $dm-muted; }
+  }
+
+  .settings-input,
+  .settings-form input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]),
+  .settings-form select,
+  .settings-form textarea {
+    background: $dm-input;
+    border-color: $dm-border;
+    color: $dm-text;
+
+    &::placeholder { color: $dm-muted; }
+    &:focus {
+      background: $dm-input;
+      border-color: $dm-accent;
+      box-shadow: 0 0 0 3px rgba(124, 111, 247, 0.12);
+    }
+  }
+
+  .settings-btn--secondary {
+    background: $dm-card;
+    border-color: $dm-border;
+    color: $dm-text;
+
+    &:hover {
+      background: $dm-card-hover;
+    }
+  }
+
+  .day-chip {
+    background: $dm-card;
+    border-color: $dm-border;
+    color: $dm-text;
+
+    &--active {
+      background: #1B2A4A;
+      border-color: $dm-accent;
+      color: white;
+    }
+  }
+
+  .settings-divider {
+    border-color: $dm-border;
+  }
+
+  // Password strength indicators
+  .password-req {
+    color: $dm-muted;
+
+    &--met { color: #68D391; }
+  }
+
+  // ---- PROMPTS ----
+  .prompts-index__title,
+  .prompts-show__title {
+    color: $dm-heading;
+  }
+
+  .prompts-index__sub,
+  .prompts-show__count {
+    color: $dm-muted;
+  }
+
+  .prompts-category-list,
+  .prompts-show__list {
+    background: $dm-card;
+    border-color: $dm-border;
+  }
+
+  .prompts-category-row {
+    border-bottom-color: $dm-border;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.04);
+
+      .prompts-category-row__chevron { transform: translateX(3px); }
+    }
+
+    &__icon {
+      background: $dm-accent-hover;
+    }
+
+    &__name  { color: $dm-heading; }
+    &__count { color: $dm-muted; }
+    &__chevron { color: $dm-muted; }
+  }
+
+  .prompts-show__back {
+    background: $dm-card;
+    border-color: $dm-border;
+    color: $dm-muted;
+
+    &:hover {
+      background: $dm-accent-hover;
+      color: $dm-accent;
+    }
+  }
+
+  .prompts-show__divider {
+    border-top-color: $dm-border;
+  }
+
+  .prompts-show__item {
+    &:hover { background: rgba(255, 255, 255, 0.04); }
+  }
+
+  .prompts-show__item-text {
+    color: $dm-heading;
+  }
+
+  .prompts-no-journal {
+    background: $dm-accent-hover;
+    border-color: rgba($dm-accent, 0.3);
+    color: $dm-text;
+  }
+
+  // ---- RECENTLY DELETED ----
+  .rd__title { color: $dm-heading; }
+  .rd__subtitle { color: $dm-muted; }
+
+  .rd__group-label { color: $dm-muted; }
+
+  .rd__entry-card {
+    background: $dm-card;
+    border-color: $dm-border;
+
+    &:hover { box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25); }
+  }
+
+  .rd__entry-title { color: $dm-text; }
+  .rd__entry-meta  { color: $dm-muted; }
+  .rd__entry-sep   { color: rgba(255, 255, 255, 0.2); }
+
+  .rd__empty-icon {
+    background: $dm-card;
+    border-color: $dm-border;
+    color: $dm-muted;
+  }
+
+  .rd__empty-title { color: $dm-heading; }
+  .rd__empty-text  { color: $dm-muted; }
+
+  // ---- SETTINGS PASSWORD FIELDS ----
+  .settings-pw-icon { color: $dm-muted; }
+  .settings-pw-eye {
+    color: $dm-muted;
+    &:hover { color: $dm-text; }
+  }
+  .settings-pw-separator { background: $dm-border; }
+
+  // ---- STATIC EMAIL DISPLAY ----
+  .settings-email-static {
+    background: $dm-input;
+    border-color: $dm-border;
+    color: $dm-muted;
+
+    &__note { color: rgba(255, 255, 255, 0.28); }
+  }
+
+  // ---- SETTINGS FORM LABELS (the ones above inputs) ----
+  .settings-form__label {
+    color: $dm-text;
+  }
+
+  .settings-section-label {
+    color: rgba(255, 255, 255, 0.35);
+    &--danger { color: rgba(252, 129, 129, 0.7); }
+  }
+
+  .settings-danger__warning {
+    color: $dm-muted;
+    strong { color: #FC8181; }
+  }
+
+  // ---- CANVAS SHOW PAGE (entry read view) ----
+  .canvas__title-display {
+    color: $dm-heading;
+  }
+
+  .canvas__context-date {
+    color: $dm-muted;
+  }
+
+  .canvas__content-display {
+    color: $dm-text;
+
+    .trix-content {
+      color: $dm-text;
+
+      p, li, blockquote, pre, h1, h2, h3, h4, h5, h6 {
+        color: $dm-text;
+      }
+
+      strong { color: $dm-heading; }
+      em     { color: $dm-text; }
+
+      blockquote {
+        border-left-color: rgba($dm-accent, 0.5);
+        color: $dm-muted;
+      }
+
+      pre {
+        background: $dm-input;
+        color: $dm-text;
+      }
+
+      a { color: $dm-accent; }
+    }
+  }
+
+  .canvas__icon-btn {
+    color: $dm-muted;
+    &:hover { color: $dm-text; background: rgba(255, 255, 255, 0.06); }
+    &--danger:hover { color: #FC8181; background: rgba(252, 129, 129, 0.1); }
+  }
+
+  .entry-tag-badge {
+    background: rgba(124, 111, 247, 0.15);
+    color: $dm-accent;
+    &--link:hover { background: rgba(124, 111, 247, 0.25); }
+  }
+
+  // ---- DELETE ACCOUNT MODAL (dark mode skin) ----
+  .delete-modal__box {
+    background: $dm-card;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  }
+
+  .delete-modal__close {
+    color: $dm-muted;
+    &:hover { color: $dm-text; background: rgba(255, 255, 255, 0.06); }
+  }
+
+  .delete-modal__title      { color: $dm-heading; }
+  .delete-modal__email-display { color: $dm-muted; }
+
+  .delete-modal__consequences li { color: $dm-text; }
+  .delete-modal__confirm-label   { color: $dm-text; }
+
+  .delete-modal__email-input {
+    background: $dm-input;
+    border-color: $dm-border;
+    color: $dm-text;
+
+    &::placeholder { color: rgba(255, 255, 255, 0.25); }
+    &:focus { background: $dm-input; }
+  }
+
+  // ---- FLASH ALERTS ----
+  .alert {
+    background: $dm-card;
+    border-color: $dm-border;
+    color: $dm-text;
+  }
+
+  // ---- GLOBAL INPUT SAFETY NET ----
+  // Catches any input/select/textarea not covered by component-specific rules above
+  input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]):not([type="color"]),
+  select,
+  textarea {
+    background: $dm-input !important;
+    border-color: $dm-border !important;
+    color: $dm-text !important;
+
+    &::placeholder { color: $dm-muted !important; }
+
+    &:focus {
+      border-color: $dm-accent !important;
+      box-shadow: 0 0 0 3px rgba(124, 111, 247, 0.12) !important;
+      background: $dm-input !important;
+    }
+  }
+}

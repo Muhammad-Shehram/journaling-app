@@ -17,7 +17,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="<%= 'dark-mode' if user_signed_in? && current_user.dark_mode %>">
     <% if user_signed_in? %>
       <div class="app-shell" data-controller="sidebar">
 

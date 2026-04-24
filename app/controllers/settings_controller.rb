@@ -16,10 +16,9 @@ class SettingsController < ApplicationController
   def update_password
     if current_user.update_with_password(password_params)
       bypass_sign_in(current_user)
-      redirect_to settings_path, notice: "Password updated."
+      redirect_to settings_path(anchor: "password"), notice: "Password updated."
     else
-      flash.now[:alert] = current_user.errors.full_messages.to_sentence
-      render :show, status: :unprocessable_entity
+      redirect_to settings_path(anchor: "password"), alert: current_user.errors.full_messages.to_sentence
     end
   end
 
@@ -37,7 +36,10 @@ class SettingsController < ApplicationController
 
   def update_appearance
     current_user.update!(dark_mode: params[:dark_mode] == "1")
-    redirect_to settings_path
+    respond_to do |format|
+      format.html { redirect_to settings_path }
+      format.json { head :ok }
+    end
   end
 
   def export
@@ -47,8 +49,8 @@ class SettingsController < ApplicationController
   end
 
   def destroy_account
-    unless current_user.valid_password?(params[:confirm_password].to_s)
-      redirect_to settings_path, alert: "Incorrect password. Account deletion cancelled."
+    unless params[:confirm_email].to_s.downcase.strip == current_user.email.downcase
+      redirect_to settings_path, alert: "Email didn't match. Account not deleted."
       return
     end
     user = current_user
@@ -60,7 +62,7 @@ class SettingsController < ApplicationController
   private
 
   def profile_params
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:name)
   end
 
   def password_params

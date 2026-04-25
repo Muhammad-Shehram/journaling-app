@@ -63,6 +63,12 @@
               Prompts
             <% end %>
 
+            <%= link_to stats_path,
+                        class: "sidebar__nav-item #{'sidebar__nav-item--active' if controller_name == 'stats'}" do %>
+              <i class="fa-solid fa-chart-line"></i>
+              Stats
+            <% end %>
+
             <% if @sidebar_journals.any? %>
               <div class="sidebar__section-label">Journals</div>
               <ul class="sidebar__journal-list">

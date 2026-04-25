@@ -2,9 +2,9 @@
 // REFLEKTO PROMPTS PAGES
 // ============================================
 
-$r-dark:         #1B2A4A;
-$r-accent:       #7C6FF7;
-$r-accent-light: #EEF0FF;
+$r-dark:         #0B6E4F;
+$r-accent:       #50C878;
+$r-accent-light: #D1F2EB;
 $r-text:         #2D3748;
 $r-muted:        #718096;
 $r-border:       #E2E8F0;
@@ -30,8 +30,10 @@ $r-bg:           #F8F9FC;
 }
 
 .prompts-index__title {
-  font-size: 1.8rem;
-  font-weight: 800;
+  font-family: $headers-font;
+  font-size: 2rem;
+  font-weight: 700;
+  font-style: italic;
   color: $r-dark;
   margin: 0 0 4px;
   letter-spacing: -0.02em;
@@ -160,8 +162,10 @@ $r-bg:           #F8F9FC;
 .prompts-show__meta { flex: 1; }
 
 .prompts-show__title {
+  font-family: $headers-font;
   font-size: 2rem;
-  font-weight: 800;
+  font-weight: 700;
+  font-style: italic;
   color: $r-dark;
   margin: 0 0 4px;
   letter-spacing: -0.02em;

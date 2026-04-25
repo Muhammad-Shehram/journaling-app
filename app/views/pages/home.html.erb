@@ -1,10 +1,11 @@
 <% content_for(:title) { "Reflekto — Private Journaling App | Write Freely, Think Clearly" } %>
 <% content_for(:head) do %>
-  <meta name="description" content="Reflekto is a free, private journaling app. Organize your thoughts across multiple colour-coded journals with rich text, tags, photos, and a distraction-free writing canvas. No ads, no tracking — just you and your words.">
+  <meta name="description" content="Reflekto is a free, private journaling app. Organise your thoughts across colour-coded journals with rich text, tags, photos, and a distraction-free writing canvas. No ads, no tracking — just you and your words.">
   <meta property="og:title" content="Reflekto — Your Private Journaling Space">
-  <meta property="og:description" content="A free, private journaling app with rich text, tags, photos, and a beautiful Day One-style writing canvas.">
+  <meta property="og:description" content="A free, private journaling app with rich text, tags, photos, and a beautiful distraction-free writing canvas.">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -13,220 +14,217 @@
     "description": "A free private journaling web application with rich text editing, multiple journals, tags, and photo attachments.",
     "applicationCategory": "LifestyleApplication",
     "operatingSystem": "Web",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
   }
   </script>
 <% end %>
 
-<%# ---- NAVBAR ---- %>
-<nav class="landing-nav">
-  <div class="container d-flex align-items-center justify-content-between">
-    <div class="landing-nav__brand">Reflekto</div>
-    <div class="landing-nav__actions">
-      <%= link_to "Sign In", new_user_session_path, class: "landing-nav__link" %>
-      <%= link_to "Get Started", new_user_registration_path, class: "landing-nav__cta" %>
+<%# ---- NAV ---- %>
+<nav class="ln-nav">
+  <div class="ln-nav__inner">
+    <div class="ln-nav__brand">Reflekto</div>
+    <div class="ln-nav__actions">
+      <%= link_to "Sign In", new_user_session_path, class: "ln-nav__link" %>
+      <%= link_to "Get Started →", new_user_registration_path, class: "ln-nav__cta" %>
     </div>
   </div>
 </nav>
 
 <%# ---- HERO ---- %>
-<section class="hero-section">
-  <div class="hero-glow hero-glow--top"></div>
-  <div class="hero-glow hero-glow--bottom"></div>
+<section class="ln-hero">
+  <div class="ln-hero__orb ln-hero__orb--1"></div>
+  <div class="ln-hero__orb ln-hero__orb--2"></div>
+  <div class="ln-hero__orb ln-hero__orb--3"></div>
 
-  <div class="container position-relative">
-    <div class="row justify-content-center text-center">
-      <div class="col-lg-8 col-md-10">
-        <div class="hero-badge hero-badge--float">✦ Your private journaling space</div>
-        <h1 class="hero-title">Your Journal.<br>Your Story.</h1>
-        <p class="hero-subtitle">
-          Reflekto gives you a private, beautifully organised space to capture
-          your thoughts, memories, and daily reflections — all in one place.
-        </p>
-        <div class="hero-actions">
-          <%= link_to "Start Writing Free", new_user_registration_path, class: "btn btn-reflekto-primary" %>
-          <%= link_to "Sign In", new_user_session_path, class: "btn btn-reflekto-ghost" %>
-        </div>
-        <p class="hero-footnote">Free to use &nbsp;·&nbsp; No credit card required</p>
-      </div>
+  <div class="ln-hero__content">
+    <div class="ln-hero__label">✦ Your private journaling space</div>
+    <h1 class="ln-hero__headline">
+      Write freely.<br>
+      Think <em>clearly.</em>
+    </h1>
+    <p class="ln-hero__sub">
+      A private, beautifully organised space for your thoughts,
+      memories, and daily reflections — entirely yours.
+    </p>
+    <div class="ln-hero__actions">
+      <%= link_to "Begin writing — it's free", new_user_registration_path, class: "ln-btn ln-btn--primary" %>
+      <%= link_to "Sign in", new_user_session_path, class: "ln-btn ln-btn--ghost" %>
     </div>
+    <p class="ln-hero__footnote">No credit card &nbsp;·&nbsp; No ads &nbsp;·&nbsp; No tracking</p>
   </div>
 
-  <a href="#features-start" class="hero-scroll-hint" aria-label="Scroll to features">
-    <i class="fa-solid fa-chevron-down"></i>
-  </a>
+  <a href="#ln-features" class="ln-scroll-hint" aria-label="Scroll to features">↓</a>
 </section>
 
-<%# ---- TRUST BAR ---- %>
-<section class="trust-bar" id="features-start">
-  <div class="container">
-    <div class="row justify-content-center align-items-center g-0">
-      <div class="col-auto trust-item">
-        <i class="fa-solid fa-lock"></i> End-to-end private
-      </div>
-      <span class="trust-divider">·</span>
-      <div class="col-auto trust-item">
-        <i class="fa-solid fa-book-open"></i> Multiple journals
-      </div>
-      <span class="trust-divider">·</span>
-      <div class="col-auto trust-item">
-        <i class="fa-solid fa-pen-nib"></i> Rich text &amp; photos
-      </div>
-      <span class="trust-divider">·</span>
-      <div class="col-auto trust-item">
-        <i class="fa-solid fa-tags"></i> Tags &amp; search
-      </div>
-    </div>
+<%# ---- PILLARS ---- %>
+<section class="ln-pillars" id="ln-features">
+  <div class="ln-pillars__inner">
+    <span class="ln-pillar"><i class="fa-solid fa-lock" aria-hidden="true"></i> End-to-end private</span>
+    <span class="ln-pillar-sep" aria-hidden="true">·</span>
+    <span class="ln-pillar"><i class="fa-solid fa-book-open" aria-hidden="true"></i> Multiple journals</span>
+    <span class="ln-pillar-sep" aria-hidden="true">·</span>
+    <span class="ln-pillar"><i class="fa-solid fa-pen-nib" aria-hidden="true"></i> Rich text &amp; photos</span>
+    <span class="ln-pillar-sep" aria-hidden="true">·</span>
+    <span class="ln-pillar"><i class="fa-solid fa-tags" aria-hidden="true"></i> Tags &amp; search</span>
+    <span class="ln-pillar-sep" aria-hidden="true">·</span>
+    <span class="ln-pillar"><i class="fa-solid fa-fire-flame-curved" aria-hidden="true"></i> Streak tracking</span>
   </div>
 </section>
 
-<%# ---- FEATURES SECTION ---- %>
-<section class="features-section">
-  <div class="container">
-    <div class="text-center mb-5">
-      <span class="section-label">Why Reflekto</span>
-      <h2 class="section-title">Everything you need to journal well</h2>
-      <p class="section-subtitle">Simple, focused tools that get out of the way and let you write.</p>
+<%# ---- FEATURES BENTO ---- %>
+<section class="ln-features">
+  <div class="ln-features__header">
+    <span class="ln-section-tag">Why Reflekto</span>
+    <h2 class="ln-features__title">Everything you need<br>to journal <em>well</em></h2>
+    <p class="ln-features__sub">Focused tools that get out of the way and let you write.</p>
+  </div>
+
+  <div class="ln-bento">
+
+    <%# Card 1 — Dark hero card: Multiple Journals %>
+    <div class="ln-bento__card ln-bento__card--dark ln-reveal">
+      <div class="ln-card-icon">
+        <i class="fa-solid fa-book-bookmark" aria-hidden="true"></i>
+      </div>
+      <h3>Multiple Journals</h3>
+      <p>Separate colour-coded notebooks for every chapter of your life. Work, travel, personal, dreams — all beautifully organised and instantly switchable.</p>
+      <div class="ln-card-tag">Colour-coded &middot; Organised</div>
     </div>
 
-    <%# Primary 3-card row %>
-    <div class="row g-4 mb-4">
-      <div class="col-md-4">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fa-solid fa-book-bookmark"></i>
-          </div>
-          <h3>Multiple Journals</h3>
-          <p>Separate colour-coded notebooks for work, travel, personal life, ideas. Your thoughts stay organised across every chapter of your life.</p>
-        </div>
+    <%# Card 2 — Privacy %>
+    <div class="ln-bento__card ln-reveal">
+      <div class="ln-card-icon ln-card-icon--forest">
+        <i class="fa-solid fa-lock" aria-hidden="true"></i>
       </div>
-
-      <div class="col-md-4">
-        <div class="feature-card feature-card--dark">
-          <div class="feature-icon feature-icon--light">
-            <i class="fa-solid fa-lock"></i>
-          </div>
-          <h3>Completely Private</h3>
-          <p>Your journal belongs only to you. No sharing, no algorithms, no ads. Just your thoughts and a blank page — exactly as it should be.</p>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fa-solid fa-pen-nib"></i>
-          </div>
-          <h3>Distraction-Free Writing</h3>
-          <p>A full-screen writing surface that gets out of the way. Rich text formatting, your choice of font, and a clean design that makes writing feel effortless.</p>
-        </div>
-      </div>
+      <h3>Completely Private</h3>
+      <p>Your journal belongs only to you. No sharing, no algorithms, no ads. Just your thoughts and a blank page.</p>
     </div>
 
-    <%# Secondary feature strip %>
-    <div class="row g-3 justify-content-center">
-      <div class="col-md-5">
-        <div class="feature-strip-card">
-          <i class="fa-solid fa-tags feature-strip-card__icon"></i>
-          <div>
-            <h4>Tags &amp; Search</h4>
-            <p>Tag entries with anything that matters. Filter and search across all your journals in seconds.</p>
-          </div>
-        </div>
+    <%# Card 3 — Writing canvas %>
+    <div class="ln-bento__card ln-reveal">
+      <div class="ln-card-icon ln-card-icon--forest">
+        <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
       </div>
-      <div class="col-md-5">
-        <div class="feature-strip-card">
-          <i class="fa-solid fa-image feature-strip-card__icon"></i>
-          <div>
-            <h4>Photo Memories</h4>
-            <p>Attach a cover photo to any entry. Your memories deserve more than just words.</p>
-          </div>
-        </div>
-      </div>
+      <h3>Distraction-Free Writing</h3>
+      <p>A full-screen canvas that disappears and lets your words take over. Rich text, multiple fonts, total focus.</p>
     </div>
+
+    <%# Card 4 — Tags %>
+    <div class="ln-bento__card ln-bento__card--sm ln-reveal">
+      <div class="ln-card-icon ln-card-icon--forest">
+        <i class="fa-solid fa-tags" aria-hidden="true"></i>
+      </div>
+      <h3>Tags &amp; Search</h3>
+      <p>Tag anything that matters. Filter across all journals in seconds.</p>
+    </div>
+
+    <%# Card 5 — Photos %>
+    <div class="ln-bento__card ln-bento__card--sm ln-reveal">
+      <div class="ln-card-icon ln-card-icon--forest">
+        <i class="fa-solid fa-image" aria-hidden="true"></i>
+      </div>
+      <h3>Photo Memories</h3>
+      <p>Attach a cover photo to any entry. Memories deserve more than words.</p>
+    </div>
+
+    <%# Card 6 — Prompts %>
+    <div class="ln-bento__card ln-bento__card--sm ln-bento__card--accent ln-reveal">
+      <div class="ln-card-icon">
+        <i class="fa-solid fa-lightbulb" aria-hidden="true"></i>
+      </div>
+      <h3>Writing Prompts</h3>
+      <p>Stuck? 100+ curated prompts across every mood and moment.</p>
+    </div>
+
+  </div>
+</section>
+
+<%# ---- QUOTE ---- %>
+<section class="ln-quote">
+  <div class="ln-quote__inner ln-reveal">
+    <div class="ln-quote__mark" aria-hidden="true">"</div>
+    <blockquote class="ln-quote__text">
+      The act of writing is the act of discovering what you believe.
+    </blockquote>
+    <cite class="ln-quote__cite">— David Hare</cite>
   </div>
 </section>
 
 <%# ---- HOW IT WORKS ---- %>
-<section class="how-section">
-  <div class="container">
-    <div class="text-center mb-5">
-      <span class="section-label">Getting started</span>
-      <h2 class="section-title">Start in 60 seconds</h2>
-    </div>
-
-    <div class="row align-items-start justify-content-center">
-      <div class="col-md-3 text-center how-step">
-        <div class="step-number">01</div>
-        <h4>Create an account</h4>
-        <p>Sign up free. No credit card, no nonsense. You're writing within seconds.</p>
-      </div>
-
-      <div class="col-md-1 step-arrow d-none d-md-flex">
-        <i class="fa-solid fa-arrow-right"></i>
-      </div>
-
-      <div class="col-md-3 text-center how-step">
-        <div class="step-number">02</div>
-        <h4>Create a journal</h4>
-        <p>Name it whatever fits — "Daily Log", "Travel", "Work Notes". Pick a colour, make it yours.</p>
-      </div>
-
-      <div class="col-md-1 step-arrow d-none d-md-flex">
-        <i class="fa-solid fa-arrow-right"></i>
-      </div>
-
-      <div class="col-md-3 text-center how-step">
-        <div class="step-number">03</div>
-        <h4>Start writing</h4>
-        <p>Add tags, attach photos, format freely. Your story starts today — and it's entirely yours.</p>
-      </div>
-    </div>
+<section class="ln-how">
+  <div class="ln-how__header">
+    <span class="ln-section-tag">Getting started</span>
+    <h2 class="ln-how__title">Start in 60 seconds</h2>
   </div>
-</section>
 
-<%# ---- QUOTE SECTION ---- %>
-<section class="quote-section">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-7 text-center">
-        <blockquote class="landing-quote">
-          "The act of writing is the act of discovering what you believe."
-        </blockquote>
-        <cite class="landing-cite">— David Hare</cite>
-      </div>
+  <div class="ln-steps">
+    <div class="ln-step ln-reveal">
+      <div class="ln-step__num">01</div>
+      <h4>Create an account</h4>
+      <p>Sign up free. No credit card, no nonsense. You're writing within seconds.</p>
+    </div>
+
+    <div class="ln-step-arrow" aria-hidden="true">→</div>
+
+    <div class="ln-step ln-reveal">
+      <div class="ln-step__num">02</div>
+      <h4>Create a journal</h4>
+      <p>Name it, colour it, make it yours. "Daily Log", "Travel", "Ideas" — whatever fits.</p>
+    </div>
+
+    <div class="ln-step-arrow" aria-hidden="true">→</div>
+
+    <div class="ln-step ln-reveal">
+      <div class="ln-step__num">03</div>
+      <h4>Start writing</h4>
+      <p>Add tags, attach photos, format freely. Your story starts today — and it's entirely yours.</p>
     </div>
   </div>
 </section>
 
 <%# ---- FINAL CTA ---- %>
-<section class="cta-section">
-  <div class="container text-center">
-    <h2>Ready to start your journal?</h2>
-    <p>Your story is worth keeping. Start today — it's free.</p>
-    <%= link_to "Create your free journal", new_user_registration_path, class: "btn btn-cta-light" %>
+<section class="ln-cta">
+  <div class="ln-cta__inner">
+    <span class="ln-cta__label">Begin today</span>
+    <h2 class="ln-cta__title">Your story is worth<br><em>keeping.</em></h2>
+    <p class="ln-cta__sub">Join thousands writing privately, every day.</p>
+    <%= link_to "Create your free journal", new_user_registration_path, class: "ln-btn ln-btn--primary" %>
+    <p class="ln-cta__footnote">Free forever &nbsp;·&nbsp; No credit card</p>
   </div>
 </section>
 
 <%# ---- FOOTER ---- %>
-<footer class="landing-footer">
-  <div class="container">
-    <div class="footer-columns">
-      <div class="footer-col">
-        <p class="footer-col__heading">Legal</p>
-        <%= link_to "Terms of Service", terms_path, class: "footer-col__link" %>
-        <%= link_to "Privacy Policy", privacy_path, class: "footer-col__link" %>
+<footer class="ln-footer">
+  <div class="ln-footer__inner">
+    <div class="ln-footer__brand">Reflekto</div>
+    <div class="ln-footer__cols">
+      <div class="ln-footer__col">
+        <p class="ln-footer__col-heading">Legal</p>
+        <%= link_to "Terms of Service", terms_path, class: "ln-footer__link" %>
+        <%= link_to "Privacy Policy", privacy_path, class: "ln-footer__link" %>
       </div>
-      <div class="footer-col">
-        <p class="footer-col__heading">Company</p>
-        <%= link_to "About Us", "#", class: "footer-col__link" %>
+      <div class="ln-footer__col">
+        <p class="ln-footer__col-heading">Company</p>
+        <%= link_to "About Us", "#", class: "ln-footer__link" %>
       </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 Reflekto. All rights reserved.</span>
     </div>
   </div>
+  <div class="ln-footer__bottom">
+    <span>© 2026 Reflekto. All rights reserved.</span>
+  </div>
 </footer>
+
+<script>
+  // Scroll-reveal: add .is-visible when element enters viewport
+  (function() {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.ln-reveal').forEach(function(el) { obs.observe(el); });
+  })();
+</script>

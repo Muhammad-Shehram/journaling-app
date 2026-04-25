@@ -16,7 +16,7 @@ class User < ApplicationRecord
   private
 
   def create_default_journal
-    journals.create!(name: "Journal", color: "#7C6FF7", is_default: true)
+    journals.create!(name: "Journal", color: "#50C878", is_default: true)
   end
 
   def password_complexity

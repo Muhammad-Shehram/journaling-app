@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ["preview", "colorField", "nameInput"]
 
   connect() {
-    const initial = this.colorFieldTarget.value || "#50C878"
+    const initial = this.colorFieldTarget.value || "#3ABF6A"
     this.element.style.setProperty("--journal-color", initial)
   }
 

@@ -40,6 +40,7 @@
                 <i class="fa-solid fa-bars"></i>
               </button>
             </div>
+            <div class="sidebar__brand-sep"></div>
 
             <% if @sidebar_new_entry_journal %>
               <%= link_to new_journal_journal_entry_path(@sidebar_new_entry_journal), class: "sidebar__new-entry-btn" do %>
@@ -63,12 +64,6 @@
               Prompts
             <% end %>
 
-            <%= link_to stats_path,
-                        class: "sidebar__nav-item #{'sidebar__nav-item--active' if controller_name == 'stats'}" do %>
-              <i class="fa-solid fa-chart-line"></i>
-              Stats
-            <% end %>
-
             <% if @sidebar_journals.any? %>
               <div class="sidebar__section-label">Journals</div>
               <ul class="sidebar__journal-list">
@@ -76,7 +71,7 @@
                   <li class="sidebar__journal-item-wrapper">
                     <%= link_to journal_journal_entries_path(j),
                                 class: "sidebar__journal-item #{'sidebar__journal-item--active' if params[:journal_id] == j.id.to_s}" do %>
-                      <span class="sidebar__journal-dot" style="background: <%= j.color || '#50C878' %>"></span>
+                      <span class="sidebar__journal-dot" style="background: <%= j.color || '#3ABF6A' %>"></span>
                       <span class="sidebar__journal-name"><%= j.name %></span>
                       <span class="sidebar__journal-count"><%= j.journal_entries.active.count %></span>
                     <% end %>

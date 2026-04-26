@@ -5,8 +5,8 @@
 
 $r-dark:         #0B6E4F;
 $r-mid:          #013220;
-$r-accent:       #50C878;
-$r-accent-light: #D1F2EB;
+$r-accent:       #3ABF6A;
+$r-accent-light: #D4F5E3;
 $r-text:         #2D3748;
 $r-muted:        #718096;
 $r-border:       #E2E8F0;
@@ -14,7 +14,7 @@ $r-bg:           #F8F9FC;
 $r-error:        #E53E3E;
 
 // Journal accent colors — each card gets a color strip
-$journal-colors: #50C878, #7BB58F, #2A9D8F, #4A7FA5, #9B89B4, #D4A853, #C47B5A, #D4888A;
+$journal-colors: #3ABF6A, #7BB58F, #2A9D8F, #4A7FA5, #9B89B4, #D4A853, #C47B5A, #D4888A;
 
 // ---- PAGE LAYOUT ----
 .bookshelf {
@@ -79,8 +79,8 @@ $journal-colors: #50C878, #7BB58F, #2A9D8F, #4A7FA5, #9B89B4, #D4A853, #C47B5A, 
 }
 
 .bookshelf__title {
-  font-size: 2rem;
-  font-weight: 800;
+  font-size: 2.25rem;
+  font-weight: 700;
   color: $r-text;
   letter-spacing: -0.02em;
   margin: 0;
@@ -121,7 +121,7 @@ $journal-colors: #50C878, #7BB58F, #2A9D8F, #4A7FA5, #9B89B4, #D4A853, #C47B5A, 
 .bookshelf__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 28px;
 
   @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); }
   @media (max-width: 540px) { grid-template-columns: 1fr; }

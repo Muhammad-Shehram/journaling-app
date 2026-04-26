@@ -4,8 +4,8 @@
 // ============================================
 
 $r-dark:         #0B6E4F;
-$r-accent:       #50C878;
-$r-accent-light: #D1F2EB;
+$r-accent:       #3ABF6A;
+$r-accent-light: #D4F5E3;
 $r-text:         #2D3748;
 $r-muted:        #718096;
 $r-border:       #E2E8F0;
@@ -16,7 +16,7 @@ $r-error:        #E53E3E;
 .all-entries {
   max-width: 720px;
   margin: 0 auto;
-  padding: 48px 24px 80px;
+  padding: 64px 24px 80px;
 
   @media (max-width: 768px) { padding: 32px 16px 60px; }
 }
@@ -36,7 +36,7 @@ $r-error:        #E53E3E;
 
 .all-entries__title {
   font-family: $headers-font;
-  font-size: 2.2rem;
+  font-size: 2.25rem;
   font-weight: 700;
   font-style: italic;
   color: $r-dark;
@@ -50,8 +50,8 @@ $r-error:        #E53E3E;
 .ae-stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin-bottom: 36px;
+  gap: 10px;
+  margin-bottom: 44px;
 
   @media (max-width: 540px) { grid-template-columns: repeat(2, 1fr); }
 }
@@ -59,8 +59,8 @@ $r-error:        #E53E3E;
 .ae-stat {
   background: white;
   border: 1px solid $r-border;
-  border-radius: 14px;
-  padding: 16px 18px;
+  border-radius: 10px;
+  padding: 12px 14px;
   text-align: center;
   transition: box-shadow 0.2s;
 
@@ -69,18 +69,18 @@ $r-error:        #E53E3E;
   &__value {
     display: block;
     font-family: $headers-font;
-    font-size: 2rem;
+    font-size: 1.4rem;
     font-weight: 700;
     font-style: italic;
     color: $r-dark;
     line-height: 1;
-    letter-spacing: -0.02em;
-    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+    margin-bottom: 2px;
   }
 
   &__label {
     display: block;
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     font-weight: 600;
     color: $r-muted;
     text-transform: uppercase;

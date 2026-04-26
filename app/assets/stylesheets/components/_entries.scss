@@ -5,8 +5,8 @@
 
 $r-dark:         #0B6E4F;
 $r-mid:          #013220;
-$r-accent:       #50C878;
-$r-accent-light: #D1F2EB;
+$r-accent:       #3ABF6A;
+$r-accent-light: #D4F5E3;
 $r-text:         #2D3748;
 $r-muted:        #718096;
 $r-border:       #E2E8F0;
@@ -17,7 +17,7 @@ $r-error:        #E53E3E;
 .entries {
   max-width: 720px;
   margin: 0 auto;
-  padding: 48px 24px 80px;
+  padding: 64px 24px 80px;
 
   @media (max-width: 768px) { padding: 32px 16px 60px; }
 }
@@ -88,7 +88,7 @@ $r-error:        #E53E3E;
 .entries__list {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 
 // ---- ENTRY CARD ----
@@ -96,6 +96,7 @@ $r-error:        #E53E3E;
   background: white;
   border-radius: 16px;
   border: 1px solid $r-border;
+  border-left: 3px solid var(--journal-color, #3ABF6A);
   overflow: hidden;
   transition: all 0.25s ease;
   display: flex;
@@ -105,6 +106,8 @@ $r-error:        #E53E3E;
     transform: translateY(-2px);
     box-shadow: 0 10px 32px rgba($r-dark, 0.08);
     border-color: rgba($r-accent, 0.25);
+    border-left-color: var(--journal-color, #3ABF6A);
+    background: rgba(58, 191, 106, 0.03);
 
     .entry-card__actions { opacity: 1; }
   }
@@ -120,15 +123,15 @@ $r-error:        #E53E3E;
   min-width: 68px;
   padding: 20px 0;
   border-right: 1px solid $r-border;
-  background: rgba($r-accent-light, 0.45);
+  background: transparent;
   text-align: center;
 }
 
 .entry-card__day {
   display: block;
   font-family: $headers-font;
-  font-size: 1.8rem;
-  font-weight: 700;
+  font-size: 1.5rem;
+  font-weight: 600;
   font-style: italic;
   color: $r-dark;
   line-height: 1;
@@ -151,7 +154,7 @@ $r-error:        #E53E3E;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 18px 20px;
+  padding: 22px 24px;
   text-decoration: none;
   color: inherit;
   min-width: 0; // prevent flex overflow
@@ -161,7 +164,7 @@ $r-error:        #E53E3E;
 
 .entry-card__title {
   font-family: $headers-font;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: $r-text;
   margin-bottom: 5px;

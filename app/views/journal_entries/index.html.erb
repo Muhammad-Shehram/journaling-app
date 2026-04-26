@@ -1,13 +1,14 @@
 <div class="entries"
+     style="--journal-color: <%= @journal.color || '#3ABF6A' %>"
      data-controller="entry-search calendar"
      data-calendar-dates-value="<%= @all_entry_dates.to_json %>"
      data-calendar-base-url-value="<%= journal_journal_entries_path(@journal) %>"
-     data-calendar-journal-color-value="<%= @journal.color || '#50C878' %>">
+     data-calendar-journal-color-value="<%= @journal.color || '#3ABF6A' %>">
 
   <%# ---- HEADER ---- %>
   <div class="entries__header">
     <div class="entries__header-main">
-      <span class="journal-pill" style="--journal-pill-color: <%= @journal.color || '#50C878' %>">
+      <span class="journal-pill" style="--journal-pill-color: <%= @journal.color || '#3ABF6A' %>">
         <%= @journal.name %>
       </span>
       <%= link_to new_journal_journal_entry_path(@journal), class: "entries__new-btn" do %>

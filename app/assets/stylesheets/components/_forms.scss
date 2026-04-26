@@ -3,10 +3,11 @@
 // Distraction-free writing surface (Day One + Apple Journal inspired)
 // ============================================
 
-$r-dark:         #1B1F3B;
-$r-mid:          #2D3561;
-$r-accent:       #7C6FF7;
-$r-accent-light: #EEF0FF;
+$r-dark:         #0B6E4F;
+$r-mid:          #013220;
+$r-accent:       #3ABF6A;
+$r-accent-light: #D4F5E3;
+$r-canvas:       #FAF6EF;
 $r-text:         #2D3748;
 $r-muted:        #718096;
 $r-border:       #E2E8F0;
@@ -19,6 +20,8 @@ $r-error:        #E53E3E;
   margin: 0;
   padding: 0;
   min-height: 100dvh;
+  background-color: $r-canvas;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
 }
 
 // Settings page also sits in the dark main area
@@ -40,7 +43,7 @@ $r-error:        #E53E3E;
   padding: 14px 80px;
   border-bottom: 1px solid $r-border;
   min-height: 60px;
-  background: rgba(#FAF9F7, 0.9);
+  background: rgba($r-canvas, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   position: sticky;
@@ -115,14 +118,16 @@ $r-error:        #E53E3E;
 
 // ---- FORM BODY ----
 .canvas__body {
-  padding: 40px 80px 120px;
+  padding: 52px 96px 140px;
+  max-width: 960px;
+  margin: 0 auto;
 
   @media (max-width: 1200px) {
-    padding: 36px 64px 100px;
+    padding: 44px 72px 120px;
   }
 
   @media (max-width: 768px) {
-    padding: 28px 24px 100px;
+    padding: 32px 24px 100px;
   }
 
   // Reset simple_form Bootstrap form-group wrappers
@@ -207,13 +212,13 @@ $r-error:        #E53E3E;
   display: inline-block !important;
   width: auto !important;
   height: auto !important;
-  border: 1px solid $r-border !important;
+  border: 1px solid rgba($r-accent, 0.25) !important;
   border-radius: 50px !important;
   padding: 11px 16px !important;
   font-size: 0.92rem !important;
   font-family: $body-font !important;
   color: $r-muted !important;
-  background: $r-bg !important;
+  background: rgba($r-accent-light, 0.4) !important;
   cursor: pointer;
   min-height: auto;
   box-shadow: none !important;
@@ -237,8 +242,9 @@ $r-error:        #E53E3E;
 .canvas__title-input {
   width: 100% !important;
   font-family: $headers-font !important;
-  font-size: 2rem !important;
+  font-size: 2.25rem !important;
   font-weight: 700 !important;
+  font-style: italic !important;
   color: $r-text !important;
   line-height: 1.2 !important;
   padding: 0 !important;
@@ -276,11 +282,11 @@ $r-error:        #E53E3E;
 
 // Thin separator between title and content
 .canvas__divider {
-  width: 48px;
+  width: 64px;
   height: 2px;
-  background: $r-border;
+  background: rgba($r-accent, 0.5);
   border-radius: 2px;
-  margin: 20px 0;
+  margin: 28px 0;
 }
 
 // ---- CONTENT TEXTAREA ----
@@ -331,7 +337,7 @@ $r-error:        #E53E3E;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--journal-pill-color, #7C6FF7);
+  background: var(--journal-pill-color, #3ABF6A);
   color: white;
   border-radius: 50px;
   padding: 11px 26px;
@@ -346,7 +352,7 @@ $r-error:        #E53E3E;
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: rgba(white, 0.55);
+    background: rgba(255, 255, 255, 0.6);
   }
 
   // Clickable variant used on the new-entry form
@@ -495,10 +501,11 @@ $r-error:        #E53E3E;
 // Read-mode title — mirrors .canvas__title-input styling but as <h1>
 .canvas__title-display {
   font-family: $headers-font;
-  font-size: 2rem;
+  font-size: 2.25rem;
   font-weight: 700;
+  font-style: italic;
   color: $r-text;
-  line-height: 1.25;
+  line-height: 1.2;
   margin: 0;
   word-break: break-word;
 
@@ -538,7 +545,7 @@ $r-error:        #E53E3E;
 
 // Book cover preview
 .journal-preview {
-  --journal-color: #7C6FF7;
+  --journal-color: #3ABF6A;
   display: flex;
   gap: 0;
   filter: drop-shadow(0 12px 28px rgba(0,0,0,0.18));
@@ -720,9 +727,9 @@ $r-error:        #E53E3E;
 // ---- TAG INPUT ----
 .tag-input-wrap {
   position: relative;
-  border: 1px solid $r-border;
+  border: 1px solid rgba($r-accent, 0.2);
   border-radius: 50px; // pill shape to match context strip
-  background: $r-bg;
+  background: rgba($r-accent-light, 0.25);
   padding: 8px 16px;
   display: flex;
   flex-wrap: wrap;
@@ -819,6 +826,42 @@ $r-error:        #E53E3E;
   }
 }
 
+// ---- TAG FOOTER (form) ----
+.canvas__tag-footer {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid $r-border;
+}
+
+.tag-quick-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.tag-quick-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 50px;
+  border: 1.5px solid rgba($r-accent, 0.35);
+  background: rgba($r-accent-light, 0.45);
+  color: darken($r-accent, 12%);
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: $body-font;
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover {
+    border-color: $r-accent;
+    background: $r-accent-light;
+    color: $r-accent;
+    transform: translateY(-1px);
+  }
+}
+
 // Tags on show page
 .canvas__tags {
   display: flex;
@@ -833,9 +876,9 @@ $r-error:        #E53E3E;
 // Wraps the name field on new/edit journal forms
 .canvas__name-pill {
   width: 100%;
-  border: 2px solid var(--journal-color, #7C6FF7);
+  border: 2px solid var(--journal-color, #3ABF6A);
   border-radius: 50px;
-  background: color-mix(in srgb, var(--journal-color, #7C6FF7) 8%, white);
+  background: color-mix(in srgb, var(--journal-color, #3ABF6A) 8%, white);
   padding: 2px 24px;
   transition: background 0.25s ease, border-color 0.25s ease;
 }
@@ -893,8 +936,8 @@ trix-editor {
   }
 
   // Heading styles inside the editor
-  h1 { font-size: 1.4rem; font-weight: 700; margin: 1rem 0 0.4rem; }
-  h2 { font-size: 1.2rem; font-weight: 700; margin: 0.8rem 0 0.4rem; }
+  h1 { font-family: $headers-font; font-size: 1.6rem; font-weight: 700; font-style: italic; margin: 1rem 0 0.4rem; color: $r-dark; }
+  h2 { font-family: $headers-font; font-size: 1.3rem; font-weight: 700; font-style: italic; margin: 0.8rem 0 0.4rem; color: $r-dark; }
 
   // Blockquote
   blockquote {
@@ -923,7 +966,8 @@ trix-editor {
 
   p { margin: 0 0 1.1rem 0; }
   p:last-child { margin-bottom: 0; }
-  h1 { font-size: 1.4rem; font-weight: 700; }
+  h1 { font-family: $headers-font; font-size: 1.6rem; font-weight: 700; font-style: italic; color: $r-dark; }
+  h2 { font-family: $headers-font; font-size: 1.3rem; font-weight: 700; font-style: italic; color: $r-dark; }
   blockquote {
     border-left: 3px solid $r-accent;
     padding-left: 16px;

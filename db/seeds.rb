@@ -163,8 +163,37 @@ gratitude.journal_entries.create!(
   content: "One week of writing in here consistently. That's not a long time, but it's longer than I've managed before.\n\nI've already noticed I'm processing things differently — less stuck in the same loops, more able to name what I'm actually feeling rather than just carrying it around as vague weight. Getting it out of my head and into words seems to do something.\n\nI don't know if this version of the habit will stick. But I'm glad I started again."
 )
 
+# ── TAGS ──────────────────────────────────────────────────────────────────────
+puts "Assigning tags to entries..."
+
+def tag_entry(entry, user, *names)
+  names.each do |name|
+    tag = user.tags.find_or_create_by!(name: name)
+    entry.entry_tags.find_or_create_by!(tag: tag)
+  end
+end
+
+tag_entry(daily.journal_entries.find_by(title: "Slow Sunday Morning"),         alex, "peaceful", "morning", "habit")
+tag_entry(daily.journal_entries.find_by(title: "The 6am Run I Almost Skipped"), alex, "health", "morning", "habit")
+tag_entry(daily.journal_entries.find_by(title: "Overthinking Again"),           alex, "anxious", "reflective")
+tag_entry(daily.journal_entries.find_by(title: "Good Day, No Particular Reason"), alex, "grateful", "peaceful")
+tag_entry(daily.journal_entries.find_by(title: "Tired But Okay"),               alex, "health",   "reflective")
+tag_entry(work.journal_entries.find_by(title: "Q2 Kicked Off Well"),            alex, "work",     "excited")
+tag_entry(work.journal_entries.find_by(title: "The Meeting That Could've Been an Email"), alex, "work", "frustrated")
+tag_entry(work.journal_entries.find_by(title: "Feedback I Didn't Expect"),      alex, "work",     "reflective")
+tag_entry(work.journal_entries.find_by(title: "Thinking About the Next Step"),  alex, "work",     "personal-growth")
+tag_entry(work.journal_entries.find_by(title: "Shipped Something I'm Proud Of"), alex, "work", "excited", "milestone")
+tag_entry(travel.journal_entries.find_by(title: "Porto, Day Two"),              alex, "travel",   "excited")
+tag_entry(travel.journal_entries.find_by(title: "Train to Somewhere Slow"),     alex, "travel",   "peaceful")
+tag_entry(travel.journal_entries.find_by(title: "Hiking the Ridge Trail"),      alex, "travel",   "health")
+tag_entry(gratitude.journal_entries.find_by(title: "For the Friend Who Just Checks In"), alex, "grateful", "relationships")
+tag_entry(gratitude.journal_entries.find_by(title: "Small Things, April Edition"),       alex, "grateful", "peaceful")
+tag_entry(gratitude.journal_entries.find_by(title: "For Having Work I Actually Care About"), alex, "grateful", "work")
+tag_entry(gratitude.journal_entries.find_by(title: "For My Health"),            alex, "grateful", "health")
+
 puts ""
 puts "✅ Done! Created:"
 puts "   1 user      → alex@reflekto.app / @ReflektoApp711!"
 puts "   5 journals  → Journal (default), Daily Life, Work & Career, Travel, Gratitude"
 puts "   #{JournalEntry.count} entries    → hand-crafted, realistic content"
+puts "   #{Tag.count} tags       → starter set + seeded on entries"

@@ -11,7 +11,7 @@
     <div class="canvas__body canvas__body--journal-new">
 
       <%# ---- JOURNAL BOOK PREVIEW ---- %>
-      <div class="journal-preview" data-journal-form-target="preview" style="--journal-color: <%= @journal.color || '#7C6FF7' %>">
+      <div class="journal-preview" data-journal-form-target="preview" style="--journal-color: <%= @journal.color || '#3ABF6A' %>">
         <div class="journal-preview__spine"></div>
         <div class="journal-preview__cover">
           <i class="fa-solid fa-book-open journal-preview__icon"></i>
@@ -21,14 +21,14 @@
       <%# ---- COLOR SWATCHES ---- %>
       <div class="journal-color-picker">
         <% [
-          ["#7C6FF7", "Purple"],
-          ["#667EEA", "Indigo"],
-          ["#63B3ED", "Blue"],
-          ["#4FD1C5", "Teal"],
-          ["#68D391", "Green"],
-          ["#F6AD55", "Orange"],
-          ["#FC8181", "Red"],
-          ["#F687B3", "Pink"]
+          ["#3ABF6A", "Forest"],
+          ["#7BB58F", "Sage"],
+          ["#2A9D8F", "Teal"],
+          ["#4A7FA5", "Ocean"],
+          ["#9B89B4", "Lavender"],
+          ["#D4A853", "Gold"],
+          ["#C47B5A", "Clay"],
+          ["#D4888A", "Blush"]
         ].each do |hex, label| %>
           <button type="button"
                   class="color-swatch <%= 'color-swatch--active' if @journal.color == hex %>"

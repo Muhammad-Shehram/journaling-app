@@ -3,10 +3,10 @@
 // Card-list — the entry timeline view
 // ============================================
 
-$r-dark:         #1B1F3B;
-$r-mid:          #2D3561;
-$r-accent:       #7C6FF7;
-$r-accent-light: #EEF0FF;
+$r-dark:         #0B6E4F;
+$r-mid:          #013220;
+$r-accent:       #3ABF6A;
+$r-accent-light: #D4F5E3;
 $r-text:         #2D3748;
 $r-muted:        #718096;
 $r-border:       #E2E8F0;
@@ -17,7 +17,7 @@ $r-error:        #E53E3E;
 .entries {
   max-width: 720px;
   margin: 0 auto;
-  padding: 48px 24px 80px;
+  padding: 64px 24px 80px;
 
   @media (max-width: 768px) { padding: 32px 16px 60px; }
 }
@@ -88,7 +88,7 @@ $r-error:        #E53E3E;
 .entries__list {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 
 // ---- ENTRY CARD ----
@@ -96,6 +96,7 @@ $r-error:        #E53E3E;
   background: white;
   border-radius: 16px;
   border: 1px solid $r-border;
+  border-left: 3px solid var(--journal-color, #3ABF6A);
   overflow: hidden;
   transition: all 0.25s ease;
   display: flex;
@@ -105,6 +106,8 @@ $r-error:        #E53E3E;
     transform: translateY(-2px);
     box-shadow: 0 10px 32px rgba($r-dark, 0.08);
     border-color: rgba($r-accent, 0.25);
+    border-left-color: var(--journal-color, #3ABF6A);
+    background: rgba(58, 191, 106, 0.03);
 
     .entry-card__actions { opacity: 1; }
   }
@@ -120,17 +123,19 @@ $r-error:        #E53E3E;
   min-width: 68px;
   padding: 20px 0;
   border-right: 1px solid $r-border;
-  background: $r-bg;
+  background: transparent;
   text-align: center;
 }
 
 .entry-card__day {
   display: block;
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: $r-accent;
+  font-family: $headers-font;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-style: italic;
+  color: $r-dark;
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 .entry-card__month {
@@ -149,7 +154,7 @@ $r-error:        #E53E3E;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 18px 20px;
+  padding: 22px 24px;
   text-decoration: none;
   color: inherit;
   min-width: 0; // prevent flex overflow
@@ -158,7 +163,8 @@ $r-error:        #E53E3E;
 }
 
 .entry-card__title {
-  font-size: 1.05rem;
+  font-family: $headers-font;
+  font-size: 1.2rem;
   font-weight: 700;
   color: $r-text;
   margin-bottom: 5px;
@@ -266,7 +272,7 @@ $r-error:        #E53E3E;
   border-radius: 50px;
   font-size: 0.9rem;
   font-family: $body-font;
-  background: white;
+  background: rgba($r-accent-light, 0.25);
   color: $r-text;
   transition: border-color 0.15s, box-shadow 0.15s;
 
@@ -442,6 +448,32 @@ $r-error:        #E53E3E;
     background: darken($r-accent, 8%);
     color: white;
   }
+}
+
+// ---- TAG FILTER ROW (horizontal scrollable) ----
+.entries__tag-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar { display: none; }
+}
+
+// ---- TAG BADGES ON ENTRY CARDS ----
+.entry-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.entry-tag-badge--more {
+  background: rgba($r-muted, 0.1);
+  color: $r-muted;
 }
 
 // ---- TAG FILTERS (filter bar) ----

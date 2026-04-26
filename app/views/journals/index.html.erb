@@ -9,14 +9,29 @@
         <% end %>
       <% end %>
     </div>
-    <% if @stats[:total_entries] > 0 %>
-      <div class="all-entries__stats">
-        <span><strong><%= @stats[:total_entries] %></strong> <%= "entry".pluralize(@stats[:total_entries]) %></span>
-        <span class="all-entries__stats-sep">·</span>
-        <span><strong><%= number_with_delimiter(@stats[:total_words]) %></strong> words</span>
-      </div>
-    <% end %>
   </div>
+
+  <%# ---- STATS ROW ---- %>
+  <% if @stats[:total_entries] > 0 %>
+    <div class="ae-stats">
+      <div class="ae-stat">
+        <span class="ae-stat__value"><%= @stats[:total_entries] %></span>
+        <span class="ae-stat__label"><%= "entry".pluralize(@stats[:total_entries]) %></span>
+      </div>
+      <div class="ae-stat">
+        <span class="ae-stat__value"><%= @stats[:total_journals] %></span>
+        <span class="ae-stat__label"><%= "journal".pluralize(@stats[:total_journals]) %></span>
+      </div>
+      <div class="ae-stat">
+        <span class="ae-stat__value"><%= number_with_delimiter(@stats[:total_words]) %></span>
+        <span class="ae-stat__label">words</span>
+      </div>
+      <div class="ae-stat">
+        <span class="ae-stat__value"><%= @stats[:current_streak] %></span>
+        <span class="ae-stat__label">day streak</span>
+      </div>
+    </div>
+  <% end %>
 
   <% if @all_entries.any? %>
     <% @all_entries.group_by { |e| e.entry_date.strftime("%B %Y") }.each do |month, entries| %>
@@ -35,7 +50,7 @@
                 <div class="entry-card__title"><%= entry.title %></div>
                 <div class="entry-card__preview"><%= entry.content.to_plain_text.truncate(120) %></div>
                 <div class="entry-card__meta">
-                  <span class="entry-journal-dot" style="background: <%= entry.journal.color || '#7C6FF7' %>"></span>
+                  <span class="entry-journal-dot" style="background: <%= entry.journal.color || '#3ABF6A' %>"></span>
                   <span class="entry-journal-name"><%= entry.journal.name %></span>
                 </div>
               <% end %>

@@ -1,13 +1,14 @@
 <div class="entries"
+     style="--journal-color: <%= @journal.color || '#3ABF6A' %>"
      data-controller="entry-search calendar"
      data-calendar-dates-value="<%= @all_entry_dates.to_json %>"
      data-calendar-base-url-value="<%= journal_journal_entries_path(@journal) %>"
-     data-calendar-journal-color-value="<%= @journal.color || '#7C6FF7' %>">
+     data-calendar-journal-color-value="<%= @journal.color || '#3ABF6A' %>">
 
   <%# ---- HEADER ---- %>
   <div class="entries__header">
     <div class="entries__header-main">
-      <span class="journal-pill" style="--journal-pill-color: <%= @journal.color || '#7C6FF7' %>">
+      <span class="journal-pill" style="--journal-pill-color: <%= @journal.color || '#3ABF6A' %>">
         <%= @journal.name %>
       </span>
       <%= link_to new_journal_journal_entry_path(@journal), class: "entries__new-btn" do %>
@@ -39,22 +40,44 @@
     <%= form_with url: journal_journal_entries_path(@journal), method: :get, class: "entries__date-range" do |f| %>
       <span class="entries__filter-label">Date range</span>
       <%= hidden_field_tag :q, params[:q] %>
+      <%= hidden_field_tag :tag, params[:tag] %>
       <%= date_field_tag :from, params[:from], class: "entries__date-input", "aria-label": "From date" %>
       <span class="entries__date-sep">→</span>
       <%= date_field_tag :to, params[:to], class: "entries__date-input", "aria-label": "To date" %>
       <button type="submit" class="entries__date-apply">Apply</button>
     <% end %>
 
-    <%# Active filter chips (shown only when date filters are active) %>
-    <% if params[:from].present? || params[:to].present? %>
+    <%# Tag filter row — horizontal scrollable chips %>
+    <% if @user_tags.any? %>
+      <div class="entries__tag-filter-row">
+        <% @user_tags.each do |tag| %>
+          <%= link_to tag.name,
+                      journal_journal_entries_path(@journal, tag: tag.name, q: params[:q], from: params[:from], to: params[:to]),
+                      class: "tag-filter-chip #{'tag-filter-chip--active' if params[:tag] == tag.name}" %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%# Active filter chips — date and/or tag %>
+    <% if params[:from].present? || params[:to].present? || params[:tag].present? %>
       <div class="entries__active-filters">
-        <%= link_to journal_journal_entries_path(@journal, q: params[:q]),
-                    class: "active-filter-chip" do %>
-          <i class="fa-solid fa-calendar"></i>
-          <%= params[:from].present? ? Date.parse(params[:from]).strftime("%b %-d") : "Start" %>
-          –
-          <%= params[:to].present? ? Date.parse(params[:to]).strftime("%b %-d") : "Today" %>
-          <i class="fa-solid fa-xmark"></i>
+        <% if params[:from].present? || params[:to].present? %>
+          <%= link_to journal_journal_entries_path(@journal, q: params[:q], tag: params[:tag]),
+                      class: "active-filter-chip" do %>
+            <i class="fa-solid fa-calendar"></i>
+            <%= params[:from].present? ? Date.parse(params[:from]).strftime("%b %-d") : "Start" %>
+            –
+            <%= params[:to].present? ? Date.parse(params[:to]).strftime("%b %-d") : "Today" %>
+            <i class="fa-solid fa-xmark"></i>
+          <% end %>
+        <% end %>
+        <% if params[:tag].present? %>
+          <%= link_to journal_journal_entries_path(@journal, q: params[:q], from: params[:from], to: params[:to]),
+                      class: "active-filter-chip" do %>
+            <i class="fa-solid fa-tag"></i>
+            <%= params[:tag] %>
+            <i class="fa-solid fa-xmark"></i>
+          <% end %>
         <% end %>
       </div>
     <% end %>
@@ -109,6 +132,16 @@
             <div class="entry-card__meta">
               <span class="entry-card__time"><%= entry.entry_date.strftime("%B %-d, %Y") %></span>
             </div>
+            <% if entry.tags.any? %>
+              <div class="entry-card__tags">
+                <% entry.tags.first(3).each do |tag| %>
+                  <span class="entry-tag-badge"><%= tag.name %></span>
+                <% end %>
+                <% if entry.tags.size > 3 %>
+                  <span class="entry-tag-badge entry-tag-badge--more">+<%= entry.tags.size - 3 %></span>
+                <% end %>
+              </div>
+            <% end %>
           <% end %>
 
           <%# Edit / Delete actions %>

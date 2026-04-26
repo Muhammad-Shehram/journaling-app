@@ -1,0 +1,160 @@
+<div class="stats-page">
+
+  <%# ---- HEADER ---- %>
+  <div class="stats-page__header">
+    <h1 class="stats-page__title">Your Writing Story</h1>
+    <p class="stats-page__subtitle">A look at your journaling habits over time.</p>
+  </div>
+
+  <% if @total_entries == 0 %>
+
+    <%# ---- EMPTY STATE ---- %>
+    <div class="stats-empty">
+      <div class="stats-empty__icon"><i class="fa-regular fa-chart-bar"></i></div>
+      <div class="stats-empty__title">Nothing to show yet</div>
+      <p class="stats-empty__text">Write your first journal entry and your stats will start building here.</p>
+      <% if @sidebar_new_entry_journal %>
+        <%= link_to new_journal_journal_entry_path(@sidebar_new_entry_journal),
+                    class: "btn btn-sm",
+                    style: "background:#50C878;color:#fff;border-radius:9px;font-weight:600;padding:9px 20px;" do %>
+          <i class="fa-solid fa-pen-nib"></i> Write an entry
+        <% end %>
+      <% end %>
+    </div>
+
+  <% else %>
+
+    <%# ---- HERO STAT CARDS ---- %>
+    <p class="stats-section__label">Overview</p>
+    <div class="stats-hero">
+      <div class="stats-card">
+        <div class="stats-card__icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+        <div class="stats-card__value"><%= @current_streak %></div>
+        <div class="stats-card__label">Day streak</div>
+      </div>
+      <div class="stats-card stats-card--accent">
+        <div class="stats-card__icon"><i class="fa-solid fa-trophy"></i></div>
+        <div class="stats-card__value"><%= @longest_streak %></div>
+        <div class="stats-card__label">Longest streak</div>
+      </div>
+      <div class="stats-card">
+        <div class="stats-card__icon"><i class="fa-solid fa-feather-pointed"></i></div>
+        <div class="stats-card__value"><%= number_with_delimiter(@total_words) %></div>
+        <div class="stats-card__label">Words written</div>
+      </div>
+      <div class="stats-card">
+        <div class="stats-card__icon"><i class="fa-solid fa-book-open"></i></div>
+        <div class="stats-card__value"><%= @total_entries %></div>
+        <div class="stats-card__label">Total entries</div>
+      </div>
+    </div>
+
+    <%# ---- META ROW ---- %>
+    <div class="stats-meta">
+      <% if @writing_since %>
+        <div class="stats-meta__item">
+          <div class="stats-meta__item-icon"><i class="fa-solid fa-seedling"></i></div>
+          <div class="stats-meta__item-body">
+            <div class="stats-meta__item-value"><%= @writing_since.strftime("%B %-d, %Y") %></div>
+            <div class="stats-meta__item-label">Writing since</div>
+          </div>
+        </div>
+      <% end %>
+      <div class="stats-meta__item">
+        <div class="stats-meta__item-icon"><i class="fa-solid fa-books"></i></div>
+        <div class="stats-meta__item-body">
+          <div class="stats-meta__item-value"><%= @total_journals %></div>
+          <div class="stats-meta__item-label"><%= @total_journals == 1 ? "Journal" : "Journals" %> created</div>
+        </div>
+      </div>
+    </div>
+
+    <%# ---- ACTIVITY HEATMAP ---- %>
+    <% start_date = 52.weeks.ago.to_date.beginning_of_week(:sunday)
+       today      = Date.today
+       max_count  = @heatmap.values.max || 1
+    %>
+
+    <p class="stats-section__label">Activity — last 52 weeks</p>
+    <div class="stats-heatmap-wrap">
+      <div class="stats-heatmap__header">
+        <div></div>
+        <div class="stats-heatmap__legend">
+          Less
+          <% [0, 1, 2, 3, 4].each do |lvl| %>
+            <div class="stats-heatmap__legend-cell" style="background: <%= case lvl
+              when 0 then 'rgba(209,242,235,0.25)'
+              when 1 then '#D1F2EB'
+              when 2 then '#A8E6C4'
+              when 3 then '#50C878'
+              when 4 then '#0B6E4F'
+            end %>"></div>
+          <% end %>
+          More
+        </div>
+      </div>
+
+      <%# Month label row — one label per week column where month changes %>
+      <% month_labels = []
+         (0..52).each do |week_idx|
+           week_start = start_date + week_idx.weeks
+           if week_idx == 0 || week_start.month != (start_date + (week_idx - 1).weeks).month
+             month_labels << [week_idx + 1, week_start.strftime("%b")]
+           else
+             month_labels << [week_idx + 1, nil]
+           end
+         end
+      %>
+      <div class="stats-heatmap__months">
+        <% month_labels.each do |col, label| %>
+          <div class="stats-heatmap__month-label" style="grid-column: <%= col %>"><%= label %></div>
+        <% end %>
+      </div>
+
+      <div class="stats-heatmap">
+        <% (0..52).each do |week_idx|
+             (0..6).each do |day_idx|
+               date = start_date + week_idx.weeks + day_idx.days
+               count = @heatmap[date] || 0
+               level = if date > today then nil
+                       elsif count == 0 then 0
+                       elsif count == 1 then 1
+                       elsif count <= 3 then 2
+                       elsif count <= 6 then 3
+                       else 4
+                       end
+               future = date > today
+        %>
+          <div class="stats-heatmap__cell <%= 'stats-heatmap__cell--future' if future %>"
+               <% unless future %> data-level="<%= level %>" <% end %>
+               style="grid-column: <%= week_idx + 1 %>; grid-row: <%= day_idx + 1 %>;"
+               title="<%= date.strftime('%B %-d, %Y') %><%= ": #{count} #{'entry'.pluralize(count)}" unless future %>">
+          </div>
+        <% end %>
+      <% end %>
+      </div>
+    </div>
+
+    <%# ---- JOURNAL BREAKDOWN ---- %>
+    <% if @journals_data.any? { |j| j[:count] > 0 } %>
+      <% max_journal_count = @journals_data.map { |j| j[:count] }.max || 1 %>
+
+      <p class="stats-section__label">By journal</p>
+      <div class="stats-journals-wrap">
+        <% @journals_data.each do |j| %>
+          <div class="stats-journal-row">
+            <div class="stats-journal-row__dot" style="background: <%= j[:color] %>"></div>
+            <div class="stats-journal-row__name"><%= j[:name] %></div>
+            <div class="stats-journal-row__bar-wrap">
+              <div class="stats-journal-row__bar"
+                   style="width: <%= (j[:count].to_f / max_journal_count * 100).round(1) %>%; background: <%= j[:color] %>;">
+              </div>
+            </div>
+            <div class="stats-journal-row__count"><%= j[:count] %></div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+  <% end %>
+</div>

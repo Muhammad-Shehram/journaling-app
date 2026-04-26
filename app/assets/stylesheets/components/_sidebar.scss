@@ -3,13 +3,13 @@
 // Two-panel shell: dark sidebar + dark main
 // ============================================
 
-$sidebar-bg:       #1B2A4A;
+$sidebar-bg:       #0B6E4F;
 $sidebar-hover:    rgba(255,255,255,0.06);
-$sidebar-active:   rgba(124,111,247,0.18);
+$sidebar-active:   rgba(58,191,106,0.18);
 $sidebar-border:   rgba(255,255,255,0.08);
 $sidebar-text:     rgba(255,255,255,0.65);
 $sidebar-text-hi:  rgba(255,255,255,0.95);
-$sidebar-accent:   #7C6FF7;
+$sidebar-accent:   #3ABF6A;
 $sidebar-width:    220px;
 $topbar-height:    52px;
 
@@ -40,7 +40,7 @@ $topbar-height:    52px;
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 20px 12px 16px;
+  padding: 20px 14px 16px;
   min-height: 100%;
 }
 
@@ -63,10 +63,17 @@ $topbar-height:    52px;
 
 .sidebar__brand {
   font-family: $headers-font;
-  font-size: 1.2rem;
-  font-weight: 800;
+  font-size: 1.6rem;
+  font-weight: 700;
+  font-style: italic;
   color: white;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.05em;
+}
+
+.sidebar__brand-sep {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.10);
+  margin: 0 0 16px 0;
 }
 
 .sidebar__collapse-btn {
@@ -95,7 +102,7 @@ $topbar-height:    52px;
   top: 14px;
   left: 14px;
   z-index: 95;
-  background: #1B2A4A;
+  background: #0B6E4F;
   border: none;
   color: rgba(255,255,255,0.7);
   font-size: 0.9rem;
@@ -110,7 +117,7 @@ $topbar-height:    52px;
 
   &:hover {
     color: white;
-    background: darken(#1B2A4A, 4%);
+    background: darken(#0B6E4F, 4%);
   }
 }
 
@@ -176,7 +183,7 @@ $topbar-height:    52px;
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 9px 10px;
+  padding: 10px 12px;
   border-radius: 8px;
   color: $sidebar-text;
   text-decoration: none;
@@ -210,7 +217,7 @@ $topbar-height:    52px;
   font-size: 0.65rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   color: rgba(255,255,255,0.3);
   padding: 14px 10px 6px;
 }
@@ -461,7 +468,7 @@ $topbar-height:    52px;
   left: 0;
   right: 0;
   height: $topbar-height;
-  background: #1B2A4A;
+  background: #0B6E4F;
   align-items: center;
   padding: 0 16px;
   gap: 12px;
@@ -490,10 +497,11 @@ $topbar-height:    52px;
 
 .app-topbar__brand {
   font-family: $headers-font;
-  font-size: 1.1rem;
-  font-weight: 800;
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-style: italic;
   color: white;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.01em;
 }
 
 // ---- MOBILE RESPONSIVE ----

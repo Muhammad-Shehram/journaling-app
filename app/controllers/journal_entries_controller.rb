@@ -5,7 +5,7 @@ class JournalEntriesController < ApplicationController
 
 
   def index
-    @journal_entries = @journal.journal_entries.active.order(entry_date: :desc)
+    @journal_entries = @journal.journal_entries.active.includes(:tags).order(entry_date: :desc)
     @journal_entries = @journal_entries.where("title LIKE ?", "%#{params[:q]}%") if params[:q].present?
     @journal_entries = @journal_entries.where(mood: params[:mood]) if params[:mood].present?
     @journal_entries = @journal_entries.where("entry_date >= ?", params[:from]) if params[:from].present?

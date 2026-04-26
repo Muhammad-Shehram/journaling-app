@@ -4,16 +4,16 @@
 // Applied via body.dark-mode (set in layout).
 // ============================================
 
-$dm-bg:           #111827;
-$dm-card:         #1A2537;
-$dm-card-hover:   #1F2D42;
-$dm-input:        #0F172A;
+$dm-bg:           #061A10;
+$dm-card:         #0D2B1A;
+$dm-card-hover:   #12362C;
+$dm-input:        #040F08;
 $dm-border:       rgba(255, 255, 255, 0.08);
 $dm-text:         #E2E8F0;
-$dm-muted:        rgba(255, 255, 255, 0.45);
+$dm-muted:        rgba(255, 255, 255, 0.55);
 $dm-heading:      #F1F5F9;
-$dm-accent:       #7C6FF7;
-$dm-accent-hover: rgba(124, 111, 247, 0.15);
+$dm-accent:       #3ABF6A;
+$dm-accent-hover: rgba(58, 191, 106, 0.15);
 
 body.dark-mode {
 
@@ -25,13 +25,13 @@ body.dark-mode {
 
   // ---- MOBILE TOPBAR (already dark — just keep it consistent) ----
   .app-topbar {
-    background: #1B2A4A;
+    background: #0B6E4F;
     border-bottom-color: $dm-border;
   }
 
   // ---- WRITING CANVAS (forms) ----
   .canvas__bar {
-    background: rgba(17, 24, 39, 0.92);
+    background: rgba(6, 26, 16, 0.94);
     border-bottom-color: $dm-border;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -47,6 +47,10 @@ body.dark-mode {
     caret-color: $dm-text;
 
     &::placeholder { color: rgba(255, 255, 255, 0.25) !important; }
+
+    &:focus-visible {
+      outline: none !important;   // suppress harsh green box on dark canvas
+    }
   }
 
   .canvas__divider {
@@ -68,22 +72,35 @@ body.dark-mode {
 
   // Date chip (native date input styled as pill)
   .canvas__date-chip {
-    background: $dm-card !important;
-    border-color: $dm-border !important;
-    color: $dm-muted !important;
+    background: rgba(255, 255, 255, 0.07) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    color: $dm-text !important;
+    color-scheme: dark;
 
-    &:hover { border-color: $dm-accent !important; }
+    &:hover { border-color: rgba(58, 191, 106, 0.5) !important; }
     &:focus {
       outline-color: $dm-accent !important;
       border-color: $dm-accent !important;
     }
   }
 
+  // Date range filter inputs (entries index filter bar)
+  .entries__date-input {
+    background: $dm-card !important;
+    border-color: $dm-border !important;
+    color: $dm-text !important;
+    color-scheme: dark;
+
+    &:focus {
+      border-color: $dm-accent !important;
+      box-shadow: 0 0 0 2px rgba(58, 191, 106, 0.12) !important;
+    }
+  }
+
   // Journal picker pill + dropdown
   .journal-pill {
-    background: $dm-card;
-    border-color: $dm-border;
-    color: $dm-text;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.12);
+    color: white;
   }
 
   .journal-picker-dropdown {
@@ -103,6 +120,56 @@ body.dark-mode {
     border-top-color: $dm-border;
   }
 
+  // Tag footer (form)
+  .canvas__tag-footer {
+    border-top-color: $dm-border;
+  }
+
+  .tag-quick-pill {
+    border-color: rgba(58, 191, 106, 0.25);
+    background: rgba(58, 191, 106, 0.08);
+    color: $dm-accent;
+
+    &:hover {
+      border-color: $dm-accent;
+      background: rgba(58, 191, 106, 0.18);
+    }
+  }
+
+  // Tag filter row (entries index)
+  .entries__tag-filter-row {
+    .tag-filter-chip {
+      background: $dm-card;
+      border-color: $dm-border;
+      color: $dm-muted;
+
+      &:hover {
+        border-color: $dm-accent;
+        color: $dm-accent;
+        background: $dm-accent-hover;
+      }
+
+      &--active {
+        border-color: $dm-accent;
+        background: $dm-accent-hover;
+        color: $dm-accent;
+      }
+    }
+  }
+
+  // Tag badges on entry cards
+  .entry-card__tags {
+    .entry-tag-badge {
+      background: rgba(58, 191, 106, 0.12);
+      color: $dm-accent;
+    }
+
+    .entry-tag-badge--more {
+      background: rgba(255, 255, 255, 0.06);
+      color: $dm-muted;
+    }
+  }
+
   // Tag input
   .tag-input-wrap {
     background: $dm-input;
@@ -110,7 +177,7 @@ body.dark-mode {
 
     &:focus-within {
       border-color: $dm-accent;
-      box-shadow: 0 0 0 3px rgba(124, 111, 247, 0.15);
+      box-shadow: 0 0 0 3px rgba(58, 191, 106, 0.15);
       background: $dm-input;
     }
   }
@@ -216,7 +283,7 @@ body.dark-mode {
       &::placeholder { color: $dm-muted; }
       &:focus {
         border-color: $dm-accent;
-        box-shadow: 0 0 0 3px rgba(124, 111, 247, 0.12);
+        box-shadow: 0 0 0 3px rgba(58, 191, 106, 0.12);
       }
     }
   }
@@ -249,7 +316,7 @@ body.dark-mode {
 
   // Tag pills on entry cards
   .entry-tag {
-    background: rgba(124, 111, 247, 0.15);
+    background: rgba(58, 191, 106, 0.15);
     color: $dm-accent;
   }
 
@@ -374,7 +441,7 @@ body.dark-mode {
     &:focus {
       background: $dm-input;
       border-color: $dm-accent;
-      box-shadow: 0 0 0 3px rgba(124, 111, 247, 0.12);
+      box-shadow: 0 0 0 3px rgba(58, 191, 106, 0.12);
     }
   }
 
@@ -394,7 +461,7 @@ body.dark-mode {
     color: $dm-text;
 
     &--active {
-      background: #1B2A4A;
+      background: #0B6E4F;
       border-color: $dm-accent;
       color: white;
     }
@@ -576,9 +643,9 @@ body.dark-mode {
   }
 
   .entry-tag-badge {
-    background: rgba(124, 111, 247, 0.15);
+    background: rgba(58, 191, 106, 0.15);
     color: $dm-accent;
-    &--link:hover { background: rgba(124, 111, 247, 0.25); }
+    &--link:hover { background: rgba(58, 191, 106, 0.25); }
   }
 
   // ---- DELETE ACCOUNT MODAL (dark mode skin) ----
@@ -627,8 +694,19 @@ body.dark-mode {
 
     &:focus {
       border-color: $dm-accent !important;
-      box-shadow: 0 0 0 3px rgba(124, 111, 247, 0.12) !important;
+      box-shadow: 0 0 0 3px rgba(58, 191, 106, 0.12) !important;
       background: $dm-input !important;
     }
+  }
+
+  // ---- CANVAS PARCHMENT OVERRIDE ----
+  .canvas {
+    background-color: $dm-bg;
+    background-image: none;   // remove parchment grain in dark mode
+  }
+
+  // ---- ENTRY CARD HOVER — dark base tint ----
+  .entry-card:hover {
+    background: rgba(58, 191, 106, 0.04);
   }
 }

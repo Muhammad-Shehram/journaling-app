@@ -12,11 +12,20 @@ class User < ApplicationRecord
   validate :password_complexity, if: :password_required?
 
   after_create :create_default_journal
+  after_create :seed_starter_tags
 
   private
 
   def create_default_journal
-    journals.create!(name: "Journal", color: "#7C6FF7", is_default: true)
+    journals.create!(name: "Journal", color: "#50C878", is_default: true)
+  end
+
+  def seed_starter_tags
+    %w[
+      grateful anxious excited reflective peaceful inspired frustrated hopeful
+      work health family relationships travel personal-growth creativity finances
+      morning evening weekend milestone goal habit
+    ].each { |name| tags.create!(name: name) }
   end
 
   def password_complexity

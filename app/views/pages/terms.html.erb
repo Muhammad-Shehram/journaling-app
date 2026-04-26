@@ -16,10 +16,6 @@
 
 <main class="legal-page">
   <div class="container">
-    <%= link_to root_path, class: "legal-back-link" do %>
-      <i class="fa-solid fa-arrow-left"></i> Back to Reflekto
-    <% end %>
-
     <div class="legal-header">
       <p class="legal-header__label">Legal</p>
       <h1 class="legal-header__title">Terms of Service</h1>
@@ -115,21 +111,22 @@
   </div>
 </main>
 
-<footer class="landing-footer">
-  <div class="container">
-    <div class="footer-columns">
-      <div class="footer-col">
-        <p class="footer-col__heading">Legal</p>
-        <%= link_to "Terms of Service", terms_path, class: "footer-col__link" %>
-        <%= link_to "Privacy Policy", privacy_path, class: "footer-col__link" %>
+<footer class="ln-footer">
+  <div class="ln-footer__inner">
+    <div class="ln-footer__brand">Reflekto</div>
+    <div class="ln-footer__cols">
+      <div class="ln-footer__col">
+        <p class="ln-footer__col-heading">Legal</p>
+        <%= link_to "Terms of Service", terms_path, class: "ln-footer__link" %>
+        <%= link_to "Privacy Policy", privacy_path, class: "ln-footer__link" %>
       </div>
-      <div class="footer-col">
-        <p class="footer-col__heading">Company</p>
-        <%= link_to "About Us", "#", class: "footer-col__link" %>
+      <div class="ln-footer__col">
+        <p class="ln-footer__col-heading">Company</p>
+        <%= link_to "About Us", "#", class: "ln-footer__link" %>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>© 2026 Reflekto. All rights reserved.</span>
-    </div>
+  </div>
+  <div class="ln-footer__bottom">
+    <span>© 2026 Reflekto. All rights reserved.</span>
   </div>
 </footer>

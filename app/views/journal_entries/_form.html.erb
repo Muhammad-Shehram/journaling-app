@@ -27,13 +27,13 @@
           <div class="journal-switcher"
                data-controller="journal-picker"
                data-journal-picker-journals-value="<%= @sidebar_journals.map { |j|
-                 { id: j.id, name: j.name, color: (j.color || '#7C6FF7'), path: journal_journal_entries_path(j) }
+                 { id: j.id, name: j.name, color: (j.color || '#3ABF6A'), path: journal_journal_entries_path(j) }
                }.to_json %>"
                data-journal-picker-new-journal-url-value="<%= new_journal_path %>"
                data-journal-picker-current-id-value="<%= @journal.id %>">
             <button type="button"
                     class="journal-pill journal-pill--picker"
-                    style="--journal-pill-color: <%= @journal.color || '#7C6FF7' %>"
+                    style="--journal-pill-color: <%= @journal.color || '#3ABF6A' %>"
                     data-journal-picker-target="trigger"
                     data-action="click->journal-picker#toggle">
               <span data-journal-picker-target="pillLabel"><%= @journal.name %></span>
@@ -43,7 +43,7 @@
           </div>
         <% else %>
           <%# Static pill on the edit form %>
-          <span class="journal-pill" style="--journal-pill-color: <%= @journal.color || '#7C6FF7' %>">
+          <span class="journal-pill" style="--journal-pill-color: <%= @journal.color || '#3ABF6A' %>">
             <%= @journal.name %>
           </span>
         <% end %>
@@ -80,6 +80,27 @@
                              "aria-label": "Entry content" %>
       </div>
 
+      <%# Tag footer — metadata section below the writing canvas %>
+      <div class="canvas__tag-footer"
+           data-controller="tag-input"
+           data-tag-input-existing-value="<%= @journal_entry.tags.map(&:name).join(', ') %>"
+           data-tag-input-suggestions-value="<%= @user_tags.map(&:name).to_json %>">
+        <div class="tag-quick-row" data-tag-input-target="quickRow" style="display:none"></div>
+        <div class="tag-input-wrap">
+          <i class="fa-solid fa-tag tag-input-icon"></i>
+          <div class="tag-input-chips" data-tag-input-target="chips"></div>
+          <input type="text"
+                 class="tag-input-field"
+                 placeholder="Add tags…"
+                 autocomplete="off"
+                 data-tag-input-target="input"
+                 data-action="keydown->tag-input#onKeydown input->tag-input#showSuggestions blur->tag-input#hideSuggestions">
+          <div class="tag-suggestions" data-tag-input-target="suggestions" style="display:none"></div>
+        </div>
+        <%= hidden_field_tag "journal_entry[tag_list]",
+            @journal_entry.tags.map(&:name).join(', '),
+            data: { "tag-input-target": "field" } %>
+      </div>
 
     </div>
 

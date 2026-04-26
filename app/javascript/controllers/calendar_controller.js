@@ -51,7 +51,7 @@ export default class extends Controller {
     const daysInMonth = new Date(this.year, this.month + 1, 0).getDate()
     const today = new Date()
     const entrySet = new Set(this.datesValue)
-    const color = this.journalColorValue || "#7C6FF7"
+    const color = this.journalColorValue || "#3ABF6A"
 
     let html = DAYS.map(d => `<div class="cal-header">${d}</div>`).join("")
 

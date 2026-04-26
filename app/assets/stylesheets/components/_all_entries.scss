@@ -3,26 +3,27 @@
 // Cross-journal chronological timeline
 // ============================================
 
-$r-dark:         #1B1F3B;
-$r-accent:       #7C6FF7;
-$r-accent-light: #EEF0FF;
+$r-dark:         #0B6E4F;
+$r-accent:       #3ABF6A;
+$r-accent-light: #D4F5E3;
 $r-text:         #2D3748;
 $r-muted:        #718096;
 $r-border:       #E2E8F0;
 $r-bg:           #F8F9FC;
 $r-error:        #E53E3E;
 
+// ---- PAGE LAYOUT ----
 .all-entries {
   max-width: 720px;
   margin: 0 auto;
-  padding: 48px 24px 80px;
+  padding: 64px 24px 80px;
 
   @media (max-width: 768px) { padding: 32px 16px 60px; }
 }
 
 // ---- HEADER ----
 .all-entries__header {
-  margin-bottom: 36px;
+  margin-bottom: 28px;
 }
 
 .all-entries__header-row {
@@ -31,32 +32,60 @@ $r-error:        #E53E3E;
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
-  margin-bottom: 8px;
 }
 
 .all-entries__title {
-  font-size: 1.75rem;
-  font-weight: 800;
-  color: #1B2A4A;
+  font-family: $headers-font;
+  font-size: 2.25rem;
+  font-weight: 700;
+  font-style: italic;
+  color: $r-dark;
   letter-spacing: -0.02em;
   margin: 0;
+
+  @media (max-width: 540px) { font-size: 1.7rem; }
 }
 
-.all-entries__stats {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.88rem;
-  color: #718096;
+// ---- STATS ROW ----
+.ae-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 44px;
 
-  strong {
-    color: #2D3748;
+  @media (max-width: 540px) { grid-template-columns: repeat(2, 1fr); }
+}
+
+.ae-stat {
+  background: white;
+  border: 1px solid $r-border;
+  border-radius: 10px;
+  padding: 12px 14px;
+  text-align: center;
+  transition: box-shadow 0.2s;
+
+  &:hover { box-shadow: 0 4px 14px rgba($r-dark, 0.07); }
+
+  &__value {
+    display: block;
+    font-family: $headers-font;
+    font-size: 1.4rem;
     font-weight: 700;
+    font-style: italic;
+    color: $r-dark;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin-bottom: 2px;
   }
-}
 
-.all-entries__stats-sep {
-  color: #CBD5E0;
+  &__label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: $r-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
 }
 
 // ---- MONTH GROUP ----
@@ -65,16 +94,16 @@ $r-error:        #E53E3E;
 }
 
 .all-entries__month-label {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: #A0AEC0;
   margin-bottom: 12px;
   padding-left: 2px;
 }
 
-// Journal indicator on each entry card in All Entries view
+// Journal indicator dot + name (All Entries cross-journal view)
 .entry-journal-dot {
   display: inline-block;
   width: 7px;
@@ -99,30 +128,33 @@ $r-error:        #E53E3E;
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background: #EEF0FF;
+  background: $r-accent-light;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 20px;
   font-size: 1.8rem;
-  color: #7C6FF7;
+  color: $r-accent;
 }
 
 .all-entries__empty-title {
-  font-size: 1.3rem;
+  font-family: $headers-font;
+  font-size: 1.6rem;
   font-weight: 700;
-  color: #2D3748;
+  font-style: italic;
+  color: $r-text;
   margin-bottom: 8px;
 }
 
 .all-entries__empty-text {
-  color: #718096;
+  color: $r-muted;
   font-size: 0.95rem;
   margin-bottom: 28px;
   max-width: 340px;
   margin-left: auto;
   margin-right: auto;
   line-height: 1.6;
+  font-weight: 300;
 }
 
 // ============================================
@@ -135,8 +167,4 @@ $r-error:        #E53E3E;
     align-items: flex-start;
     gap: 6px;
   }
-
-  .all-entries__title { font-size: 1.4rem; }
-
-  .all-entries__stats { font-size: 0.82rem; }
 }

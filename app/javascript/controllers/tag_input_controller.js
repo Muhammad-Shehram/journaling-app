@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["input", "chips", "field", "suggestions"]
+  static targets = ["input", "chips", "field", "suggestions", "quickRow"]
   static values = { existing: String, suggestions: Array }
 
   connect() {
@@ -9,6 +9,7 @@ export default class extends Controller {
       ? this.existingValue.split(",").map(t => t.trim()).filter(Boolean)
       : []
     this.renderChips()
+    this.renderQuickTags()
   }
 
   onKeydown(event) {
@@ -18,6 +19,7 @@ export default class extends Controller {
     } else if (event.key === "Backspace" && this.inputTarget.value === "") {
       this.tags.pop()
       this.renderChips()
+      this.renderQuickTags()
     }
   }
 
@@ -26,6 +28,7 @@ export default class extends Controller {
     if (name && !this.tags.includes(name)) {
       this.tags.push(name)
       this.renderChips()
+      this.renderQuickTags()
     }
     this.inputTarget.value = ""
     this.hideSuggestions()
@@ -34,6 +37,7 @@ export default class extends Controller {
   removeTag(name) {
     this.tags = this.tags.filter(t => t !== name)
     this.renderChips()
+    this.renderQuickTags()
   }
 
   renderChips() {
@@ -57,6 +61,31 @@ export default class extends Controller {
     })
 
     this.fieldTarget.value = this.tags.join(", ")
+  }
+
+  renderQuickTags() {
+    if (!this.hasQuickRowTarget) return
+
+    const available = this.suggestionsValue
+      .filter(t => !this.tags.includes(t))
+      .slice(0, 6)
+
+    this.quickRowTarget.innerHTML = ""
+
+    if (!available.length) {
+      this.quickRowTarget.style.display = "none"
+      return
+    }
+
+    this.quickRowTarget.style.display = "flex"
+    available.forEach(t => {
+      const btn = document.createElement("button")
+      btn.type = "button"
+      btn.className = "tag-quick-pill"
+      btn.textContent = t
+      btn.addEventListener("click", () => this.addTag(t))
+      this.quickRowTarget.appendChild(btn)
+    })
   }
 
   showSuggestions() {

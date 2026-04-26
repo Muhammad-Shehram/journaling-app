@@ -337,7 +337,7 @@ $r-error:        #E53E3E;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #3ABF6A;
+  background: var(--journal-pill-color, #3ABF6A);
   color: white;
   border-radius: 50px;
   padding: 11px 26px;
@@ -352,7 +352,7 @@ $r-error:        #E53E3E;
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #3ABF6A;
+    background: rgba(255, 255, 255, 0.6);
   }
 
   // Clickable variant used on the new-entry form

@@ -7,7 +7,7 @@
 
   <div class="prompts-category-list">
     <% @categories.each do |cat| %>
-      <%= link_to prompt_category_path(cat[:name].downcase), class: "prompts-category-row" do %>
+      <%= link_to prompt_category_path(cat[:name].parameterize), class: "prompts-category-row" do %>
         <div class="prompts-category-row__icon">
           <i class="fa-solid <%= cat[:icon] %>"></i>
         </div>

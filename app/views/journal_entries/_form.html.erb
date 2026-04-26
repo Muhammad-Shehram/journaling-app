@@ -80,6 +80,27 @@
                              "aria-label": "Entry content" %>
       </div>
 
+      <%# Tag footer — metadata section below the writing canvas %>
+      <div class="canvas__tag-footer"
+           data-controller="tag-input"
+           data-tag-input-existing-value="<%= @journal_entry.tags.map(&:name).join(', ') %>"
+           data-tag-input-suggestions-value="<%= @user_tags.map(&:name).to_json %>">
+        <div class="tag-quick-row" data-tag-input-target="quickRow" style="display:none"></div>
+        <div class="tag-input-wrap">
+          <i class="fa-solid fa-tag tag-input-icon"></i>
+          <div class="tag-input-chips" data-tag-input-target="chips"></div>
+          <input type="text"
+                 class="tag-input-field"
+                 placeholder="Add tags…"
+                 autocomplete="off"
+                 data-tag-input-target="input"
+                 data-action="keydown->tag-input#onKeydown input->tag-input#showSuggestions blur->tag-input#hideSuggestions">
+          <div class="tag-suggestions" data-tag-input-target="suggestions" style="display:none"></div>
+        </div>
+        <%= hidden_field_tag "journal_entry[tag_list]",
+            @journal_entry.tags.map(&:name).join(', '),
+            data: { "tag-input-target": "field" } %>
+      </div>
 
     </div>
 

@@ -450,6 +450,32 @@ $r-error:        #E53E3E;
   }
 }
 
+// ---- TAG FILTER ROW (horizontal scrollable) ----
+.entries__tag-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar { display: none; }
+}
+
+// ---- TAG BADGES ON ENTRY CARDS ----
+.entry-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.entry-tag-badge--more {
+  background: rgba($r-muted, 0.1);
+  color: $r-muted;
+}
+
 // ---- TAG FILTERS (filter bar) ----
 .entries__tag-filters {
   display: flex;

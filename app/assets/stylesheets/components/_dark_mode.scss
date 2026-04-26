@@ -120,6 +120,56 @@ body.dark-mode {
     border-top-color: $dm-border;
   }
 
+  // Tag footer (form)
+  .canvas__tag-footer {
+    border-top-color: $dm-border;
+  }
+
+  .tag-quick-pill {
+    border-color: rgba(58, 191, 106, 0.25);
+    background: rgba(58, 191, 106, 0.08);
+    color: $dm-accent;
+
+    &:hover {
+      border-color: $dm-accent;
+      background: rgba(58, 191, 106, 0.18);
+    }
+  }
+
+  // Tag filter row (entries index)
+  .entries__tag-filter-row {
+    .tag-filter-chip {
+      background: $dm-card;
+      border-color: $dm-border;
+      color: $dm-muted;
+
+      &:hover {
+        border-color: $dm-accent;
+        color: $dm-accent;
+        background: $dm-accent-hover;
+      }
+
+      &--active {
+        border-color: $dm-accent;
+        background: $dm-accent-hover;
+        color: $dm-accent;
+      }
+    }
+  }
+
+  // Tag badges on entry cards
+  .entry-card__tags {
+    .entry-tag-badge {
+      background: rgba(58, 191, 106, 0.12);
+      color: $dm-accent;
+    }
+
+    .entry-tag-badge--more {
+      background: rgba(255, 255, 255, 0.06);
+      color: $dm-muted;
+    }
+  }
+
   // Tag input
   .tag-input-wrap {
     background: $dm-input;

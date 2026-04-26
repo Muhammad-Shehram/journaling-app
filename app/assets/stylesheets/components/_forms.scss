@@ -826,6 +826,42 @@ $r-error:        #E53E3E;
   }
 }
 
+// ---- TAG FOOTER (form) ----
+.canvas__tag-footer {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid $r-border;
+}
+
+.tag-quick-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.tag-quick-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 50px;
+  border: 1.5px solid rgba($r-accent, 0.35);
+  background: rgba($r-accent-light, 0.45);
+  color: darken($r-accent, 12%);
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: $body-font;
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover {
+    border-color: $r-accent;
+    background: $r-accent-light;
+    color: $r-accent;
+    transform: translateY(-1px);
+  }
+}
+
 // Tags on show page
 .canvas__tags {
   display: flex;

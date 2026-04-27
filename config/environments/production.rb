@@ -92,6 +92,8 @@ Rails.application.configure do
   # Only use :id for inspections in production.
   config.active_record.attributes_for_inspect = [ :id ]
 
+  config.active_storage.service = :cloudinary
+
   # DNS rebinding protection — set RAILS_HOST to your production domain before deployment.
   # e.g. on Render/Heroku: RAILS_HOST=reflekto.app
   if ENV["RAILS_HOST"].present?

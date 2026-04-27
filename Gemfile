@@ -59,3 +59,4 @@ group :development do
 end
 
 gem "image_processing", "~> 1.14"
+gem "cloudinary"

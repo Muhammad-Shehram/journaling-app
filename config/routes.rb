@@ -46,4 +46,9 @@ Rails.application.routes.draw do
   resources :journals do
     resources :journal_entries
   end
+
+  # GoodJob dashboard — re-enable with admin: ->(u) { u.admin? } once admin role is added
+  # authenticate :user, ->(u) { u.admin? } do
+  #   mount GoodJob::Engine => "/good_job"
+  # end
 end

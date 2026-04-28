@@ -1,0 +1,13 @@
+Hey<%= @user.name.present? ? " #{@user.name}" : "" %>,
+
+Time to write in your journal today. Even a few sentences builds the habit.
+
+<% if @default_journal %>
+Open Reflekto: <%= new_journal_journal_entry_url(@default_journal) %>
+<% else %>
+Open Reflekto: <%= authenticated_root_url %>
+<% end %>
+
+---
+You're receiving this because you enabled reminders in your Reflekto settings.
+To stop: <%= settings_url %>

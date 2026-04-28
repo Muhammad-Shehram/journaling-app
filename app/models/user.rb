@@ -11,10 +11,15 @@ class User < ApplicationRecord
 
   validate :password_complexity, if: :password_required?
 
-  after_create :create_default_journal
-  after_create :seed_starter_tags
+  after_create  :create_default_journal
+  after_create  :seed_starter_tags
+  after_commit  :send_welcome_email, on: :create
 
   private
+
+  def send_welcome_email
+    UserMailer.welcome(self).deliver_later
+  end
 
   def create_default_journal
     journals.create!(name: "Journal", color: "#50C878", is_default: true)

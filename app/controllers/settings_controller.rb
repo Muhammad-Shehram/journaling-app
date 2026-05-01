@@ -70,6 +70,6 @@ class SettingsController < ApplicationController
   end
 
   def reminders_params
-    params.require(:user).permit(:reminders_enabled, :reminder_time, :reminder_days, :reminder_email)
+    params.require(:user).permit(:reminders_enabled, :reminder_time, :reminder_days, :timezone)
   end
 end

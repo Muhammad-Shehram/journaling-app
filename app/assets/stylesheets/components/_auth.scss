@@ -359,6 +359,13 @@ $auth-success:  #68D391;
     font-size: 0.85rem;
     color: $auth-error;
   }
+
+  .auth-field-error {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.8rem;
+    color: $auth-error;
+  }
 }
 
 // ---- FOOTER LINKS ----

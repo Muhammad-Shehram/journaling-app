@@ -5,10 +5,14 @@
 
 **Tech Stack:**
 - Ruby on Rails
-- Devise (Authentication)
+- Devise (Authentication) + OmniAuth (Google OAuth2)
 - ActionText (Rich Text)
-- ActiveStorage (Media)
-- PostgreSQL/SQLite
+- ActiveStorage + Cloudinary (Media)
+- PostgreSQL (local dev + Heroku Postgres in production)
+- GoodJob (background jobs, Postgres-backed)
+- Resend (transactional email via ActionMailer SMTP)
+
+**Deployment:** Live at https://www.reflektoapp.com (Heroku EU, Heroku Postgres add-on, Cloudinary for ActiveStorage, ACM SSL)
 
 ---
 
@@ -124,48 +128,67 @@ These are invoked with `/skill-name` and load only when needed:
 - [x] **Settings Improvements:** Read-only email field (`:email` removed from `profile_params`); password card with lock icons, eye toggles, separator, req-list, placeholders; GitHub-style 3-step delete account modal (type email to confirm); instant dark mode toggle (no Save needed); day chips driven by CSS `:has(:checked)` only.
 - [x] **Password Change UX Fix:** Both success and failure redirect to `settings_path(anchor: "password")` so the page scrolls to the password card instead of jumping to the top.
 - [x] **Mobile Responsiveness:** Full responsive pass — all pages clean at iPhone XR (375px) through iPad Pro. Entry cards, bookshelf grid, settings cards, prompts, recently deleted, writing canvas, filter bar all reflow correctly at mobile breakpoints.
+- [x] **Google OAuth:** Sign-in/sign-up with Google (`omniauth-google-oauth2` + `omniauth-rails_csrf_protection` gems). `User.from_omniauth` — find by provider+uid → link existing email → create new. OAuth users bypass password complexity (random token password). `Users::OmniauthCallbacksController`. Google Cloud credentials stored in `.env` (dev) and Heroku config vars (prod).
+- [x] **Auth Page Improvements:** Solid black pill Google button (overrides green card button styles with `!important`). Confirm password field removed (eye toggle + req checklist make it redundant). "Reflekto" logo at top is a link back to root. "Back to Home" link removed. ToS + Privacy Policy line on sign-up. `auth-divider` between Google button and email form.
 
 ---
 
-### 🎯 Phase 5.5: Infrastructure (Decided — implement before deployment)
+### ✅ Phase 5.5: Infrastructure — COMPLETE
 *Goal: Replace SQLite with production-grade Postgres and wire up email + background jobs.*
 
 | Layer | Choice | Why |
 |-------|--------|-----|
-| Database | Local Postgres (dev) + Supabase or Neon (prod) | Free tier, nice dashboard, production-ready |
+| Database | Heroku Postgres (prod) | Already wired via Heroku add-on; `DATABASE_URL` set automatically |
 | Transactional email | Resend | Simple, free tier, ActionMailer-compatible |
 | Background jobs (reminders) | GoodJob | Postgres-backed, no Redis needed |
 
 - [x] Migrate from SQLite3 → PostgreSQL locally
-- [ ] Create Supabase or Neon project and wire up `DATABASE_URL` for production
-- [ ] Add Resend gem + configure ActionMailer SMTP (Devise forgot-password + future reminder emails)
-- [ ] Add GoodJob gem for scheduled/background jobs (email reminders)
+- [x] Heroku Postgres for production (add-on active, `DATABASE_URL` auto-set by Heroku)
+- [x] Add Resend gem + configure ActionMailer SMTP (dev + prod environments)
+- [x] Add GoodJob gem + cron schedule (reminder emails every 5 min, purge expired entries nightly at 3am UTC)
+- [x] `UserMailer#welcome` — welcome email on user creation via `after_commit`
+- [x] `ReminderMailer#daily_reminder` — daily reminder email (HTML + text templates)
+- [x] `SendReminderEmailJob` — checks `reminders_enabled`, `reminder_days`, `reminder_time` per user
+- [x] `PurgeExpiredEntriesJob` — destroys soft-deleted entries older than 30 days
+
+**Pending (production only):**
+- [ ] Run `heroku run rails db:migrate --app reflektoapp` — applies `provider`/`uid` columns (from Google OAuth migration) to production DB
+- [ ] Test Google OAuth end-to-end on production (visit reflektoapp.com → "Continue with Google" → land on journals#index)
 
 ---
 
 ### 🚀 Phase 6: Final Refinement & Launch
 *Goal: Squash bugs and go live.*
 
+- [ ] Run `heroku run rails db:migrate --app reflektoapp` — apply `provider`/`uid` columns to prod DB
+- [ ] Test Google OAuth end-to-end on production
+- [ ] Verify Resend email delivery (welcome email + forgot-password) on production
+- [ ] Verify GoodJob reminder cron fires correctly on production
 - [ ] Cleanup: Remove faker gem, clear test seeds
-- [ ] Deployment: Push to production (Render/Heroku) and merge to master
+- [ ] Merge `feature/google-oauth-and-improvements` → `master` (open PR first)
+- [ ] Final smoke test on https://www.reflektoapp.com
 
 ---
 
 ## Current Status
-**Branch:** `phase-5-dark-mode-mobile`
+**Branch:** `feature/google-oauth-and-improvements`
 
-**Phases Complete:** Phase 1, Phase 2, Phase 3, Phase 4, Phase 5 ✅
+**Phases Complete:** Phase 1, Phase 2, Phase 3, Phase 4, Phase 5, Phase 5.5 ✅
 
-**Current Phase:** Phase 5.5 — Infrastructure (Postgres local ✅, Supabase/Neon prod + Resend + GoodJob remaining)
+**Current Phase:** Phase 6 — Final Refinement & Launch
 
-**Completed since last update (April 24, 2026):**
-- Dark Mode Theme: canvas-only, instant AJAX toggle, `_dark_mode.scss` covers all in-app pages
-- Mobile Responsiveness: full pass across all pages, clean at 375px–iPad Pro
-- Sign-up page polish: name field, animated req-list, card glow, button resting glow
-- Settings: read-only email, password card with icons/eye toggles/separator/req-list, GitHub-style 3-step delete modal, instant dark mode toggle
-- Password change UX fix: redirects to `#password` anchor on both success and failure
+**Completed since last update (May 1, 2026):**
+- GoodJob background jobs: `SendReminderEmailJob` (every 5 min cron) + `PurgeExpiredEntriesJob` (nightly cron)
+- Resend email: ActionMailer SMTP configured for dev + prod, `UserMailer#welcome` + `ReminderMailer#daily_reminder` with HTML + text templates
+- Google OAuth: full flow — Google Cloud Console credentials, `omniauth-google-oauth2` gem, `User.from_omniauth`, callback controller, routes
+- Auth page redesign: solid black Google button, removed confirm password, logo as home link, ToS line on sign-up, `auth-divider`
+- Heroku deployment: app live at https://www.reflektoapp.com (Heroku EU, Postgres add-on, Cloudinary, ACM SSL)
 
-**Next Session:** Phase 5.5 — wire up Supabase/Neon for production DB, Resend for email, GoodJob for reminders
+**Immediate next steps:**
+1. `heroku run rails db:migrate --app reflektoapp` — adds `provider`/`uid` columns to prod DB
+2. Test Google OAuth on production
+3. Open PR: `feature/google-oauth-and-improvements` → `master`
+4. Phase 6 cleanup (remove faker, test seeds)
 
 ---
 
@@ -189,5 +212,5 @@ These are invoked with `/skill-name` and load only when needed:
 
 ---
 
-**Last Updated:** April 24, 2026
-**Current Focus:** Phase 5.5 — Infrastructure (branch: `phase-5-dark-mode-mobile`)
+**Last Updated:** May 1, 2026
+**Current Focus:** Phase 6 — run prod migration, test Google OAuth, open PR to master (branch: `feature/google-oauth-and-improvements`)

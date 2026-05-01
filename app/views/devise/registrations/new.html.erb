@@ -41,6 +41,7 @@
                               placeholder: "What should we call you?",
                               class: "auth-input" %>
           </div>
+          <%= f.error :name, class: "auth-field-error" %>
         </div>
 
         <%# Email %>
@@ -54,6 +55,7 @@
                               placeholder: "you@example.com",
                               class: "auth-input" %>
           </div>
+          <%= f.error :email, class: "auth-field-error" %>
         </div>
 
         <%# Password %>
@@ -71,6 +73,7 @@
               <i class="fa-solid fa-eye"></i>
             </button>
           </div>
+          <%= f.error :password, class: "auth-field-error" %>
           <ul class="req-list" data-password-target="list">
             <li class="req-item" data-req="req-length">
               <i class="fa-solid fa-circle-check req-icon"></i> At least 12 characters

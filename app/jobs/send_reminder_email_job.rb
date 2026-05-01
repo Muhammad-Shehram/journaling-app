@@ -4,13 +4,19 @@ class SendReminderEmailJob < ApplicationJob
   DAYS = %w[Sun Mon Tue Wed Thu Fri Sat].freeze
 
   def perform
-    today        = DAYS[Time.current.wday]
-    current_hhmm = Time.current.strftime("%H:%M")
+    User.where(reminders_enabled: true).find_each do |user|
+      user_now = Time.current.in_time_zone(user.timezone.presence || "London")
+      today    = DAYS[user_now.wday]
 
-    User.where(reminders_enabled: true, reminder_email: true).find_each do |user|
       days = user.reminder_days.to_s.split(",").map(&:strip)
       next unless days.include?(today)
-      next unless user.reminder_time.to_s.strip == current_hhmm
+
+      now_minutes  = user_now.hour * 60 + user_now.min
+      window_start = (now_minutes / 5) * 5
+
+      h, m = user.reminder_time.to_s.strip.split(":").map(&:to_i)
+      reminder_minutes = h * 60 + m
+      next unless reminder_minutes >= window_start && reminder_minutes < window_start + 5
 
       ReminderMailer.daily_reminder(user).deliver_later
     rescue => e

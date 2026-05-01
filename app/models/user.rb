@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :lockable, :timeoutable,
+         :lockable, :timeoutable, :confirmable,
          :omniauthable, omniauth_providers: [:google_oauth2]
   # ASSOCIATION: A user can have many entries
   has_many :journals, dependent: :destroy
@@ -23,22 +23,30 @@ class User < ApplicationRecord
     user = find_by(email: auth.info.email)
     if user
       user.update(provider: auth.provider, uid: auth.uid)
+      user.confirm unless user.confirmed?
       return user
     end
 
-    create!(
+    user = new(
       provider: auth.provider,
       uid:      auth.uid,
       email:    auth.info.email,
       name:     auth.info.name,
       password: Devise.friendly_token[0, 20]
     )
+    user.skip_confirmation!
+    user.save!
+    user
+  end
+
+  def after_confirmation
+    UserMailer.welcome(self).deliver_later
   end
 
   private
 
   def send_welcome_email
-    UserMailer.welcome(self).deliver_later
+    UserMailer.welcome(self).deliver_later if confirmed?
   end
 
   def create_default_journal

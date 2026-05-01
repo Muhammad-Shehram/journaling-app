@@ -1,0 +1,13 @@
+Reflekto — Confirm your email address
+======================================
+
+<% if @resource.name.present? %>Hi <%= @resource.name %>,<% else %>Hi,<% end %>
+
+Thanks for signing up for Reflekto. Confirm your email by visiting the link below:
+
+<%= confirmation_url(@resource, confirmation_token: @token) %>
+
+This link expires in 24 hours. If you didn't sign up for Reflekto, you can safely ignore this email.
+
+---
+Reflekto · https://reflektoapp.com

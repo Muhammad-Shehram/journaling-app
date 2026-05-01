@@ -1,20 +1,42 @@
-<h2>Resend confirmation instructions</h2>
+<div class="auth-page">
+  <%= link_to root_path, class: "auth-logo" do %>
+    <i class="fa-solid fa-book-open-reader"></i>
+    <span>Reflekto</span>
+  <% end %>
 
-<%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-  <%= f.error_notification %>
-  <%= f.full_error :confirmation_token %>
+  <div class="auth-card">
+    <h2 class="auth-card__title">Resend confirmation</h2>
+    <p class="auth-card__subtitle">Enter your email and we'll send you a new confirmation link.</p>
 
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
-                input_html: { autocomplete: "email" } %>
+    <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+      <%= f.error_notification %>
+      <%= f.full_error :confirmation_token %>
+
+      <div class="form-inputs">
+        <div class="input-group-wrapper">
+          <%= f.label :email, "Email address" %>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-envelope input-icon"></i>
+            <%= f.input_field :email,
+                              required: true,
+                              autofocus: true,
+                              value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
+                              autocomplete: "email",
+                              placeholder: "you@example.com",
+                              class: "auth-input" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Resend confirmation email" %>
+      </div>
+    <% end %>
+
+    <div class="auth-links">
+      <div class="auth-link-row">
+        Already confirmed? <%= link_to "Sign in", new_user_session_path %>
+      </div>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Resend confirmation instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

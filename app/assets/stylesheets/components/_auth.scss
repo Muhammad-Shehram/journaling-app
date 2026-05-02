@@ -497,3 +497,17 @@ form:has(.google-btn) {
     background: rgba(255, 255, 255, 0.1);
   }
 }
+
+// Icon circle above card title (e.g. forgot password page)
+.auth-card__icon-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(#1EDD88, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  color: #1EDD88;
+  font-size: 1.25rem;
+}

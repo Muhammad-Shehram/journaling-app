@@ -1,7 +1,8 @@
 Rails.application.configure do
-  config.good_job.execution_mode = :async
+  config.good_job.execution_mode = :async_all
   config.good_job.max_threads    = 5
   config.good_job.poll_interval  = 30
+  config.good_job.enable_cron    = true
 
   config.good_job.cron = {
     send_reminder_emails: {
@@ -15,4 +16,8 @@ Rails.application.configure do
       description: "Destroy soft-deleted entries older than 30 days (runs daily at 03:00 UTC)"
     }
   }
+end
+
+Rails.application.config.after_initialize do
+  GoodJob.capsule.start(force: true)
 end

@@ -160,13 +160,21 @@ These are invoked with `/skill-name` and load only when needed:
 ### 🚀 Phase 6: Final Refinement & Launch
 *Goal: Squash bugs and go live.*
 
-- [ ] Run `heroku run rails db:migrate --app reflektoapp` — apply `provider`/`uid` columns to prod DB
+- [ ] Run `heroku run rails db:migrate --app reflektoapp` — apply `provider`/`uid` + `timezone` + `confirmable` columns to prod DB
 - [ ] Test Google OAuth end-to-end on production
-- [ ] Verify Resend email delivery (welcome email + forgot-password) on production
+- [ ] Verify Resend email delivery (welcome email + forgot-password + confirmation) on production
 - [ ] Verify GoodJob reminder cron fires correctly on production
 - [ ] Cleanup: Remove faker gem, clear test seeds
 - [ ] Merge `feature/google-oauth-and-improvements` → `master` (open PR first)
 - [ ] Final smoke test on https://www.reflektoapp.com
+- [ ] Migrate from Heroku to Railway (reduces ~$15/month)
+  - Sign up at railway.app, connect GitHub repo
+  - Add PostgreSQL service (auto-injects `DATABASE_URL`)
+  - Set env vars: `RAILS_MASTER_KEY`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `RESEND_API_KEY`, `CLOUDINARY_URL`, `RAILS_ENV=production`, `RAILS_SERVE_STATIC_FILES=true`
+  - Pre-deploy command: `bundle exec rails db:migrate`
+  - Migrate data: `heroku pg:backups:download` → `pg_restore` to Railway DB URL
+  - Point `reflektoapp.com` DNS CNAME to Railway domain
+  - Update Google OAuth redirect URIs in Google Cloud Console to production URL
 
 ---
 

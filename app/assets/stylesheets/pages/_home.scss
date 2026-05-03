@@ -925,6 +925,9 @@ html:has(.ln-hero) {
 
   .landing-nav__brand--dark,
   .ln-nav__brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
     font-family: $lf-display;
     font-size: 1.5rem;
     font-weight: 700;
@@ -933,6 +936,13 @@ html:has(.ln-hero) {
     text-decoration: none;
 
     &:hover { color: $l-emerald; }
+
+    .reflekto-mark {
+      width: 22px;
+      height: 19px;
+      color: $l-emerald;
+      flex-shrink: 0;
+    }
   }
 
   .landing-nav__link--dark,

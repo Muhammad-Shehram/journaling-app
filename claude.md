@@ -151,6 +151,10 @@ These are invoked with `/skill-name` and load only when needed:
 - [x] `SendReminderEmailJob` — checks `reminders_enabled`, `reminder_days`, `reminder_time` per user
 - [x] `PurgeExpiredEntriesJob` — destroys soft-deleted entries older than 30 days
 
+**Architecture note — Reminder system improvement (consider post-launch):**
+Current approach: a cron fires every 5 min and checks which users' reminder time falls in that window. Works fine in production (Heroku dyno stays up), but fragile during server restarts (misses the window) and relies on window math.
+Recommended improvement: ditch the cron + window approach. Instead, when a user saves reminder preferences, enqueue a per-user scheduled job at their exact reminder time (`ReminderEmailJob.set(wait_until: next_occurrence).perform_later(user.id)`). The job re-enqueues itself for the next day on completion. GoodJob stores `scheduled_at` in Postgres so jobs survive restarts. No window math, no missed windows, exact timing. ~30 lines of code change in `SettingsController` + `SendReminderEmailJob`.
+
 **Pending (production only):**
 - [ ] Run `heroku run rails db:migrate --app reflektoapp` — applies `provider`/`uid` columns (from Google OAuth migration) to production DB
 - [ ] Test Google OAuth end-to-end on production (visit reflektoapp.com → "Continue with Google" → land on journals#index)

@@ -12,7 +12,7 @@ class SendReminderEmailJob < ApplicationJob
 
       days = user.reminder_days.to_s.split(",").map(&:strip)
 
-      Rails.logger.info "[SendReminderEmailJob] user=#{user.id} local_time=#{user_now.strftime('%H:%M')} today=#{today} days=#{days.inspect} reminder_time=#{user.reminder_time&.strftime('%H:%M')}"
+      Rails.logger.info "[SendReminderEmailJob] user=#{user.id} local_time=#{user_now.strftime('%H:%M')} today=#{today} days=#{days.inspect} reminder_time=#{user.reminder_time}"
 
       unless days.include?(today)
         Rails.logger.info "[SendReminderEmailJob] user=#{user.id} skipped — #{today} not in reminder days"
@@ -21,7 +21,8 @@ class SendReminderEmailJob < ApplicationJob
 
       now_minutes      = user_now.hour * 60 + user_now.min
       window_start     = (now_minutes / 5) * 5
-      reminder_minutes = user.reminder_time.hour * 60 + user.reminder_time.min
+      reminder_h, reminder_m = user.reminder_time.to_s.split(":").map(&:to_i)
+      reminder_minutes = reminder_h * 60 + reminder_m
 
       Rails.logger.info "[SendReminderEmailJob] user=#{user.id} window=#{window_start}-#{window_start + 5} reminder=#{reminder_minutes}"
 

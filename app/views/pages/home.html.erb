@@ -22,7 +22,10 @@
 <%# ---- NAV ---- %>
 <nav class="ln-nav">
   <div class="ln-nav__inner">
-    <div class="ln-nav__brand">Reflekto</div>
+    <div class="ln-nav__brand">
+      <%= render "shared/logo_mark", css_class: "ln-nav__mark" %>
+      Reflekto
+    </div>
     <div class="ln-nav__actions">
       <%= link_to "Sign In", new_user_session_path, class: "ln-nav__link" %>
       <%= link_to "Get Started →", new_user_registration_path, class: "ln-nav__cta" %>

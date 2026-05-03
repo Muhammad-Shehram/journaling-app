@@ -68,9 +68,11 @@ $auth-success:  #68D391;
 
   &:hover { opacity: 0.8; }
 
-  i {
-    font-size: 1.7rem;
+  .reflekto-mark {
+    width: 32px;
+    height: 28px;
     color: $auth-accent;
+    flex-shrink: 0;
   }
 
   span {

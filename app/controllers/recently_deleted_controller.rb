@@ -10,7 +10,7 @@ class RecentlyDeletedController < ApplicationController
   end
 
   def recover
-    entry = current_user.journal_entries.find(params[:id])
+    entry = current_user.journal_entries.recently_deleted.find(params[:id])
     entry.recover!
     redirect_to recently_deleted_index_path, notice: "Entry restored to #{entry.journal.name}."
   end
@@ -21,7 +21,7 @@ class RecentlyDeletedController < ApplicationController
   end
 
   def destroy
-    entry = current_user.journal_entries.find(params[:id])
+    entry = current_user.journal_entries.recently_deleted.find(params[:id])
     entry.destroy
     redirect_to recently_deleted_index_path, notice: "Entry permanently deleted."
   end

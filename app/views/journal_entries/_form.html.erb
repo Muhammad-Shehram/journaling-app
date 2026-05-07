@@ -6,7 +6,7 @@
      @journal_entry.entry_date.strftime("%Y-%m-%d") :
      Date.today.strftime("%Y-%m-%d") %>
 
-<div class="canvas" data-controller="font-picker" data-font-picker-key-value="reflekto_font">
+<div class="canvas" data-controller="font-picker" data-font-picker-font-value="<%= @journal_entry.font.presence || 'default' %>">
   <%= simple_form_for([@journal, @journal_entry], html: { class: "canvas__form", multipart: true }) do |f| %>
 
     <div class="canvas__bar">
@@ -127,6 +127,7 @@
           accept: "image/*",
           data: { action: "change->font-picker#previewPhoto" } %>
       <input type="hidden" name="journal_entry[remove_cover_photo]" value="0" id="remove-cover-photo-flag">
+      <input type="hidden" name="journal_entry[font]" value="<%= @journal_entry.font.presence || 'default' %>" id="entry-font-field">
 
     </div>
 

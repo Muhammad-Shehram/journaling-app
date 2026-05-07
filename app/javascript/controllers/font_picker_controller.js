@@ -2,20 +2,20 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["trigger", "popup", "option", "titleInput", "tagFooter"]
-  static values  = { key: { type: String, default: "reflekto_font" } }
+  static values  = { font: { type: String, default: "default" } }
 
   connect() {
-    const saved = localStorage.getItem(this.keyValue) || "default"
-    this._applyFont(saved)
+    this._applyFont(this.fontValue)
 
-    this._outsideClick = (e) => {
-      if (!this.popupTarget.contains(e.target) && !this.triggerTarget.contains(e.target)) {
-        this.popupTarget.classList.remove("is-open")
+    if (this.hasPopupTarget && this.hasTriggerTarget) {
+      this._outsideClick = (e) => {
+        if (!this.popupTarget.contains(e.target) && !this.triggerTarget.contains(e.target)) {
+          this.popupTarget.classList.remove("is-open")
+        }
       }
+      document.addEventListener("click", this._outsideClick)
     }
-    document.addEventListener("click", this._outsideClick)
 
-    // Auto-resize title textarea on page load (handles pre-filled prompts)
     if (this.hasTitleInputTarget) {
       this._autoResize(this.titleInputTarget)
     }
@@ -28,7 +28,7 @@ export default class extends Controller {
   }
 
   disconnect() {
-    document.removeEventListener("click", this._outsideClick)
+    if (this._outsideClick) document.removeEventListener("click", this._outsideClick)
   }
 
   toggle(e) {
@@ -38,15 +38,15 @@ export default class extends Controller {
     if (opening) this._refreshFormatState()
   }
 
-  // Font selection — applies CSS class, persists, closes popup
+  // Font selection — saves to hidden form field + applies CSS class
   select(e) {
     const font = e.currentTarget.dataset.font
     this._applyFont(font)
-    localStorage.setItem(this.keyValue, font)
+    const field = document.getElementById("entry-font-field")
+    if (field) field.value = font
     this.popupTarget.classList.remove("is-open")
   }
 
-  // Text / block / list formatting — uses mousedown+preventDefault to keep editor selection
   format(e) {
     e.preventDefault()
     const attr = e.currentTarget.dataset.attr
@@ -60,11 +60,9 @@ export default class extends Controller {
       editor.activateAttribute(attr)
     }
 
-    // Refresh active state on buttons after toggling
     this._refreshFormatState()
   }
 
-  // Enter → jump to Trix editor; Shift+Enter → newline (textarea default)
   titleKeydown(event) {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault()
@@ -73,7 +71,6 @@ export default class extends Controller {
     }
   }
 
-  // Grow textarea to fit content — called on every keystroke
   autoResizeTitle(event) {
     this._autoResize(event.target)
   }

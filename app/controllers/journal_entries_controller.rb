@@ -61,7 +61,7 @@ class JournalEntriesController < ApplicationController
   private
 
   def journal_entry_params
-    params.require(:journal_entry).permit(:title, :content, :mood, :entry_date, :cover_photo, :remove_cover_photo)
+    params.require(:journal_entry).permit(:title, :content, :mood, :entry_date, :cover_photo, :font)
   end
 
   def save_tags(entry)

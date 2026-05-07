@@ -377,17 +377,15 @@ body.dark-mode {
   }
 
   // Calendar grid
-  .cal-grid {
+  .calendar-grid {
     border-color: $dm-border;
   }
 
-  .cal-cell {
-    border-color: $dm-border;
+  .cal-day {
     color: #ffffff;
 
-    &--today { background: $dm-accent-hover; color: $dm-accent; }
-    &--has-entry { color: #ffffff; }
-    &--other-month { color: rgba(255, 255, 255, 0.35); }
+    &--today { color: $dm-accent; }
+    &--has-entry { color: #1a1a1a; }
   }
 
   .cal-header {

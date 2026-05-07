@@ -105,6 +105,8 @@ export default class extends Controller {
     e.preventDefault()
     const fileInput = this.element.querySelector("#cover-photo-input")
     if (fileInput) fileInput.value = ""
+    const flag = document.getElementById("remove-cover-photo-flag")
+    if (flag) flag.value = "1"
     const preview = this.element.querySelector(".canvas__cover-preview")
     const img = this.element.querySelector(".canvas__cover-preview-img")
     if (preview) preview.style.display = "none"

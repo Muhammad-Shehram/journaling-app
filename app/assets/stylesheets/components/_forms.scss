@@ -1104,10 +1104,18 @@ trix-editor {
 .canvas--font-mono    trix-editor { font-family: 'Courier New', ui-monospace, monospace !important; }
 // .canvas--font-default leaves trix-editor at $body-font (the base rule above)
 
-// Also apply font to the title input for cohesion
-.canvas--font-serif   .canvas__title-input { font-family: Georgia, 'Times New Roman', serif !important; }
-.canvas--font-sans    .canvas__title-input { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif !important; }
-.canvas--font-mono    .canvas__title-input { font-family: 'Courier New', ui-monospace, monospace !important; }
+// Also apply font to the title input (edit) and title display + content (show)
+.canvas--font-serif   .canvas__title-input   { font-family: Georgia, 'Times New Roman', serif !important; }
+.canvas--font-sans    .canvas__title-input   { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif !important; }
+.canvas--font-mono    .canvas__title-input   { font-family: 'Courier New', ui-monospace, monospace !important; }
+
+.canvas--font-serif   .canvas__title-display { font-family: Georgia, 'Times New Roman', serif !important; }
+.canvas--font-sans    .canvas__title-display { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif !important; font-style: normal !important; }
+.canvas--font-mono    .canvas__title-display { font-family: 'Courier New', ui-monospace, monospace !important; font-style: normal !important; }
+
+.canvas--font-serif   .action-text-show      { font-family: Georgia, 'Times New Roman', serif !important; }
+.canvas--font-sans    .action-text-show      { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif !important; }
+.canvas--font-mono    .action-text-show      { font-family: 'Courier New', ui-monospace, monospace !important; }
 
 // ---- BOTTOM TOOLBAR (Photo · Tag · Aa) ----
 .canvas__bottom-bar {

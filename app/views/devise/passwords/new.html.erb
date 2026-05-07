@@ -1,18 +1,48 @@
-<h2>Forgot your password?</h2>
+<div class="auth-page">
 
-<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= f.error_notification %>
+  <%= link_to root_path, class: "auth-logo" do %>
+    <%= render "shared/logo_mark" %>
+    <span>Reflekto</span>
+  <% end %>
 
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
+  <div class="auth-card">
+    <div class="auth-card__icon-circle">
+      <i class="fa-solid fa-key"></i>
+    </div>
+    <h2 class="auth-card__title">Forgot your password?</h2>
+    <p class="auth-card__subtitle">Enter your email and we'll send you a reset link.</p>
+
+    <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= f.error_notification %>
+
+      <div class="form-inputs">
+        <div class="input-group-wrapper">
+          <%= f.label :email, "Email address" %>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-envelope input-icon"></i>
+            <%= f.input_field :email,
+                              required: true,
+                              autofocus: true,
+                              autocomplete: "email",
+                              placeholder: "you@example.com",
+                              class: "auth-input" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Send reset instructions" %>
+      </div>
+    <% end %>
+
+    <div class="auth-links">
+      <div class="auth-link-row">
+        Remember your password? <%= link_to "Sign in", new_session_path(resource_name) %>
+      </div>
+      <div class="auth-link-row">
+        Don't have an account? <%= link_to "Sign up", new_registration_path(resource_name) %>
+      </div>
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Send me password reset instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

@@ -43,6 +43,7 @@ class JournalEntriesController < ApplicationController
   end
 
   def update
+    @journal_entry.cover_photo.purge if params.dig(:journal_entry, :remove_cover_photo) == "1"
     if @journal_entry.update(journal_entry_params)
       save_tags(@journal_entry)
       redirect_to journal_journal_entry_path(@journal, @journal_entry)
@@ -60,7 +61,7 @@ class JournalEntriesController < ApplicationController
   private
 
   def journal_entry_params
-    params.require(:journal_entry).permit(:title, :content, :mood, :entry_date, :cover_photo)
+    params.require(:journal_entry).permit(:title, :content, :mood, :entry_date, :cover_photo, :font)
   end
 
   def save_tags(entry)

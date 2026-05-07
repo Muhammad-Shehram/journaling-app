@@ -62,6 +62,47 @@ body.dark-mode {
     &::placeholder { color: $dm-muted !important; }
   }
 
+  .canvas__bottom-bar {
+    background: rgba(6, 26, 16, 0.94);
+    border-top-color: $dm-border;
+  }
+
+  .canvas__bar-icon-btn {
+    color: rgba(255, 255, 255, 0.35);
+    &:hover { background: rgba(255, 255, 255, 0.07); color: #3ABF6A; }
+    &--aa { border-color: rgba(58, 191, 106, 0.3); color: #3ABF6A; }
+  }
+
+  .canvas__font-popup {
+    background: #0D2E1D;
+    border-color: $dm-border;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .canvas__fp-section-label { color: rgba(255, 255, 255, 0.35); }
+  .canvas__fp-divider { background: $dm-border; }
+
+  .canvas__fp-format-btn {
+    color: $dm-text;
+    border-color: $dm-border;
+    background: transparent;
+    &:hover, &.is-active { background: rgba(58, 191, 106, 0.12); border-color: #3ABF6A; color: #3ABF6A; }
+  }
+
+  .canvas__fp-row {
+    color: $dm-text;
+    &:hover, &.is-active { background: rgba(58, 191, 106, 0.1); color: #3ABF6A; }
+    .canvas__fp-row-icon { color: rgba(255, 255, 255, 0.35); }
+  }
+
+  .canvas__font-option {
+    color: $dm-text;
+    &:hover, &.is-active { background: rgba(58, 191, 106, 0.1); }
+  }
+
+  .canvas__font-name { color: $dm-text; }
+  .canvas__font-preview { color: rgba(255, 255, 255, 0.4); }
+
   .canvas__context-strip {
     border-top-color: $dm-border;
   }
@@ -296,18 +337,55 @@ body.dark-mode {
     i { color: rgba(255, 255, 255, 0.2); }
   }
 
-  // Calendar (if rendered inside entries)
-  .cal-grid {
-    border-color: $dm-border;
+  .entries__empty-icon,
+  .all-entries__empty-icon {
+    background: rgba(58, 191, 106, 0.12);
+    color: $dm-accent;
   }
 
-  .cal-cell {
+  // List/Calendar view toggle buttons
+  .view-toggle {
+    background: $dm-card;
     border-color: $dm-border;
     color: $dm-muted;
 
-    &--today { background: $dm-accent-hover; color: $dm-accent; }
-    &--has-entry { color: $dm-text; }
-    &--other-month { color: rgba(255, 255, 255, 0.2); }
+    &:hover { border-color: $dm-accent; color: $dm-accent; }
+
+    &--active {
+      background: $dm-accent-hover;
+      border-color: $dm-accent;
+      color: $dm-accent;
+    }
+  }
+
+  // Calendar outer container + navigation
+  .calendar-view {
+    background: $dm-card;
+    border-color: $dm-border;
+  }
+
+  .cal-month-label {
+    color: $dm-heading;
+  }
+
+  .cal-nav-btn {
+    background: $dm-card;
+    border-color: $dm-border;
+    color: $dm-muted;
+
+    &:hover { border-color: $dm-accent; color: $dm-accent; }
+  }
+
+  // Calendar grid
+  .calendar-grid {
+    border-color: $dm-border;
+  }
+
+  .cal-day {
+    color: #ffffff;
+
+    &--today { color: $dm-accent; }
+    &--has-entry { color: #1a1a1a; }
   }
 
   .cal-header {

@@ -2,7 +2,7 @@ class RecentlyDeletedController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    purge_expired!
+    purge_expired_for_current_user!
     @deleted_entries = current_user.journal_entries
                                    .recently_deleted
                                    .includes(:journal)
@@ -33,7 +33,9 @@ class RecentlyDeletedController < ApplicationController
 
   private
 
-  def purge_expired!
+  # Defensive fallback: PurgeExpiredEntriesJob handles this globally every night.
+  # This cleans up any stragglers for the current user on page visit.
+  def purge_expired_for_current_user!
     current_user.journal_entries
                 .where.not(deleted_at: nil)
                 .where("deleted_at <= ?", 30.days.ago)

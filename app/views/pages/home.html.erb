@@ -25,7 +25,9 @@
     <div class="ln-nav__brand">Reflekto</div>
     <div class="ln-nav__actions">
       <%= link_to "Sign In", new_user_session_path, class: "ln-nav__link" %>
-      <%= link_to "Get Started →", new_user_registration_path, class: "ln-nav__cta" %>
+      <%= link_to new_user_registration_path, class: "ln-nav__cta" do %>
+        Get Started <span class="ln-nav__cta-arrow">→</span>
+      <% end %>
     </div>
   </div>
 </nav>
@@ -66,8 +68,6 @@
     <span class="ln-pillar"><i class="fa-solid fa-pen-nib" aria-hidden="true"></i> Rich text &amp; photos</span>
     <span class="ln-pillar-sep" aria-hidden="true">·</span>
     <span class="ln-pillar"><i class="fa-solid fa-tags" aria-hidden="true"></i> Tags &amp; search</span>
-    <span class="ln-pillar-sep" aria-hidden="true">·</span>
-    <span class="ln-pillar"><i class="fa-solid fa-fire-flame-curved" aria-hidden="true"></i> Streak tracking</span>
   </div>
 </section>
 
@@ -139,14 +139,62 @@
   </div>
 </section>
 
-<%# ---- QUOTE ---- %>
-<section class="ln-quote">
-  <div class="ln-quote__inner ln-reveal">
-    <div class="ln-quote__mark" aria-hidden="true">"</div>
-    <blockquote class="ln-quote__text">
-      The act of writing is the act of discovering what you believe.
-    </blockquote>
-    <cite class="ln-quote__cite">— David Hare</cite>
+<%# ---- APP SHOWCASE ---- %>
+<section class="ln-showcase">
+  <div class="ln-showcase__header">
+    <span class="ln-section-tag">See it in action</span>
+    <h2 class="ln-showcase__title">A journaling experience<br>that feels <em>right</em></h2>
+  </div>
+
+  <%# Row 1 — Journals/Bookshelf %>
+  <div class="ln-showcase__row ln-reveal">
+    <div class="ln-showcase__frame">
+      <div class="ln-frame__bar">
+        <span class="ln-frame__dot"></span>
+        <span class="ln-frame__dot"></span>
+        <span class="ln-frame__dot"></span>
+        <span class="ln-frame__url">reflektoapp.com/journals</span>
+      </div>
+      <%= image_tag "screenshot-journals.png", alt: "Reflekto entries dashboard", class: "ln-showcase__img" %>
+    </div>
+    <div class="ln-showcase__copy">
+      <h3>Multiple colour-coded journals</h3>
+      <p>Separate notebooks for every chapter of your life — work, travel, personal, dreams. Instantly switchable, beautifully organised.</p>
+    </div>
+  </div>
+
+  <%# Row 2 — Writing Canvas %>
+  <div class="ln-showcase__row ln-showcase__row--reverse ln-reveal">
+    <div class="ln-showcase__frame">
+      <div class="ln-frame__bar">
+        <span class="ln-frame__dot"></span>
+        <span class="ln-frame__dot"></span>
+        <span class="ln-frame__dot"></span>
+        <span class="ln-frame__url">reflektoapp.com — writing</span>
+      </div>
+      <%= image_tag "screenshot-canvas.png", alt: "Reflekto writing canvas", class: "ln-showcase__img" %>
+    </div>
+    <div class="ln-showcase__copy">
+      <h3>A blank page that disappears</h3>
+      <p>Full-screen canvas with rich text, zero distractions. Format freely, think deeply — just you and your words.</p>
+    </div>
+  </div>
+
+  <%# Row 3 — Search & Tags %>
+  <div class="ln-showcase__row ln-reveal">
+    <div class="ln-showcase__frame">
+      <div class="ln-frame__bar">
+        <span class="ln-frame__dot"></span>
+        <span class="ln-frame__dot"></span>
+        <span class="ln-frame__dot"></span>
+        <span class="ln-frame__url">reflektoapp.com — search</span>
+      </div>
+      <%= image_tag "screenshot-search.png", alt: "Reflekto search and tags", class: "ln-showcase__img" %>
+    </div>
+    <div class="ln-showcase__copy">
+      <h3>Find anything, instantly</h3>
+      <p>Tag your entries, filter by date or mood, and search across every journal at once. Your memories, always within reach.</p>
+    </div>
   </div>
 </section>
 
@@ -196,7 +244,10 @@
 <%# ---- FOOTER ---- %>
 <footer class="ln-footer">
   <div class="ln-footer__inner">
-    <div class="ln-footer__brand">Reflekto</div>
+    <div class="ln-footer__brand">
+      Reflekto
+      <span class="ln-footer__tagline">Write freely. Think clearly.</span>
+    </div>
     <div class="ln-footer__cols">
       <div class="ln-footer__col">
         <p class="ln-footer__col-heading">Legal</p>

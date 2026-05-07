@@ -1,0 +1,8 @@
+Welcome to Reflekto<%= @user.name.present? ? ", #{@user.name}" : "" %>!
+
+Your private journal is ready. Everything you write stays yours.
+
+Start writing: <%= authenticated_root_url %>
+
+---
+You received this because you created a Reflekto account.

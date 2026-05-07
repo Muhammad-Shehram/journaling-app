@@ -28,16 +28,6 @@
     <p class="stats-section__label">Overview</p>
     <div class="stats-hero">
       <div class="stats-card">
-        <div class="stats-card__icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
-        <div class="stats-card__value"><%= @current_streak %></div>
-        <div class="stats-card__label">Day streak</div>
-      </div>
-      <div class="stats-card stats-card--accent">
-        <div class="stats-card__icon"><i class="fa-solid fa-trophy"></i></div>
-        <div class="stats-card__value"><%= @longest_streak %></div>
-        <div class="stats-card__label">Longest streak</div>
-      </div>
-      <div class="stats-card">
         <div class="stats-card__icon"><i class="fa-solid fa-feather-pointed"></i></div>
         <div class="stats-card__value"><%= number_with_delimiter(@total_words) %></div>
         <div class="stats-card__label">Words written</div>

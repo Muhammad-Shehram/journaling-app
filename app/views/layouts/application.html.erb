@@ -26,14 +26,20 @@
           <button class="app-topbar__hamburger" data-action="click->sidebar#toggle" aria-label="Toggle menu">
             <i class="fa-solid fa-bars"></i>
           </button>
-          <span class="app-topbar__brand">Reflekto</span>
+          <span class="app-topbar__brand">
+            <%= render "shared/logo_mark" %>
+            Reflekto
+          </span>
         </div>
 
         <aside class="app-sidebar" data-sidebar-target="panel">
           <div class="app-sidebar__inner">
 
             <div class="sidebar__toprow">
-              <div class="sidebar__brand">Reflekto</div>
+              <div class="sidebar__brand">
+                <%= render "shared/logo_mark" %>
+                Reflekto
+              </div>
               <button class="sidebar__collapse-btn"
                       data-action="click->sidebar#toggleDesktop"
                       title="Toggle sidebar">
@@ -129,16 +135,22 @@
 
 
           <% if notice %>
-            <div class="alert alert-success alert-dismissible fade show m-3" role="alert">
-              <%= notice %>
-              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <div class="app-toast app-toast--success" role="alert" aria-live="polite" data-controller="toast">
+              <i class="fa-solid fa-circle-check app-toast__icon"></i>
+              <span class="app-toast__msg"><%= notice %></span>
+              <button class="app-toast__close" data-action="click->toast#dismiss" aria-label="Dismiss">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
             </div>
           <% end %>
 
           <% if alert %>
-            <div class="alert alert-danger alert-dismissible fade show m-3" role="alert">
-              <%= alert %>
-              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <div class="app-toast app-toast--error" role="alert" aria-live="polite" data-controller="toast">
+              <i class="fa-solid fa-circle-exclamation app-toast__icon"></i>
+              <span class="app-toast__msg"><%= alert %></span>
+              <button class="app-toast__close" data-action="click->toast#dismiss" aria-label="Dismiss">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
             </div>
           <% end %>
 
@@ -149,16 +161,22 @@
 
     <% else %>
       <% if notice %>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-          <%= notice %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <div class="app-toast app-toast--success" role="alert" aria-live="polite" data-controller="toast">
+          <i class="fa-solid fa-circle-check app-toast__icon"></i>
+          <span class="app-toast__msg"><%= notice %></span>
+          <button class="app-toast__close" data-action="click->toast#dismiss" aria-label="Dismiss">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
         </div>
       <% end %>
 
       <% if alert %>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <%= alert %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <div class="app-toast app-toast--error" role="alert" aria-live="polite" data-controller="toast">
+          <i class="fa-solid fa-circle-exclamation app-toast__icon"></i>
+          <span class="app-toast__msg"><%= alert %></span>
+          <button class="app-toast__close" data-action="click->toast#dismiss" aria-label="Dismiss">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
         </div>
       <% end %>
 

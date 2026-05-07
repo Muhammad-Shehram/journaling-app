@@ -7,4 +7,7 @@ class PagesController < ApplicationController
 
   def privacy
   end
+
+  def check_inbox
+  end
 end

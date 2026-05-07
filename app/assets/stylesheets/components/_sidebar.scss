@@ -62,12 +62,22 @@ $topbar-height:    52px;
 }
 
 .sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
   font-family: $headers-font;
   font-size: 1.6rem;
   font-weight: 700;
   font-style: italic;
   color: white;
   letter-spacing: -0.05em;
+
+  .reflekto-mark {
+    width: 24px;
+    height: 21px;
+    color: $sidebar-accent;
+    flex-shrink: 0;
+  }
 }
 
 .sidebar__brand-sep {
@@ -496,12 +506,22 @@ $topbar-height:    52px;
 }
 
 .app-topbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: $headers-font;
   font-size: 1.25rem;
   font-weight: 700;
   font-style: italic;
   color: white;
   letter-spacing: -0.01em;
+
+  .reflekto-mark {
+    width: 20px;
+    height: 18px;
+    color: $sidebar-accent;
+    flex-shrink: 0;
+  }
 }
 
 // ---- MOBILE RESPONSIVE ----

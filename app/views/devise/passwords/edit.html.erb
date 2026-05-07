@@ -1,27 +1,91 @@
-<h2>Change your password</h2>
+<div class="auth-page">
 
-<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
+  <%= link_to root_path, class: "auth-logo" do %>
+    <%= render "shared/logo_mark" %>
+    <span>Reflekto</span>
+  <% end %>
 
-  <%= f.input :reset_password_token, as: :hidden %>
-  <%= f.full_error :reset_password_token %>
+  <div class="auth-card">
+    <div class="auth-card__icon-circle">
+      <i class="fa-solid fa-key"></i>
+    </div>
+    <h2 class="auth-card__title">Choose a new password</h2>
+    <p class="auth-card__subtitle">Make it strong — you won't need to change it again.</p>
 
-  <div class="form-inputs">
-    <%= f.input :password,
-                label: "New password",
-                required: true,
-                autofocus: true,
-                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                label: "Confirm your new password",
-                required: true,
-                input_html: { autocomplete: "new-password" } %>
+    <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+      <%= f.error_notification %>
+      <%= f.input :reset_password_token, as: :hidden %>
+      <%= f.full_error :reset_password_token %>
+
+      <div class="form-inputs">
+
+        <%# New password with eye toggle + requirements %>
+        <div class="input-group-wrapper" data-controller="password">
+          <%= f.label :password, "New password" %>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-lock input-icon"></i>
+            <%= f.input_field :password,
+                              required: true,
+                              autofocus: true,
+                              autocomplete: "new-password",
+                              placeholder: "Create a new password",
+                              class: "auth-input",
+                              data: { password_target: "input", action: "input->password#check" } %>
+            <button type="button" class="eye-toggle"
+                    data-password-target="toggleBtn"
+                    data-action="click->password#toggle">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+          <%= f.error :password, class: "auth-field-error" %>
+          <ul class="req-list" data-password-target="list">
+            <li class="req-item" data-req="req-length">
+              <i class="fa-solid fa-circle-check req-icon"></i> At least 12 characters
+            </li>
+            <li class="req-item" data-req="req-uppercase">
+              <i class="fa-solid fa-circle-check req-icon"></i> One uppercase letter
+            </li>
+            <li class="req-item" data-req="req-number">
+              <i class="fa-solid fa-circle-check req-icon"></i> One number
+            </li>
+            <li class="req-item" data-req="req-special">
+              <i class="fa-solid fa-circle-check req-icon"></i> One special character (!@#$%^&amp;*)
+            </li>
+          </ul>
+        </div>
+
+        <%# Confirm password with eye toggle %>
+        <div class="input-group-wrapper" data-controller="password">
+          <%= f.label :password_confirmation, "Confirm new password" %>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-lock input-icon"></i>
+            <%= f.input_field :password_confirmation,
+                              required: true,
+                              autocomplete: "new-password",
+                              placeholder: "Repeat your new password",
+                              class: "auth-input",
+                              data: { password_target: "input" } %>
+            <button type="button" class="eye-toggle"
+                    data-password-target="toggleBtn"
+                    data-action="click->password#toggle">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+          <%= f.error :password_confirmation, class: "auth-field-error" %>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Set new password" %>
+      </div>
+    <% end %>
+
+    <div class="auth-links">
+      <div class="auth-link-row">
+        Remember it now? <%= link_to "Sign in", new_session_path(resource_name) %>
+      </div>
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Change my password" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

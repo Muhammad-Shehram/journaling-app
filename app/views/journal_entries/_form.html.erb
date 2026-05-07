@@ -6,7 +6,7 @@
      @journal_entry.entry_date.strftime("%Y-%m-%d") :
      Date.today.strftime("%Y-%m-%d") %>
 
-<div class="canvas" data-controller="font-picker" data-font-picker-key-value="reflekto_font">
+<div class="canvas" data-controller="font-picker" data-font-picker-font-value="<%= @journal_entry.font.presence || 'default' %>">
   <%= simple_form_for([@journal, @journal_entry], html: { class: "canvas__form", multipart: true }) do |f| %>
 
     <div class="canvas__bar">
@@ -54,6 +54,23 @@
                         value: date_value %>
       </div>
 
+      <%# Cover photo preview — below context strip, above title %>
+      <% if @journal_entry.cover_photo.attached? %>
+        <div class="canvas__cover-preview">
+          <%= image_tag @journal_entry.cover_photo, class: "canvas__cover-img canvas__cover-preview-img", alt: "Cover photo" %>
+          <button type="button" class="canvas__cover-remove" data-action="click->font-picker#removePhoto">
+            <i class="fa-solid fa-xmark"></i> Remove photo
+          </button>
+        </div>
+      <% else %>
+        <div class="canvas__cover-preview" style="display:none">
+          <img class="canvas__cover-img canvas__cover-preview-img" src="" alt="Cover photo preview">
+          <button type="button" class="canvas__cover-remove" data-action="click->font-picker#removePhoto">
+            <i class="fa-solid fa-xmark"></i> Remove photo
+          </button>
+        </div>
+      <% end %>
+
       <%# Title — textarea so long prompts wrap instead of scrolling horizontally %>
       <%= f.input :title,
                   label: false,
@@ -80,8 +97,9 @@
                              "aria-label": "Entry content" %>
       </div>
 
-      <%# Tag footer — metadata section below the writing canvas %>
+      <%# Tag footer — hidden by default, toggled via toolbar tag icon %>
       <div class="canvas__tag-footer"
+           data-font-picker-target="tagFooter"
            data-controller="tag-input"
            data-tag-input-existing-value="<%= @journal_entry.tags.map(&:name).join(', ') %>"
            data-tag-input-suggestions-value="<%= @user_tags.map(&:name).to_json %>">
@@ -102,18 +120,36 @@
             data: { "tag-input-target": "field" } %>
       </div>
 
+      <%# Hidden cover photo file input — triggered by bottom bar photo button %>
+      <%= f.file_field :cover_photo,
+          id: "cover-photo-input",
+          class: "canvas__photo-file-input",
+          accept: "image/*",
+          data: { action: "change->font-picker#previewPhoto" } %>
+      <input type="hidden" name="journal_entry[remove_cover_photo]" value="0" id="remove-cover-photo-flag">
+      <input type="hidden" name="journal_entry[font]" value="<%= @journal_entry.font.presence || 'default' %>" id="entry-font-field">
+
     </div>
 
   <% end %>
 
-  <%# Aa — floating font picker %>
-  <button class="canvas__font-trigger"
-          type="button"
-          aria-label="Change writing font"
-          data-font-picker-target="trigger"
-          data-action="click->font-picker#toggle">
-    Aa
-  </button>
+  <%# Bottom toolbar: Photo · Tag · Aa %>
+  <div class="canvas__bottom-bar">
+    <label for="cover-photo-input" class="canvas__bar-icon-btn" title="Add cover photo" role="button" tabindex="0">
+      <i class="fa-regular fa-image"></i>
+    </label>
+    <button type="button" class="canvas__bar-icon-btn" title="Add tags"
+            data-action="click->font-picker#toggleTags">
+      <i class="fa-solid fa-tag"></i>
+    </button>
+    <button class="canvas__bar-icon-btn canvas__bar-icon-btn--aa"
+            type="button"
+            aria-label="Change font and formatting"
+            data-font-picker-target="trigger"
+            data-action="click->font-picker#toggle">
+      Aa
+    </button>
+  </div>
 
   <div class="canvas__font-popup" data-font-picker-target="popup" role="dialog" aria-label="Formatting options">
 

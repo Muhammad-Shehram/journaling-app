@@ -26,9 +26,6 @@
       <div class="settings-form__row">
         <div class="settings-form__label">Email address</div>
         <div class="settings-email-static"><%= current_user.email %></div>
-        <p class="settings-email-static__note">
-          <i class="fa-solid fa-circle-info"></i> Email changes coming soon
-        </p>
       </div>
       <button type="submit" class="settings-btn settings-btn--primary">Save profile</button>
     <% end %>
@@ -152,6 +149,15 @@
         <%= f.time_field :reminder_time, class: "settings-form__input settings-form__input--time" %>
       </div>
 
+      <%# Timezone %>
+      <div class="settings-form__row">
+        <%= f.label :timezone, "Your timezone", class: "settings-form__label" %>
+        <%= f.time_zone_select :timezone,
+              ActiveSupport::TimeZone.all,
+              { include_blank: false },
+              class: "settings-form__input" %>
+      </div>
+
       <%# Day chips %>
       <div class="settings-form__row">
         <div class="settings-form__label">Days</div>
@@ -168,17 +174,6 @@
         </div>
       </div>
 
-      <%# Email toggle %>
-      <div class="settings-toggle-row">
-        <div>
-          <div class="settings-toggle-row__label">Send reminder email</div>
-          <div class="settings-toggle-row__sub">Email reminders will be available when email delivery is configured</div>
-        </div>
-        <label class="toggle-switch">
-          <%= f.check_box :reminder_email, class: "toggle-switch__input" %>
-          <span class="toggle-switch__track"></span>
-        </label>
-      </div>
 
       <button type="submit" class="settings-btn settings-btn--primary">Save reminders</button>
     <% end %>

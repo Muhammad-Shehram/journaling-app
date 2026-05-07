@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_05_01_000002) do
+ActiveRecord::Schema[7.2].define(version: 2026_05_07_155110) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -205,7 +205,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_01_000002) do
     t.string "name"
     t.boolean "reminders_enabled", default: false, null: false
     t.string "reminder_time", default: "09:00"
-    t.string "reminder_days", default: "Mon,Tue,Wed,Thu,Fri"
+    t.string "reminder_days", default: ""
     t.boolean "reminder_email", default: true, null: false
     t.boolean "dark_mode", default: false, null: false
     t.integer "failed_attempts", default: 0, null: false

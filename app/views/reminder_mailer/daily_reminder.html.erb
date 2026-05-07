@@ -13,14 +13,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="dark">
+    <meta name="color-scheme" content="light dark">
+    <meta name="supported-color-schemes" content="light dark">
     <title>Time to reflect — Reflekto</title>
     <style>
       * { box-sizing: border-box; margin: 0; padding: 0; }
       body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-        background: #0f0f1a;
-        color: #e8e8f0;
+        background: #f4f4f7;
+        color: #1a1a2e;
         margin: 0;
         padding: 0;
         -webkit-font-smoothing: antialiased;
@@ -28,28 +29,24 @@
       .wrapper       { max-width: 520px; margin: 40px auto; padding: 0 20px 40px; }
       .logo-row      { text-align: center; margin-bottom: 24px; }
       .logo          { font-size: 18px; font-weight: 700; color: #1EDD88; letter-spacing: -0.3px; text-decoration: none; }
-      .card          { background: #1a1a2e; border-radius: 16px; overflow: hidden; border: 1px solid #2a2a4a; }
+      .card          { background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e4e4e8; box-shadow: 0 2px 16px rgba(0,0,0,0.06); }
 
-      /* Top accent bar */
       .card-accent   { height: 3px; background: linear-gradient(90deg, #1EDD88 0%, #0fbf6e 100%); }
 
-      /* Card body */
       .card-body     { padding: 32px 32px 28px; }
-      .greeting      { font-size: 22px; font-weight: 700; color: #e8e8f0; line-height: 1.3; margin-bottom: 10px; letter-spacing: -0.3px; }
-      .subtext       { font-size: 15px; line-height: 1.65; color: #9090b0; margin-bottom: 24px; }
+      .greeting      { font-size: 22px; font-weight: 700; color: #1a1a2e; line-height: 1.3; margin-bottom: 10px; letter-spacing: -0.3px; }
+      .subtext       { font-size: 15px; line-height: 1.65; color: #555570; margin-bottom: 24px; }
 
-      /* Writing prompt block */
       .prompt-block  {
-        background: rgba(30, 221, 136, 0.06);
+        background: rgba(30, 221, 136, 0.07);
         border-left: 3px solid #1EDD88;
         border-radius: 0 8px 8px 0;
         padding: 14px 16px;
         margin-bottom: 28px;
       }
       .prompt-label  { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #1EDD88; margin-bottom: 5px; }
-      .prompt-text   { font-size: 14px; line-height: 1.55; color: #c0c0d8; font-style: italic; }
+      .prompt-text   { font-size: 14px; line-height: 1.55; color: #555570; font-style: italic; }
 
-      /* CTA */
       .cta-wrap      { text-align: left; margin-bottom: 8px; }
       .cta           {
         display: inline-block;
@@ -63,12 +60,23 @@
         letter-spacing: -0.1px;
       }
 
-      /* Footer */
-      .card-footer   { border-top: 1px solid #222240; padding: 18px 32px; }
-      .footer-text   { font-size: 12px; color: #555570; line-height: 1.6; }
+      .card-footer   { border-top: 1px solid #e4e4e8; padding: 18px 32px; }
+      .footer-text   { font-size: 12px; color: #9090b0; line-height: 1.6; }
       .footer-text a { color: #1EDD88; text-decoration: none; }
 
-      .outer-footer  { text-align: center; margin-top: 24px; font-size: 11px; color: #3a3a55; }
+      .outer-footer  { text-align: center; margin-top: 24px; font-size: 11px; color: #b0b0c0; }
+
+      @media (prefers-color-scheme: dark) {
+        body { background: #0f0f1a !important; color: #e8e8f0 !important; }
+        .card { background: #1a1a2e !important; border-color: #2a2a4a !important; box-shadow: none !important; }
+        .greeting { color: #e8e8f0 !important; }
+        .subtext { color: #9090b0 !important; }
+        .prompt-block { background: rgba(30, 221, 136, 0.06) !important; }
+        .prompt-text { color: #c0c0d8 !important; }
+        .card-footer { border-top-color: #222240 !important; }
+        .footer-text { color: #555570 !important; }
+        .outer-footer { color: #3a3a55 !important; }
+      }
     </style>
   </head>
   <body>

@@ -337,6 +337,27 @@ body.dark-mode {
     i { color: rgba(255, 255, 255, 0.2); }
   }
 
+  .entries__empty-icon,
+  .all-entries__empty-icon {
+    background: rgba(58, 191, 106, 0.12);
+    color: $dm-accent;
+  }
+
+  // List/Calendar view toggle buttons
+  .view-toggle {
+    background: $dm-card;
+    border-color: $dm-border;
+    color: $dm-muted;
+
+    &:hover { border-color: $dm-accent; color: $dm-accent; }
+
+    &--active {
+      background: $dm-accent-hover;
+      border-color: $dm-accent;
+      color: $dm-accent;
+    }
+  }
+
   // Calendar (if rendered inside entries)
   .cal-grid {
     border-color: $dm-border;

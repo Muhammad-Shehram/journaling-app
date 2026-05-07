@@ -383,11 +383,11 @@ body.dark-mode {
 
   .cal-cell {
     border-color: $dm-border;
-    color: $dm-muted;
+    color: #ffffff;
 
     &--today { background: $dm-accent-hover; color: $dm-accent; }
-    &--has-entry { color: $dm-text; }
-    &--other-month { color: rgba(255, 255, 255, 0.2); }
+    &--has-entry { color: #ffffff; }
+    &--other-month { color: rgba(255, 255, 255, 0.35); }
   }
 
   .cal-header {

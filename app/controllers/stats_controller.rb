@@ -2,7 +2,7 @@ class StatsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    all_entries = current_user.journal_entries.active.order(entry_date: :desc)
+    all_entries = current_user.journal_entries.active.with_rich_text_content.order(entry_date: :desc)
     dates = all_entries.pluck(:entry_date).map(&:to_date).uniq.sort.reverse
 
     @total_entries  = all_entries.count

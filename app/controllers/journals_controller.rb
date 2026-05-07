@@ -6,13 +6,13 @@ class JournalsController < ApplicationController
     @all_entries = current_user.journal_entries
                                 .active
                                 .includes(:journal, :tags)
+                                .with_rich_text_content
                                 .order(entry_date: :desc)
     @stats = compute_stats
   end
 
   def show
-    # This is where James sees the list of entries for this specific journal
-    @journal_entries = @journal.journal_entries
+    @journal_entries = @journal.journal_entries.active
   end
 
   def new
@@ -59,7 +59,7 @@ class JournalsController < ApplicationController
   end
 
   def compute_stats
-    all_entries = current_user.journal_entries.active.order(entry_date: :desc)
+    all_entries = current_user.journal_entries.active.with_rich_text_content.order(entry_date: :desc)
     dates = all_entries.pluck(:entry_date).map(&:to_date).uniq.sort.reverse
 
     total_words = all_entries.sum do |e|

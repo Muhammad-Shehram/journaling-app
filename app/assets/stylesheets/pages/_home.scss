@@ -132,11 +132,18 @@ html:has(.ln-hero) {
     transition: all 0.2s;
     letter-spacing: 0.01em;
 
+    .ln-nav__cta-arrow {
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+
     &:hover {
       background: darken($l-emerald, 8%);
       color: $l-ink;
       transform: translateY(-1px);
       box-shadow: 0 6px 20px rgba($l-emerald, 0.35);
+
+      .ln-nav__cta-arrow { transform: translateX(5px); }
     }
   }
 }
@@ -856,6 +863,17 @@ html:has(.ln-hero) {
     color: rgba(white, 0.35);
   }
 
+  &__tagline {
+    display: block;
+    font-family: $lf-ui;
+    font-size: 0.78rem;
+    font-weight: 400;
+    font-style: normal;
+    color: rgba(white, 0.22);
+    letter-spacing: 0.01em;
+    margin-top: 4px;
+  }
+
   &__cols {
     display: flex;
     gap: 60px;
@@ -925,9 +943,6 @@ html:has(.ln-hero) {
 
   .landing-nav__brand--dark,
   .ln-nav__brand {
-    display: flex;
-    align-items: center;
-    gap: 9px;
     font-family: $lf-display;
     font-size: 1.5rem;
     font-weight: 700;
@@ -936,13 +951,6 @@ html:has(.ln-hero) {
     text-decoration: none;
 
     &:hover { color: $l-emerald; }
-
-    .reflekto-mark {
-      width: 22px;
-      height: 19px;
-      color: $l-emerald;
-      flex-shrink: 0;
-    }
   }
 
   .landing-nav__link--dark,

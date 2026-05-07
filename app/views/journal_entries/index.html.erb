@@ -127,19 +127,26 @@
 
           <%# Main content — clickable %>
           <%= link_to journal_journal_entry_path(@journal, entry), class: "entry-card__link" do %>
-            <div class="entry-card__title"><%= entry.title %></div>
-            <div class="entry-card__preview"><%= entry.content.to_plain_text.truncate(120) %></div>
-            <div class="entry-card__meta">
-              <span class="entry-card__time"><%= entry.entry_date.strftime("%B %-d, %Y") %></span>
+            <div class="entry-card__body">
+              <div class="entry-card__title"><%= entry.title %></div>
+              <div class="entry-card__preview"><%= entry.content.to_plain_text.truncate(120) %></div>
+              <div class="entry-card__meta">
+                <span class="entry-card__time"><%= entry.entry_date.strftime("%B %-d, %Y") %></span>
+              </div>
+              <% if entry.tags.any? %>
+                <div class="entry-card__tags">
+                  <% entry.tags.first(3).each do |tag| %>
+                    <span class="entry-tag-badge"><%= tag.name %></span>
+                  <% end %>
+                  <% if entry.tags.size > 3 %>
+                    <span class="entry-tag-badge entry-tag-badge--more">+<%= entry.tags.size - 3 %></span>
+                  <% end %>
+                </div>
+              <% end %>
             </div>
-            <% if entry.tags.any? %>
-              <div class="entry-card__tags">
-                <% entry.tags.first(3).each do |tag| %>
-                  <span class="entry-tag-badge"><%= tag.name %></span>
-                <% end %>
-                <% if entry.tags.size > 3 %>
-                  <span class="entry-tag-badge entry-tag-badge--more">+<%= entry.tags.size - 3 %></span>
-                <% end %>
+            <% if entry.cover_photo.attached? %>
+              <div class="entry-card__thumb">
+                <%= image_tag entry.cover_photo, class: "entry-card__thumb-img", alt: "" %>
               </div>
             <% end %>
           <% end %>

@@ -22,13 +22,12 @@
 <%# ---- NAV ---- %>
 <nav class="ln-nav">
   <div class="ln-nav__inner">
-    <div class="ln-nav__brand">
-      <%= render "shared/logo_mark", css_class: "ln-nav__mark" %>
-      Reflekto
-    </div>
+    <div class="ln-nav__brand">Reflekto</div>
     <div class="ln-nav__actions">
       <%= link_to "Sign In", new_user_session_path, class: "ln-nav__link" %>
-      <%= link_to "Get Started →", new_user_registration_path, class: "ln-nav__cta" %>
+      <%= link_to new_user_registration_path, class: "ln-nav__cta" do %>
+        Get Started <span class="ln-nav__cta-arrow">→</span>
+      <% end %>
     </div>
   </div>
 </nav>
@@ -245,7 +244,10 @@
 <%# ---- FOOTER ---- %>
 <footer class="ln-footer">
   <div class="ln-footer__inner">
-    <div class="ln-footer__brand">Reflekto</div>
+    <div class="ln-footer__brand">
+      Reflekto
+      <span class="ln-footer__tagline">Write freely. Think clearly.</span>
+    </div>
     <div class="ln-footer__cols">
       <div class="ln-footer__col">
         <p class="ln-footer__col-heading">Legal</p>

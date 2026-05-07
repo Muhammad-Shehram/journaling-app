@@ -358,7 +358,25 @@ body.dark-mode {
     }
   }
 
-  // Calendar (if rendered inside entries)
+  // Calendar outer container + navigation
+  .calendar-view {
+    background: $dm-card;
+    border-color: $dm-border;
+  }
+
+  .cal-month-label {
+    color: $dm-heading;
+  }
+
+  .cal-nav-btn {
+    background: $dm-card;
+    border-color: $dm-border;
+    color: $dm-muted;
+
+    &:hover { border-color: $dm-accent; color: $dm-accent; }
+  }
+
+  // Calendar grid
   .cal-grid {
     border-color: $dm-border;
   }

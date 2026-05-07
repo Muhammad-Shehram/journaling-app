@@ -118,8 +118,6 @@ GEM
     et-orbi (1.4.0)
       tzinfo
     execjs (2.10.1)
-    faker (3.6.1)
-      i18n (>= 1.8.11, < 2)
     faraday (2.14.1)
       faraday-net_http (>= 2.0, < 3.5)
       json
@@ -439,7 +437,6 @@ DEPENDENCIES
   debug
   devise
   dotenv-rails
-  faker
   font-awesome-sass (~> 6.1)
   good_job (~> 4.0)
   image_processing (~> 1.14)

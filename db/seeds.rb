@@ -1,3 +1,5 @@
+raise "Seeds must not be run in production!" if Rails.env.production?
+
 puts "Cleaning database..."
 JournalEntry.destroy_all
 Journal.destroy_all

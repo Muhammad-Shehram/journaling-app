@@ -173,3 +173,118 @@ $r-bg:     #F8F9FC;
     &:hover { text-decoration: underline; }
   }
 }
+
+// ============================================
+// ABOUT PAGE
+// ============================================
+
+.about-page {
+  background: $r-bg;
+  padding: 72px 24px 120px;
+  font-family: 'DM Sans', system-ui, sans-serif;
+
+  &__inner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  &__eyebrow {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $r-dark;
+    margin-bottom: 20px;
+  }
+
+  &__headline {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(3rem, 7vw, 5rem);
+    font-weight: 700;
+    color: darken($r-dark, 20%);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 52px;
+  }
+
+  &__body {
+    p {
+      font-size: 1.06rem;
+      line-height: 1.88;
+      color: $r-muted;
+      margin-bottom: 26px;
+      font-weight: 300;
+
+      strong {
+        color: darken($r-dark, 10%);
+        font-weight: 600;
+      }
+    }
+  }
+
+  &__signature {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.55rem;
+    font-style: italic;
+    font-weight: 600;
+    color: darken($r-dark, 15%);
+    margin-top: 40px !important;
+    margin-bottom: 60px !important;
+  }
+
+  &__cta {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding-top: 40px;
+    border-top: 1px solid $r-border;
+    margin-top: 0;
+  }
+}
+
+.about-values {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 60px 0 52px;
+  padding-top: 48px;
+  border-top: 1px solid $r-border;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.about-value {
+  &__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba($r-accent, 0.12);
+    color: $r-dark;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: darken($r-dark, 15%);
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    font-size: 0.88rem;
+    line-height: 1.72;
+    color: $r-muted;
+    margin: 0;
+    font-weight: 300;
+  }
+}

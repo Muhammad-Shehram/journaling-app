@@ -1,0 +1,95 @@
+<% content_for(:title) { "About — Reflekto" } %>
+<% content_for(:head) do %>
+  <meta name="description" content="Reflekto was built by Muhammad — a developer tired of paying subscriptions just to journal on more than one device. Free, private, and focused.">
+<% end %>
+
+<%# ---- NAV ---- %>
+<nav class="landing-nav landing-nav--light">
+  <div class="ln-nav__inner">
+    <%= link_to "Reflekto", root_path, class: "ln-nav__brand" %>
+    <div class="ln-nav__actions">
+      <%= link_to "Sign In", new_user_session_path, class: "ln-nav__link" %>
+      <%= link_to new_user_registration_path, class: "ln-nav__cta" do %>
+        Get Started <span class="ln-nav__cta-arrow">→</span>
+      <% end %>
+    </div>
+  </div>
+</nav>
+
+<%# ---- ABOUT HERO ---- %>
+<main class="about-page">
+  <div class="about-page__inner">
+
+    <span class="about-page__eyebrow">The story behind Reflekto</span>
+    <h1 class="about-page__headline">Hi, I'm<br>Muhammad.</h1>
+
+    <%# ---- STORY ---- %>
+    <div class="about-page__body">
+      <p>Most journaling apps are brilliant — until they ask you to pay a monthly subscription just to use them on more than one device. I kept running into this wall. Great tools, but the moment you need your phone and laptop in sync, there's a price tag attached. For something as personal as a journal, that felt wrong.</p>
+
+      <p>I know how to code. So I built Reflekto — not as a startup, not as a product roadmap with investors, but as a tool I needed to exist. A private, focused journaling space that works everywhere, costs nothing, and gets out of the way.</p>
+
+      <p>Reflekto is built around two ideas: <strong>simplicity</strong> and <strong>privacy</strong>. Your journal belongs to you — no ads, no algorithms, no one reading what you write. Colour-coded notebooks, rich text editing, tags, search, writing prompts, streak tracking — everything a serious journaler needs, without anything that isn't.</p>
+
+      <p>If you've ever felt like your journal app was working against you — too expensive, too complicated, asking for too much — Reflekto was made for you. I hope it gives you the space to write freely and think clearly.</p>
+
+      <p class="about-page__signature">— Muhammad</p>
+    </div>
+
+    <%# ---- VALUES ---- %>
+    <div class="about-values">
+      <div class="about-value">
+        <div class="about-value__icon">
+          <i class="fa-solid fa-lock" aria-hidden="true"></i>
+        </div>
+        <h3>Privacy first</h3>
+        <p>No ads. No tracking. No sharing. Your words stay yours — always.</p>
+      </div>
+      <div class="about-value">
+        <div class="about-value__icon">
+          <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
+        </div>
+        <h3>Simplicity by design</h3>
+        <p>Every feature earns its place. Nothing here just to look impressive.</p>
+      </div>
+      <div class="about-value">
+        <div class="about-value__icon">
+          <i class="fa-solid fa-heart" aria-hidden="true"></i>
+        </div>
+        <h3>Free, forever</h3>
+        <p>No subscription. No paywalled devices. No catch. Just write.</p>
+      </div>
+    </div>
+
+    <%# ---- CTA ---- %>
+    <div class="about-page__cta">
+      <%= link_to "Start writing — it's free", new_user_registration_path, class: "ln-btn ln-btn--primary" %>
+      <%= link_to "Sign in", new_user_session_path, class: "ln-btn ln-btn--ghost" %>
+    </div>
+
+  </div>
+</main>
+
+<%# ---- FOOTER ---- %>
+<footer class="ln-footer">
+  <div class="ln-footer__inner">
+    <div class="ln-footer__brand">
+      Reflekto
+      <span class="ln-footer__tagline">Write freely. Think clearly.</span>
+    </div>
+    <div class="ln-footer__cols">
+      <div class="ln-footer__col">
+        <p class="ln-footer__col-heading">Legal</p>
+        <%= link_to "Terms of Service", terms_path, class: "ln-footer__link" %>
+        <%= link_to "Privacy Policy", privacy_path, class: "ln-footer__link" %>
+      </div>
+      <div class="ln-footer__col">
+        <p class="ln-footer__col-heading">Company</p>
+        <%= link_to "About Us", about_path, class: "ln-footer__link" %>
+      </div>
+    </div>
+  </div>
+  <div class="ln-footer__bottom">
+    <span>© 2026 Reflekto. All rights reserved.</span>
+  </div>
+</footer>

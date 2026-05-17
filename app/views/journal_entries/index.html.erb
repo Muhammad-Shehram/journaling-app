@@ -40,7 +40,9 @@
     <%= form_with url: journal_journal_entries_path(@journal), method: :get, class: "entries__date-range" do |f| %>
       <span class="entries__filter-label">Date range</span>
       <%= hidden_field_tag :q, params[:q] %>
-      <%= hidden_field_tag :tag, params[:tag] %>
+      <% Array(params[:tags]).reject(&:blank?).each do |t| %>
+        <%= hidden_field_tag "tags[]", t %>
+      <% end %>
       <%= date_field_tag :from, params[:from], class: "entries__date-input", "aria-label": "From date" %>
       <span class="entries__date-sep">→</span>
       <%= date_field_tag :to, params[:to], class: "entries__date-input", "aria-label": "To date" %>
@@ -51,18 +53,20 @@
     <% if @user_tags.any? %>
       <div class="entries__tag-filter-row">
         <% @user_tags.each do |tag| %>
+          <% is_active = @selected_tags.include?(tag.name) %>
+          <% toggled_tags = is_active ? @selected_tags - [tag.name] : @selected_tags + [tag.name] %>
           <%= link_to tag.name,
-                      journal_journal_entries_path(@journal, tag: tag.name, q: params[:q], from: params[:from], to: params[:to]),
-                      class: "tag-filter-chip #{'tag-filter-chip--active' if params[:tag] == tag.name}" %>
+                      journal_journal_entries_path(@journal, tags: toggled_tags, q: params[:q], from: params[:from], to: params[:to]),
+                      class: "tag-filter-chip #{'tag-filter-chip--active' if is_active}" %>
         <% end %>
       </div>
     <% end %>
 
-    <%# Active filter chips — date and/or tag %>
-    <% if params[:from].present? || params[:to].present? || params[:tag].present? %>
+    <%# Active filter chips — date and/or tags %>
+    <% if params[:from].present? || params[:to].present? || @selected_tags.any? %>
       <div class="entries__active-filters">
         <% if params[:from].present? || params[:to].present? %>
-          <%= link_to journal_journal_entries_path(@journal, q: params[:q], tag: params[:tag]),
+          <%= link_to journal_journal_entries_path(@journal, q: params[:q], tags: @selected_tags),
                       class: "active-filter-chip" do %>
             <i class="fa-solid fa-calendar"></i>
             <%= params[:from].present? ? Date.parse(params[:from]).strftime("%b %-d") : "Start" %>
@@ -71,11 +75,12 @@
             <i class="fa-solid fa-xmark"></i>
           <% end %>
         <% end %>
-        <% if params[:tag].present? %>
-          <%= link_to journal_journal_entries_path(@journal, q: params[:q], from: params[:from], to: params[:to]),
+        <% @selected_tags.each do |tag_name| %>
+          <% remaining = @selected_tags - [tag_name] %>
+          <%= link_to journal_journal_entries_path(@journal, q: params[:q], from: params[:from], to: params[:to], tags: remaining),
                       class: "active-filter-chip" do %>
             <i class="fa-solid fa-tag"></i>
-            <%= params[:tag] %>
+            <%= tag_name %>
             <i class="fa-solid fa-xmark"></i>
           <% end %>
         <% end %>

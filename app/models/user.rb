@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :journal_entries, through: :journals
   has_many :tags, dependent: :destroy
 
+  validates :name, presence: true
   validate :password_complexity, if: :password_required?
 
   after_create  :create_default_journal

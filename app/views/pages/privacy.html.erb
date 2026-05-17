@@ -5,11 +5,13 @@
 <% end %>
 
 <nav class="landing-nav landing-nav--light">
-  <div class="container d-flex align-items-center justify-content-between">
-    <%= link_to "Reflekto", root_path, class: "landing-nav__brand landing-nav__brand--dark" %>
-    <div class="landing-nav__actions">
-      <%= link_to "Sign In", new_user_session_path, class: "landing-nav__link landing-nav__link--dark" %>
-      <%= link_to "Get Started", new_user_registration_path, class: "landing-nav__cta landing-nav__cta--dark" %>
+  <div class="ln-nav__inner">
+    <%= link_to "Reflekto", root_path, class: "ln-nav__brand" %>
+    <div class="ln-nav__actions">
+      <%= link_to "Sign In", new_user_session_path, class: "ln-nav__link" %>
+      <%= link_to new_user_registration_path, class: "ln-nav__cta" do %>
+        Get Started <span class="ln-nav__cta-arrow">→</span>
+      <% end %>
     </div>
   </div>
 </nav>

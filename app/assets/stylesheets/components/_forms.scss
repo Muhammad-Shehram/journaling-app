@@ -805,6 +805,8 @@ $r-error:        #E53E3E;
   box-shadow: 0 4px 16px rgba($r-dark, 0.08);
   z-index: 50;
   padding: 4px;
+  max-height: 180px;
+  overflow-y: auto;
 }
 
 .tag-suggestion {

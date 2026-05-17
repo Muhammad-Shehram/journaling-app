@@ -105,6 +105,7 @@ export default class extends Controller {
       btn.className = "tag-suggestion"
       btn.dataset.tag = t
       btn.textContent = t
+      btn.addEventListener("mousedown", (e) => e.preventDefault())
       btn.addEventListener("click", () => this.addTag(t))
       this.suggestionsTarget.appendChild(btn)
     })

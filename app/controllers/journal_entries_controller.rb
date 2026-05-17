@@ -10,9 +10,11 @@ class JournalEntriesController < ApplicationController
     @journal_entries = @journal_entries.where(mood: params[:mood]) if params[:mood].present?
     @journal_entries = @journal_entries.where("entry_date >= ?", params[:from]) if params[:from].present?
     @journal_entries = @journal_entries.where("entry_date <= ?", params[:to]) if params[:to].present?
-    if params[:tag].present?
-      @journal_entries = @journal_entries.joins(:tags).where(tags: { name: params[:tag].downcase })
+    selected_tags = Array(params[:tags]).map(&:strip).reject(&:blank?)
+    if selected_tags.any?
+      @journal_entries = @journal_entries.joins(:tags).where(tags: { name: selected_tags }).distinct
     end
+    @selected_tags = selected_tags
     @user_tags = current_user.tags.order(:name)
     @all_entry_dates = @journal.journal_entries.active.pluck(:entry_date).map { |d| d.to_date.strftime("%Y-%m-%d") }
   end

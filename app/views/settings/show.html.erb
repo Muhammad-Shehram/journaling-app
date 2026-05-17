@@ -311,7 +311,7 @@
                      name="confirm_email"
                      class="delete-modal__email-input"
                      data-delete-account-target="emailInput"
-                     data-action="input->delete-account#checkEmail"
+                     data-action="input->delete-account#checkEmail paste->delete-account#preventPaste"
                      placeholder="<%= current_user.email %>"
                      autocomplete="off" />
               <button type="submit"

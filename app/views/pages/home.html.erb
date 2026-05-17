@@ -20,7 +20,7 @@
 <% end %>
 
 <%# ---- NAV ---- %>
-<nav class="ln-nav">
+<nav class="ln-nav" data-controller="scroll-reveal">
   <div class="ln-nav__inner">
     <div class="ln-nav__brand">Reflekto</div>
     <div class="ln-nav__actions">
@@ -264,18 +264,3 @@
     <span>© 2026 Reflekto. All rights reserved.</span>
   </div>
 </footer>
-
-<script>
-  // Scroll-reveal: add .is-visible when element enters viewport
-  (function() {
-    var obs = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) {
-        if (e.isIntersecting) {
-          e.target.classList.add('is-visible');
-          obs.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.ln-reveal').forEach(function(el) { obs.observe(el); });
-  })();
-</script>

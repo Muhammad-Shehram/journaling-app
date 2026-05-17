@@ -28,6 +28,10 @@ export default class extends Controller {
     this.submitBtnTarget.disabled = !match
   }
 
+  preventPaste(event) {
+    event.preventDefault()
+  }
+
   closeOnBackdrop(event) {
     if (event.target === this.overlayTarget) this.close()
   }

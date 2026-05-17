@@ -20,7 +20,7 @@
 <% end %>
 
 <%# ---- NAV ---- %>
-<nav class="ln-nav">
+<nav class="ln-nav" data-controller="scroll-reveal">
   <div class="ln-nav__inner">
     <div class="ln-nav__brand">Reflekto</div>
     <div class="ln-nav__actions">
@@ -175,8 +175,8 @@
       <%= image_tag "screenshot-canvas.png", alt: "Reflekto writing canvas", class: "ln-showcase__img" %>
     </div>
     <div class="ln-showcase__copy">
-      <h3>A blank page that disappears</h3>
-      <p>Full-screen canvas with rich text, zero distractions. Format freely, think deeply — just you and your words.</p>
+      <h3>Write like no one's watching</h3>
+      <p>Rich text, multiple fonts, full-screen focus. The interface fades away — just you, the page, and whatever you need to say.</p>
     </div>
   </div>
 
@@ -256,7 +256,7 @@
       </div>
       <div class="ln-footer__col">
         <p class="ln-footer__col-heading">Company</p>
-        <%= link_to "About Us", "#", class: "ln-footer__link" %>
+        <%= link_to "About Us", about_path, class: "ln-footer__link" %>
       </div>
     </div>
   </div>
@@ -264,18 +264,3 @@
     <span>© 2026 Reflekto. All rights reserved.</span>
   </div>
 </footer>
-
-<script>
-  // Scroll-reveal: add .is-visible when element enters viewport
-  (function() {
-    var obs = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) {
-        if (e.isIntersecting) {
-          e.target.classList.add('is-visible');
-          obs.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.ln-reveal').forEach(function(el) { obs.observe(el); });
-  })();
-</script>

@@ -164,13 +164,15 @@ Recommended improvement: ditch the cron + window approach. Instead, when a user 
 ### 🚀 Phase 6: Final Refinement & Launch
 *Goal: Squash bugs and go live.*
 
-- [ ] Run `heroku run rails db:migrate --app reflektoapp` — apply `provider`/`uid` + `timezone` + `confirmable` columns to prod DB
-- [ ] Test Google OAuth end-to-end on production
-- [ ] Verify Resend email delivery (welcome email + forgot-password + confirmation) on production
-- [ ] Verify GoodJob reminder cron fires correctly on production
-- [ ] Cleanup: Remove faker gem, clear test seeds
-- [ ] Merge `feature/google-oauth-and-improvements` → `master` (open PR first)
-- [ ] Final smoke test on https://www.reflektoapp.com
+- [x] Run `heroku run rails db:migrate --app reflektoapp` — `provider`/`uid` columns confirmed present in production
+- [x] Cleanup: Faker gem removed, seeds production-safe (guard clause in place, only alex@reflekto.app demo data)
+- [x] Merge `feature/google-oauth-and-improvements` → `master` (PR #18, merged)
+- [x] Bug fixes (branch `fix/landing-page-scroll-reveal`): scroll-reveal animation (CSP/Stimulus), tag autocomplete (mousedown blur fix + scrollable dropdown), streak stat on All Entries, multi-tag filter, name presence validation, delete account paste prevention, legal page nav spacing, about page, showcase copy, password reset security (30 min expiry, no raw URL)
+- [x] **Fix Google OAuth on production** — `Error 400: redirect_uri_mismatch`. Add `https://www.reflektoapp.com/users/auth/google_oauth2/callback` to Authorized Redirect URIs in Google Cloud Console (APIs & Services → Credentials → OAuth 2.0 Client)
+- [x] Merge `fix/landing-page-scroll-reveal` → `master`, push to Heroku
+- [x] Verify Resend email delivery on production (welcome email + forgot-password + confirmation)
+- [x] Verify GoodJob reminder cron fires correctly on production
+- [x] Final smoke test on https://www.reflektoapp.com
 - [ ] Migrate from Heroku to Railway (reduces ~$15/month)
   - Sign up at railway.app, connect GitHub repo
   - Add PostgreSQL service (auto-injects `DATABASE_URL`)
@@ -183,24 +185,26 @@ Recommended improvement: ditch the cron + window approach. Instead, when a user 
 ---
 
 ## Current Status
-**Branch:** `feature/google-oauth-and-improvements`
+**Branch:** `fix/landing-page-scroll-reveal` (ready to merge → master)
 
 **Phases Complete:** Phase 1, Phase 2, Phase 3, Phase 4, Phase 5, Phase 5.5 ✅
 
 **Current Phase:** Phase 6 — Final Refinement & Launch
 
-**Completed since last update (May 1, 2026):**
-- GoodJob background jobs: `SendReminderEmailJob` (every 5 min cron) + `PurgeExpiredEntriesJob` (nightly cron)
-- Resend email: ActionMailer SMTP configured for dev + prod, `UserMailer#welcome` + `ReminderMailer#daily_reminder` with HTML + text templates
-- Google OAuth: full flow — Google Cloud Console credentials, `omniauth-google-oauth2` gem, `User.from_omniauth`, callback controller, routes
-- Auth page redesign: solid black Google button, removed confirm password, logo as home link, ToS line on sign-up, `auth-divider`
-- Heroku deployment: app live at https://www.reflektoapp.com (Heroku EU, Postgres add-on, Cloudinary, ACM SSL)
+**Completed since last update (May 17, 2026):**
+- All 6 local bugs fixed and committed on `fix/landing-page-scroll-reveal`
+- About page created (`/about`) with founder story, values (simplicity, privacy-first, free forever), CTA
+- Showcase Row 2 copy updated on landing page
+- Password reset email: 30-minute expiry, raw URL fallback removed (one-time use is Devise built-in)
+- Manifest.js fix: `//= link application.css` added to resolve `AssetNotPrecompiledError`
+- Production DB cleaned: only `alex@reflekto.app` remains (both local and Heroku)
+- Production migration confirmed: `provider`/`uid` columns exist
 
 **Immediate next steps:**
-1. `heroku run rails db:migrate --app reflektoapp` — adds `provider`/`uid` columns to prod DB
-2. Test Google OAuth on production
-3. Open PR: `feature/google-oauth-and-improvements` → `master`
-4. Phase 6 cleanup (remove faker, test seeds)
+1. Add `https://www.reflektoapp.com/users/auth/google_oauth2/callback` to Google Cloud Console OAuth redirect URIs (fixes production OAuth)
+2. Merge `fix/landing-page-scroll-reveal` → `master` and `git push heroku master`
+3. Verify email delivery (Resend) and GoodJob cron on production
+4. Final smoke test
 
 ---
 
@@ -224,5 +228,5 @@ Recommended improvement: ditch the cron + window approach. Instead, when a user 
 
 ---
 
-**Last Updated:** May 1, 2026
-**Current Focus:** Phase 6 — run prod migration, test Google OAuth, open PR to master (branch: `feature/google-oauth-and-improvements`)
+**Last Updated:** May 17, 2026
+**Current Focus:** Phase 6 — fix Google OAuth redirect URI in Google Cloud Console, then merge `fix/landing-page-scroll-reveal` → master and deploy

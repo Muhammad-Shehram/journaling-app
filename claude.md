@@ -173,6 +173,9 @@ Recommended improvement: ditch the cron + window approach. Instead, when a user 
 - [x] Verify Resend email delivery on production (welcome email + forgot-password + confirmation)
 - [x] Verify GoodJob reminder cron fires correctly on production
 - [x] Final smoke test on https://www.reflektoapp.com
+- [x] Remove logo SVG from auth pages and sidebar — text-only "Reflekto" link remains on auth pages
+- [x] **Scroll-reveal permanent fix (May 20, 2026)** — Progressive enhancement approach: CSS opacity:0 gated behind `.scroll-reveal-ready` class added by Stimulus. Controller pre-marks all in-viewport elements as `is-visible` BEFORE adding the class, so there is no flash regardless of Sprockets cold-boot CSS/JS load order. `data-controller` moved from `<nav>` to `<body>` in `application.html.erb`. Threshold lowered to 0.
+- [x] **All Entries card layout fix (May 20, 2026)** — Added missing `entry-card__body` wrapper inside `.entry-card__link` so title/preview/meta stack vertically instead of horizontally. Added `--journal-color` CSS variable per card so each left border reflects its journal's colour. Added tag badges to match individual journal view.
 - [ ] Migrate from Heroku to Railway (reduces ~$15/month)
   - Sign up at railway.app, connect GitHub repo
   - Add PostgreSQL service (auto-injects `DATABASE_URL`)
@@ -185,26 +188,20 @@ Recommended improvement: ditch the cron + window approach. Instead, when a user 
 ---
 
 ## Current Status
-**Branch:** `fix/landing-page-scroll-reveal` (ready to merge → master)
+**Branch:** `master`
 
-**Phases Complete:** Phase 1, Phase 2, Phase 3, Phase 4, Phase 5, Phase 5.5 ✅
+**Phases Complete:** Phase 1, Phase 2, Phase 3, Phase 4, Phase 5, Phase 5.5, Phase 6 ✅
 
-**Current Phase:** Phase 6 — Final Refinement & Launch
+**Current Phase:** Phase 6 — complete. App is live and stable.
 
-**Completed since last update (May 17, 2026):**
-- All 6 local bugs fixed and committed on `fix/landing-page-scroll-reveal`
-- About page created (`/about`) with founder story, values (simplicity, privacy-first, free forever), CTA
-- Showcase Row 2 copy updated on landing page
-- Password reset email: 30-minute expiry, raw URL fallback removed (one-time use is Devise built-in)
-- Manifest.js fix: `//= link application.css` added to resolve `AssetNotPrecompiledError`
-- Production DB cleaned: only `alex@reflekto.app` remains (both local and Heroku)
-- Production migration confirmed: `provider`/`uid` columns exist
+**Completed since last update (May 20, 2026):**
+- Logo SVG removed from all auth pages and sidebar — text-only brand link kept
+- Scroll-reveal cold-boot blank sections fixed permanently (progressive enhancement — `.scroll-reveal-ready` class)
+- All Entries card layout fixed — cards now match individual journal view (spacious, full title, journal colour per card, tags shown)
+- All changes committed and deployed to https://www.reflektoapp.com
 
-**Immediate next steps:**
-1. Add `https://www.reflektoapp.com/users/auth/google_oauth2/callback` to Google Cloud Console OAuth redirect URIs (fixes production OAuth)
-2. Merge `fix/landing-page-scroll-reveal` → `master` and `git push heroku master`
-3. Verify email delivery (Resend) and GoodJob cron on production
-4. Final smoke test
+**Remaining (optional):**
+- Migrate from Heroku to Railway to reduce hosting cost (~$15/month saving)
 
 ---
 
@@ -228,5 +225,5 @@ Recommended improvement: ditch the cron + window approach. Instead, when a user 
 
 ---
 
-**Last Updated:** May 17, 2026
-**Current Focus:** Phase 6 — fix Google OAuth redirect URI in Google Cloud Console, then merge `fix/landing-page-scroll-reveal` → master and deploy
+**Last Updated:** May 20, 2026
+**Current Focus:** Phase 6 complete — app is live at https://www.reflektoapp.com. Only remaining item is optional Railway migration.

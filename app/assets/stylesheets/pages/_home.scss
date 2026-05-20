@@ -51,7 +51,10 @@ html:has(.ln-hero) {
 // SCROLL REVEAL
 // ============================================
 
-.ln-reveal {
+// Elements are visible by default. CSS hiding only activates once JS has loaded
+// and pre-marked in-viewport elements as visible — eliminates the race condition
+// where Sprockets slow CSS compilation left sections permanently blank on cold boot.
+.scroll-reveal-ready .ln-reveal {
   opacity: 0;
   transform: translateY(22px);
   transition: opacity 0.55s ease, transform 0.55s ease;
@@ -62,13 +65,13 @@ html:has(.ln-hero) {
   }
 }
 
-.ln-bento__card:nth-child(2) { transition-delay: 0.07s; }
-.ln-bento__card:nth-child(3) { transition-delay: 0.14s; }
-.ln-bento__card:nth-child(4) { transition-delay: 0.21s; }
-.ln-bento__card:nth-child(5) { transition-delay: 0.28s; }
-.ln-bento__card:nth-child(6) { transition-delay: 0.35s; }
-.ln-step:nth-child(3)         { transition-delay: 0.10s; }
-.ln-step:nth-child(5)         { transition-delay: 0.20s; }
+.scroll-reveal-ready .ln-bento__card:nth-child(2) { transition-delay: 0.07s; }
+.scroll-reveal-ready .ln-bento__card:nth-child(3) { transition-delay: 0.14s; }
+.scroll-reveal-ready .ln-bento__card:nth-child(4) { transition-delay: 0.21s; }
+.scroll-reveal-ready .ln-bento__card:nth-child(5) { transition-delay: 0.28s; }
+.scroll-reveal-ready .ln-bento__card:nth-child(6) { transition-delay: 0.35s; }
+.scroll-reveal-ready .ln-step:nth-child(3)         { transition-delay: 0.10s; }
+.scroll-reveal-ready .ln-step:nth-child(5)         { transition-delay: 0.20s; }
 
 // ============================================
 // NAV

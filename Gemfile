@@ -60,5 +60,5 @@ group :development do
   gem "web-console"
 end
 
-gem "image_processing", "~> 1.14"
+gem "image_processing", "~> 2.0"
 gem "cloudinary"

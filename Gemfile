@@ -30,7 +30,7 @@ gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
 
 gem "rack-attack"
-gem "good_job", "~> 4.0"
+gem "good_job", "~> 4.19"
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 

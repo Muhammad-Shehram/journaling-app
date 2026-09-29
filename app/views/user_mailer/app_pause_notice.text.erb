@@ -1,0 +1,18 @@
+Hey<%= @user.name.present? ? " #{@user.name.split.first}" : " there" %>,
+
+We're pausing Reflekto starting October 3, 2026. We don't know yet whether
+this will be temporary or permanent, so to be safe, please export your
+entries before then.
+
+Your data won't be touched unless you ask us to remove it. If you'd rather
+we delete your entries instead of leaving them dormant, just reply to this
+email and we'll take care of it.
+
+And if we do come back, we'll make sure there's a way to import your
+exported entries straight back into your journal.
+
+Export your entries: <%= settings_url(anchor: "data") %>
+
+---
+Thanks for journaling with us.
+— The Reflekto team

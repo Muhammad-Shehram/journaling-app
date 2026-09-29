@@ -9,7 +9,7 @@ User.destroy_all
 puts "Creating demo user..."
 alex = User.create!(
   email: "alex@reflekto.app",
-  password: "@ReflektoApp711!",
+  password: "",
   password_confirmation: "@ReflektoApp711!",
   name: "Alex"
 )

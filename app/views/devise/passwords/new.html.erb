@@ -36,9 +36,12 @@
       <div class="auth-link-row">
         Remember your password? <%= link_to "Sign in", new_session_path(resource_name) %>
       </div>
-      <div class="auth-link-row">
-        Don't have an account? <%= link_to "Sign up", new_registration_path(resource_name) %>
-      </div>
+      <%# --- Sign-ups paused (Oct 2026) — remove this if/end wrapper to restore --- %>
+      <% if false %>
+        <div class="auth-link-row">
+          Don't have an account? <%= link_to "Sign up", new_registration_path(resource_name) %>
+        </div>
+      <% end %>
     </div>
   </div>
 

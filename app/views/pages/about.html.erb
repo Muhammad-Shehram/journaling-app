@@ -9,8 +9,11 @@
     <%= link_to "Reflekto", root_path, class: "ln-nav__brand" %>
     <div class="ln-nav__actions">
       <%= link_to "Sign In", new_user_session_path, class: "ln-nav__link" %>
-      <%= link_to new_user_registration_path, class: "ln-nav__cta" do %>
-        Get Started <span class="ln-nav__cta-arrow">→</span>
+      <%# --- Sign-ups paused (Oct 2026) — remove this if/end wrapper to restore --- %>
+      <% if false %>
+        <%= link_to new_user_registration_path, class: "ln-nav__cta" do %>
+          Get Started <span class="ln-nav__cta-arrow">→</span>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -63,7 +66,10 @@
 
     <%# ---- CTA ---- %>
     <div class="about-page__cta">
-      <%= link_to "Start writing — it's free", new_user_registration_path, class: "ln-btn ln-btn--primary" %>
+      <%# --- Sign-ups paused (Oct 2026) — remove this if/end wrapper to restore --- %>
+      <% if false %>
+        <%= link_to "Start writing — it's free", new_user_registration_path, class: "ln-btn ln-btn--primary" %>
+      <% end %>
       <%= link_to "Sign in", new_user_session_path, class: "ln-btn ln-btn--ghost" %>
     </div>
 

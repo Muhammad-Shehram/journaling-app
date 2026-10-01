@@ -25,8 +25,11 @@
     <div class="ln-nav__brand">Reflekto</div>
     <div class="ln-nav__actions">
       <%= link_to "Sign In", new_user_session_path, class: "ln-nav__link" %>
-      <%= link_to new_user_registration_path, class: "ln-nav__cta" do %>
-        Get Started <span class="ln-nav__cta-arrow">→</span>
+      <%# --- Sign-ups paused (Oct 2026) — remove this if/end wrapper to restore --- %>
+      <% if false %>
+        <%= link_to new_user_registration_path, class: "ln-nav__cta" do %>
+          Get Started <span class="ln-nav__cta-arrow">→</span>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -49,7 +52,10 @@
       memories, and daily reflections — entirely yours.
     </p>
     <div class="ln-hero__actions">
-      <%= link_to "Begin writing — it's free", new_user_registration_path, class: "ln-btn ln-btn--primary" %>
+      <%# --- Sign-ups paused (Oct 2026) — remove this if/end wrapper to restore --- %>
+      <% if false %>
+        <%= link_to "Begin writing — it's free", new_user_registration_path, class: "ln-btn ln-btn--primary" %>
+      <% end %>
       <%= link_to "Sign in", new_user_session_path, class: "ln-btn ln-btn--ghost" %>
     </div>
     <p class="ln-hero__footnote">No credit card &nbsp;·&nbsp; No ads &nbsp;·&nbsp; No tracking</p>
@@ -231,15 +237,18 @@
 </section>
 
 <%# ---- FINAL CTA ---- %>
-<section class="ln-cta">
-  <div class="ln-cta__inner">
-    <span class="ln-cta__label">Begin today</span>
-    <h2 class="ln-cta__title">Your story is worth<br><em>keeping.</em></h2>
-    <p class="ln-cta__sub">Join thousands writing privately, every day.</p>
-    <%= link_to "Create your free journal", new_user_registration_path, class: "ln-btn ln-btn--primary" %>
-    <p class="ln-cta__footnote">Free forever &nbsp;·&nbsp; No credit card</p>
-  </div>
-</section>
+<%# --- Sign-ups paused (Oct 2026) — remove this if/end wrapper to restore --- %>
+<% if false %>
+  <section class="ln-cta">
+    <div class="ln-cta__inner">
+      <span class="ln-cta__label">Begin today</span>
+      <h2 class="ln-cta__title">Your story is worth<br><em>keeping.</em></h2>
+      <p class="ln-cta__sub">Join thousands writing privately, every day.</p>
+      <%= link_to "Create your free journal", new_user_registration_path, class: "ln-btn ln-btn--primary" %>
+      <p class="ln-cta__footnote">Free forever &nbsp;·&nbsp; No credit card</p>
+    </div>
+  </section>
+<% end %>
 
 <%# ---- FOOTER ---- %>
 <footer class="ln-footer">
